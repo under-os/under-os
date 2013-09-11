@@ -1,5 +1,4 @@
 class UnderOs::Application
-  attr_reader :window
 
   def self.start(&block)
     @start_block = block
@@ -7,8 +6,13 @@ class UnderOs::Application
 
   def initialize(ios_app, options)
     @_      = ios_app
-    @window = UnderOs::Window.new
+    @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
 
-    instance_eval &self.class.instance_variable_get('@start_block')
+    instance_exec self, &self.class.instance_variable_get('@start_block')
+  end
+
+  def main_page=(page)
+    @window.rootViewController = page.instance_variable_get('@_')
+    @window.makeKeyAndVisible
   end
 end
