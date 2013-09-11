@@ -1,5 +1,6 @@
 #
-# Generic, per-app delegate
+# Just an app delegate to kick the things in
+#
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
     UnderOs::Application.new(application, launchOptions)
