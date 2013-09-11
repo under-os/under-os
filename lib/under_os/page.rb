@@ -6,6 +6,7 @@
 #
 class UnderOs::Page
   include UnderOs::Events
+  include UnderOs::UI
 
   def self.new(*args)
     alloc.setup_wrap
@@ -15,13 +16,30 @@ class UnderOs::Page
     # page building goes in here
   end
 
+  def insert(*args)
+    @view.insert(*args)
+  end
+
+  def append(*args)
+    @view.insert(*args)
+  end
+
+  def prepend(*args)
+    @view.insert(*args)
+  end
+
   def setup_wrap
     @_ = UIViewControllerWrap.alloc.init({
-      on_load_view:      Proc.new{ emit('init'); initialize },
+      on_load_view:      Proc.new{ emit('init')      },
       on_view_loaded:    Proc.new{ emit('load')      },
       on_view_appear:    Proc.new{ emit('appear')    },
       on_view_disappear: Proc.new{ emit('disappear') }
     })
+
+    on 'load' do
+      @view = View.new(@_.view)
+      initialize
+    end
 
     self
   end
