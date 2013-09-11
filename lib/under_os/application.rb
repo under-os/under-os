@@ -11,8 +11,9 @@ class UnderOs::Application
     instance_exec self, &self.class.instance_variable_get('@start_block')
   end
 
-  def main_page=(page)
-    @window.rootViewController = page.instance_variable_get('@_')
-    @window.makeKeyAndVisible
+  def config
+    @config ||= UnderOs::Config.new(self)
   end
+
+
 end
