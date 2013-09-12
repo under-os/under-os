@@ -39,7 +39,7 @@ class UnderOs::UI::Style
   end
 
   def top
-    @_.frame.origin.x
+    @_.frame.origin.y
   end
 
   def top=(top)
@@ -47,7 +47,7 @@ class UnderOs::UI::Style
   end
 
   def left
-    @_.frame.origin.y
+    @_.frame.origin.x
   end
 
   def left=(left)
@@ -111,6 +111,31 @@ class UnderOs::UI::Style
   end
 
   def fontSize=(value)
+  end
+
+  def borderRadius
+    @_.layer.cornerRadius
+  end
+
+  def borderRadius=(radius)
+    @_.clipsToBounds       = true
+    @_.layer.cornerRadius = radius
+  end
+
+  def borderColor
+    @_.layer.borderColor
+  end
+
+  def borderColor=(color)
+    @_.layer.borderColor = convert_color(color).CGColor
+  end
+
+  def borderWidth
+    @_.layer.borderWidth
+  end
+
+  def borderWidth=(width)
+    @_.layer.borderWidth = width
   end
 
 private
