@@ -7,51 +7,40 @@
 #
 class UnderOs::UI::Style
 
-  module Methods
-    def style
-      @style ||= UnderOs::UI::Style.new(self)
-    end
-
-    def style=(hash)
-      hash.each{ |key, value| style.__send__("#{key}=", value)}
-    end
-  end
-
   def initialize(view)
     @view = view
-    @_    = view.instance_variable_get('@_')
   end
 
   def width
-    @_.frame.size.width
+    @view.frame.size.width
   end
 
   def width=(width)
-    @_.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [width, height]]
   end
 
   def height
-    @_.frame.size.height
+    @view.frame.size.height
   end
 
   def height=(height)
-    @_.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [width, height]]
   end
 
   def top
-    @_.frame.origin.y
+    @view.frame.origin.y
   end
 
   def top=(top)
-    @_.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [width, height]]
   end
 
   def left
-    @_.frame.origin.x
+    @view.frame.origin.x
   end
 
   def left=(left)
-    @_.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [width, height]]
   end
 
   def right
@@ -59,7 +48,7 @@ class UnderOs::UI::Style
   end
 
   def right=(right)
-    @_.frame = [[screen_width - right, top], [width, height]]
+    @view.frame = [[screen_width - right, top], [width, height]]
   end
 
   def bottom
@@ -67,22 +56,22 @@ class UnderOs::UI::Style
   end
 
   def bottom=(bottom)
-    @_.frame = [[left, screen_height - bottom], [width, height]]
+    @view.frame = [[left, screen_height - bottom], [width, height]]
   end
 
   def backgroundColor
     if @view.is_a?(UIButton)
       # TODO ....
     else
-      @_.backgroundColor
+      @view.backgroundColor
     end
   end
 
   def backgroundColor=(color, state=UIControlStateNormal)
     if @view.is_a?(UIButton)
-      @_.setBackgroundColor convert_color(color), forState:state
+      @view.setBackgroundColor convert_color(color), forState:state
     else
-      @_.backgroundColor = convert_color(color)
+      @view.backgroundColor = convert_color(color)
     end
   end
 
@@ -90,14 +79,18 @@ class UnderOs::UI::Style
   alias :background= :backgroundColor=
 
   def color
-
+    if @view.is_a?(UIButton)
+      @view.getTitleColor
+    else
+      @view.textColor
+    end
   end
 
-  def color=(color)
+  def color=(color, state=UIControlStateNormal)
     if @view.is_a?(UIButton)
-      @_.setTitleColor color, forState:forState
+      @view.setTitleColor convert_color(color), forState:state
     else
-      # TODO em...
+      @view.textColor = convert_color(color)
     end
   end
 
@@ -114,28 +107,28 @@ class UnderOs::UI::Style
   end
 
   def borderRadius
-    @_.layer.cornerRadius
+    @view.layer.cornerRadius
   end
 
   def borderRadius=(radius)
-    @_.clipsToBounds       = true
-    @_.layer.cornerRadius = radius
+    @view.clipsToBounds      = true
+    @view.layer.cornerRadius = radius
   end
 
   def borderColor
-    @_.layer.borderColor
+    @view.layer.borderColor
   end
 
   def borderColor=(color)
-    @_.layer.borderColor = convert_color(color).CGColor
+    @view.layer.borderColor = convert_color(color).CGColor
   end
 
   def borderWidth
-    @_.layer.borderWidth
+    @view.layer.borderWidth
   end
 
   def borderWidth=(width)
-    @_.layer.borderWidth = width
+    @view.layer.borderWidth = width
   end
 
 private

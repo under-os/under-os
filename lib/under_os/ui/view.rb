@@ -1,8 +1,8 @@
 class UnderOs::UI::View
   include UnderOs::Events
+  include UnderOs::UI::Styles
   include UnderOs::UI::Dimensions
   include UnderOs::UI::Manipulation
-  include UnderOs::UI::Style::Methods
 
   def initialize(options={}, raw_object=UIView)
     @_ = raw_object.is_a?(UIView) ? raw_object :
