@@ -12,11 +12,7 @@ module UnderOs::Events
   end
 
   def emit(event, params={})
-    event = Event.new(event, params) unless event.is_a?(Event)
-
-    Listeners.all(self, event.name).each do |block|
-      instance_exec event, &block
-    end
+    Listeners.kick(self, event, params)
   end
 
   module Listeners
@@ -30,6 +26,7 @@ module UnderOs::Events
 
     def add(model, event, block)
       list(model, event) << block
+      model
     end
 
     def all(model, event)
@@ -38,6 +35,17 @@ module UnderOs::Events
 
     def remove(model, event)
       list(model).delete event
+      model
+    end
+
+    def kick(model, event, params)
+      event = Event.new(event, params) unless event.is_a?(Event)
+
+      all(model, event.name).each do |block|
+        block.call(event)
+      end
+
+      model
     end
   end
 
