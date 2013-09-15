@@ -38,6 +38,7 @@ class UnderOs::Page
 
     on 'load' do
       @view = View.new({}, @_.view)
+      @view.style.background = 'white'
       initialize
     end
 

@@ -3,12 +3,14 @@ class UnderOS::UI::Button < UnderOS::UI::View
   def initialize(options={}, raw_object=UIButton)
     super
 
+    @_.showsTouchWhenHighlighted = true
+
     options = {} if ! options.is_a?(Hash)
 
     self.title = options.delete(:title) || ''
     self.style = {
       color:      :black,
-      background: :darkGray,
+      background: :lightGray,
       borderRadius: 5
     }
   end
