@@ -25,6 +25,7 @@ class Point
   end
 
   def ==(point)
+    point = Point.new(point) # normalizing
     x == point.x && y == point.y
   end
 end

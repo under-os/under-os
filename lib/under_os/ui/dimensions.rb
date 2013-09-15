@@ -21,6 +21,7 @@ module UnderOs::UI::Dimensions
   def position(position=nil)
     if position
       self.position = position
+      self
     else
       @position ||= UnderOs::UI::Dimensions::Position.new(self)
     end
