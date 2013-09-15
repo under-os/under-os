@@ -1,9 +1,13 @@
 class UnderOs::UI::View
   include UnderOs::Events
+  include UnderOs::UI::Dimensions
   include UnderOs::UI::Manipulation
   include UnderOs::UI::Style::Methods
 
-  def initialize(raw_view=nil)
-    @_ = raw_view || UIView.alloc.initWithFrame([[0, 0], [0, 0]])
+  def initialize(options={}, raw_object=UIView)
+    @_ = raw_object.is_a?(UIView) ? raw_object :
+      raw_object.alloc.initWithFrame([[0, 0], [0, 0]])
+
+    self.style = options.delete(:style) || {}
   end
 end

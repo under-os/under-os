@@ -78,7 +78,7 @@ class UnderOs::UI::Style
     end
   end
 
-  def backgroundColor=(color, state = UIControlStateNormal)
+  def backgroundColor=(color, state=UIControlStateNormal)
     if @view.is_a?(UIButton)
       @_.setBackgroundColor convert_color(color), forState:state
     else
