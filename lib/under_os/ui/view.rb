@@ -1,6 +1,7 @@
 class UnderOs::UI::View
   include UnderOs::UI::Events
   include UnderOs::UI::Styles
+  include UnderOs::UI::Animation
   include UnderOs::UI::Dimensions
   include UnderOs::UI::Manipulation
 

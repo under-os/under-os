@@ -42,7 +42,7 @@ module UnderOs::Events
       event = Event.new(event, params) unless event.is_a?(Event)
 
       all(model, event.name).each do |block|
-        block.call(event)
+        model.instance_exec event, &block
       end
 
       model

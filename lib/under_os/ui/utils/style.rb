@@ -59,12 +59,16 @@ class UnderOs::UI::Style
     @view.frame = [[left, screen_height - bottom], [width, height]]
   end
 
+  def opacity
+    @view.alpha
+  end
+
+  def opacity=(value)
+    @view.alpha = value
+  end
+
   def backgroundColor
-    if @view.is_a?(UIButton)
-      # TODO ....
-    else
-      @view.backgroundColor
-    end
+    @view.backgroundColor
   end
 
   def backgroundColor=(color, state=UIControlStateNormal)
