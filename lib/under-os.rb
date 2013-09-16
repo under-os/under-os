@@ -10,6 +10,11 @@ Motion::Project::App.instance_eval do
       end
     end
 
-    setup_before_under_os *args, &block
+    setup_before_under_os *args do |app|
+      app.resources_dirs << File.dirname(__FILE__) + "/../resources"
+      app.fonts << "fontawesome-webfont.ttf"
+
+      instance_exec app, &block
+    end
   end
 end
