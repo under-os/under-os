@@ -1,27 +1,26 @@
 class UnderOS::UI::Button < UnderOS::UI::View
 
   def initialize(options={}, raw_object=UIButton)
-    super
-
-    @_.showsTouchWhenHighlighted = true
-
-    options = {} if ! options.is_a?(Hash)
-
-    self.title = options.delete(:title) || ''
-    self.style = {
+    options = {style: {
       color:      :black,
       background: :lightGray,
       borderRadius: 5
-    }
+    }}.merge(options)
+
+    super(options, raw_object)
+
+    @_.showsTouchWhenHighlighted = true
+
+    self.text  = options.delete(:text) || ''
   end
 
-  def title
-    @_.getTitle
+  def text
+    @_.currentTitle
   end
 
-  def title=(new_title, state=UIControlStateNormal)
+  def text=(new_title, state=UIControlStateNormal)
     @_.setTitle new_title, forState:state
-    @_.sizeToFit if style.width == 0
+    @_.sizeToFit
   end
 
 end

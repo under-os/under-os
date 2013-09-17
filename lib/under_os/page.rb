@@ -9,7 +9,7 @@ class UnderOs::Page
   include UnderOs::UI
 
   def self.new(*args)
-    alloc.setup_wrap
+    alloc.setup_wrap.compile_styles
   end
 
   def initialize
@@ -43,6 +43,16 @@ class UnderOs::Page
     end
 
     self
+  end
+
+  def compile_styles
+    @compound_styles = UnderOs::Page::Styles.new(self)
+
+    self
+  end
+
+  def compound_styles
+    @compound_styles
   end
 
   #

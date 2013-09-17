@@ -48,7 +48,7 @@ class UnderOs::UI::Style
   end
 
   def right=(right)
-    @view.frame = [[screen_width - right, top], [width, height]]
+    @view.frame = [[screen_width - right - left, top], [width, height]]
   end
 
   def bottom
@@ -56,7 +56,7 @@ class UnderOs::UI::Style
   end
 
   def bottom=(bottom)
-    @view.frame = [[left, screen_height - bottom], [width, height]]
+    @view.frame = [[left, screen_height - bottom - height], [width, height]]
   end
 
   def opacity

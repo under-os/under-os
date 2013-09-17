@@ -14,6 +14,6 @@ class UnderOs::UI::Label < UnderOs::UI::View
 
   def text=(text)
     @_.text = text
-    @_.sizeToFit if style.width == 0
+    @_.sizeToFit
   end
 end
