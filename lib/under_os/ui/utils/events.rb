@@ -28,6 +28,10 @@ module UnderOs::UI::Events
     UnderOs::Events::Listeners.kick(self, event, params || {})
   end
 
+  def on=(hash)
+    on hash
+  end
+
 private
 
   RECOGNIZERS = {

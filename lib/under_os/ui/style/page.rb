@@ -9,8 +9,9 @@
 class UnderOs::Page::Styles
 
   def initialize(page)
-    @page  = page
-    @rules = parse(stylesheet)
+    @page   = page
+    @parser = UnderOs::Page::StylesParser.new('css')
+    @rules  = @parser.parse(stylesheet)
   end
 
   def stylesheet
@@ -21,7 +22,4 @@ class UnderOs::Page::Styles
     NSData.dataWithContentsOfFile(filename)
   end
 
-  def parse(styles)
-    Parser.new('css').parse(styles)
-  end
 end
