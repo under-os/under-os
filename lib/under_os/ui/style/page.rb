@@ -9,9 +9,8 @@
 class UnderOs::Page::Styles
 
   def initialize(page)
-    @page = page
-
-    parse stylesheet
+    @page  = page
+    @rules = parse(stylesheet)
   end
 
   def stylesheet
@@ -23,6 +22,6 @@ class UnderOs::Page::Styles
   end
 
   def parse(styles)
-    p styles
+    Parser.new('css').parse(styles)
   end
 end

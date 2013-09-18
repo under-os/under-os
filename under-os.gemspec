@@ -12,4 +12,6 @@ Gem::Specification.new do |gem|
   gem.license       = 'MIT'
 
   gem.files         = Dir['lib/**/*']
+
+  gem.add_development_dependency 'rake'
 end
