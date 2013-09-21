@@ -1,0 +1,13 @@
+page {
+  background: white;
+}
+
+.test {
+  background:    blue;
+  border-radius: 5;
+  color:         yellow;
+}
+
+view.test {
+  border-radius: 10;
+}
