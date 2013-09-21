@@ -42,6 +42,14 @@ describe UnderOs::UI::StyleMatcher do
       it "should not add score for not matching tags" do
         score_for(@view, 'button').should == 0
       end
+
+      it "should not add score if the id is wrong" do
+        score_for(@view, 'view#some-id').should == 0
+      end
+
+      it "should not add score if the css-rule is wrong" do
+        score_for(@view, 'view.some-class').should == 0
+      end
     end
 
     describe 'IDs matching' do

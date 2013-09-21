@@ -17,17 +17,17 @@ class UnderOs::UI::StyleMatcher
   end
 
   def score_for(view)
-    id_score     = id_score_for(view)
-    tag_score    = tag_score_for(view)
+    id_score    = id_score_for(view)
+    tag_score   = tag_score_for(view)
+    class_score = class_score_for(view)
 
     return 0 if @rule[:id]  && id_score     == 0
     return 0 if @rule[:tag] && tag_score    == 0
-
-    this_score = id_score + tag_score + class_score_for(view)
-
-    return 0 if this_score == 0
+    return 0 if @rule[:classes].size > 0 && class_score == 0
+    return 0 if (this_score = id_score + tag_score + class_score) == 0
 
     parent_score = parent_score_for(view)
+
     return 0 if @parent && parent_score == 0
 
     parent_score + this_score

@@ -14,6 +14,10 @@ class UnderOs::Page::Styles
     @rules  = {app: app_rules, page: page_rules}
   end
 
+  def apply_to(view)
+    view.style = calculate_for(view)
+  end
+
   def calculate_for(view)
     {}.tap do |styles|
       weighted_styles_for(view).each do |hash|

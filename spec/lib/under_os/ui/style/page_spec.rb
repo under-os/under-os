@@ -16,7 +16,7 @@ describe UnderOs::Page::Style do
     it "should load the page related stylesheets" do
       @style.instance_variable_get('@rules')[:page].should == {
         "page"  => {:backgroundColor=>"yellow"},
-        ".test" => {:backgroundColor=>"pink"}
+        ".test" => {:backgroundColor=>"green"}
       }
     end
   end
@@ -29,9 +29,20 @@ describe UnderOs::Page::Style do
     it "should calculate the styles correctly" do
       @style.calculate_for(@view).should == {
         color:           'yellow',
-        backgroundColor: 'pink',
+        backgroundColor: 'green',
         borderRadius:    10
       }
+    end
+  end
+
+  describe '#apply_to' do
+    before do
+      @view = UnderOs::UI::View.new(class: 'test')
+      @style.apply_to(@view)
+    end
+
+    it "should apply styles to the view" do
+      @view.style.backgroundColor.should == UIColor.greenColor
     end
   end
 

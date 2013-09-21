@@ -47,7 +47,7 @@ class UnderOs::Page
 
       compile_styles
       initialize
-      apply_styles
+      apply_styles_to(@view)
     end
 
     self
@@ -55,8 +55,14 @@ class UnderOs::Page
 
   def compile_styles
     @compound_styles = UnderOs::Page::Styles.new(self)
+  end
 
-    self
+  def apply_styles_to(view)
+    @compound_styles.apply_to(view)
+
+    view.children.each do |subview|
+      apply_styles_to(subview)
+    end
   end
 
   #

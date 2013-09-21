@@ -88,7 +88,7 @@ class UnderOs::UI::Style
     if @view.is_a?(UIButton)
       @view.getTitleColor
     else
-      @view.textColor
+      @view.textColor if @view.respond_to?(:textColor)
     end
   end
 
@@ -96,7 +96,7 @@ class UnderOs::UI::Style
     if @view.is_a?(UIButton)
       @view.setTitleColor convert_color(color), forState:state
     else
-      @view.textColor = convert_color(color)
+      @view.textColor = convert_color(color) if @view.respond_to?(:textColor)
     end
   end
 
@@ -150,6 +150,7 @@ private
   end
 
   def convert_color(color)
+    color = 'darkGray' if color == 'darkgray'
     color = UIColor.send "#{color}Color" unless color.is_a?(UIColor)
     color
   end
