@@ -13,15 +13,17 @@ module UnderOs::UI::Manipulation
     self
   end
 
-  def append(view)
-    insert(view)
+  def append(*views)
+    views.each{|v| insert(v)}
+    self
   end
 
-  def prepend(view)
-    insert(view, :top)
+  def prepend(*views)
+    views.each{|v| insert(v, :top) }
+    self
   end
 
-  def insertTo(view, position=nil)
+  def insert_to(view, position=nil)
     view.insert(self, position)
     self
   end
