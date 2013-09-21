@@ -5,9 +5,9 @@ module UnderOs::UI::Manipulation
 
   def insert(view, position=:end)
     if position == :top
-      @_.insertSubview(view.instance_variable_get('@_'), atIndex: 0)
+      @_.insertSubview(view._, atIndex: 0)
     else
-      @_.addSubview(view.instance_variable_get('@_'))
+      @_.addSubview(view._)
     end
 
     self

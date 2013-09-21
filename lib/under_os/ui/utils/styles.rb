@@ -11,10 +11,18 @@ module UnderOs::UI::Styles
   end
 
   def class_name
-    (@_class_names || []).join(' ')
+    class_names.join(' ')
   end
 
   def class_name=(names)
-    @_class_names = names.scan(/([a-z0-9\-_]+)/).map{|e| e[0]}
+    self.class_names = names.scan(/([a-z0-9\-_]+)/).map{|e| e[0]}
+  end
+
+  def class_names
+    @_class_names ||= []
+  end
+
+  def class_names=(list)
+    @_class_names = list.uniq
   end
 end

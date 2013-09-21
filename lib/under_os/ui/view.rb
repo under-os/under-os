@@ -7,6 +7,8 @@ class UnderOs::UI::View
   include UnderOs::UI::Traversing
   include UnderOs::UI::Manipulation
 
+  attr_reader :_
+
   INSTANCES_REGISTRY = {}
 
   def self.instance_for(raw_view)

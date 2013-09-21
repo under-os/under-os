@@ -7,6 +7,8 @@
 #
 class UnderOs::UI::Style
 
+  attr_reader :view
+
   def initialize(view)
     @view = view
   end
