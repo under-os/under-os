@@ -9,11 +9,15 @@ class UnderOs::Page
   include UnderOs::UI
 
   def self.new(*args)
-    alloc.setup_wrap.compile_styles
+    alloc.setup_wrap
   end
 
   def initialize
     # page building goes in here
+  end
+
+  def view
+    @view
   end
 
   def insert(*args)
@@ -38,8 +42,12 @@ class UnderOs::Page
 
     on 'load' do
       @view = View.new({}, @_.view)
-      @view.style.background = 'white'
+      @view.instance_variable_set('@_tag_name', 'PAGE')
+      @view.page = self
+
+      compile_styles
       initialize
+      apply_styles
     end
 
     self
@@ -49,10 +57,6 @@ class UnderOs::Page
     @compound_styles = UnderOs::Page::Styles.new(self)
 
     self
-  end
-
-  def compound_styles
-    @compound_styles
   end
 
   #

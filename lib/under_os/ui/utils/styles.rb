@@ -2,18 +2,6 @@
 # The styles handling API for UIView
 #
 module UnderOs::UI::Styles
-  def tag_name
-    @_tag_name ||= self.class.name.split('::').pop.underscore.upcase
-  end
-
-  def id
-    @_id
-  end
-
-  def id=(id)
-    @_id = id
-  end
-
   def style
     @_style ||= UnderOs::UI::Style.new(@_)
   end
