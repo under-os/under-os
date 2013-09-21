@@ -12,6 +12,7 @@ class UnderOS::UI::Button < UnderOS::UI::View
     @_.showsTouchWhenHighlighted = true
 
     self.text  = options.delete(:text) || ''
+    @_.sizeToFit
   end
 
   def text
@@ -20,7 +21,6 @@ class UnderOS::UI::Button < UnderOS::UI::View
 
   def text=(new_title, state=UIControlStateNormal)
     @_.setTitle new_title, forState:state
-    @_.sizeToFit
   end
 
 end

@@ -6,6 +6,10 @@ class UnderOs::UI::Label < UnderOs::UI::View
     options = {} if ! options.is_a?(Hash)
 
     self.text = options.delete(:text) || ''
+    @_.sizeToFit
+
+    @_.numberOfLines             = 1;
+    @_.adjustsFontSizeToFitWidth = true;
   end
 
   def text
@@ -14,6 +18,5 @@ class UnderOs::UI::Label < UnderOs::UI::View
 
   def text=(text)
     @_.text = text
-    @_.sizeToFit
   end
 end
