@@ -21,7 +21,7 @@ describe UnderOs::Page::StylesParser do
         border-radius: 0px;
       }
     }).should == {'button' => {
-      width: 79.0, height: 79.0, color: "black", background: "white", borderRadius: 0.0
+      width: 79.0, height: 79.0, color: "black", backgroundColor: "white", borderRadius: 0.0
     }}
   end
 
@@ -44,7 +44,7 @@ describe UnderOs::Page::StylesParser do
       button.ops    { background: yellow }
     ]).should == {
       'button.double' => {width: 159.0},
-      'button.ops'    => {background: "yellow"}
+      'button.ops'    => {backgroundColor: "yellow"}
     }
   end
 

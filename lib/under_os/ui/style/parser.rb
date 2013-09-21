@@ -11,12 +11,22 @@ class UnderOs::Page::StylesParser
   def parse_styles(styles)
     {}.tap do |hash|
       styles.scan(/([a-z\-]+)\s*:\s*([^;]+)\s*/).each do |param|
-        value = param[1].strip.gsub(/px$/, '')
-        value = value.to_f if value =~ /^[\d\.]+$/
-
-        hash[param[0].camelize.to_sym] = value
+        hash.merge! normalized_values(param[0], param[1])
       end
     end
+  end
+
+  def normalized_values(key, value)
+    key   = key.camelize.to_sym
+    value = value.strip.gsub(/px$/, '')
+    value = value.to_f if value =~ /^[\d\.]+$/
+
+    if key == :background && value =~ /^[\S]+$/
+      key = :backgroundColor
+    end
+
+
+    {key => value}
   end
 
 end
