@@ -3,8 +3,8 @@
 #
 module UnderOs::Events
 
-  def on(event, &block)
-    Listeners.add(self, event, block)
+  def on(event, *args, &block)
+    Listeners.add(self, event, *args, block)
   end
 
   def no(event)
@@ -24,8 +24,8 @@ module UnderOs::Events
       @listeners[model][event] ||= [] if event
     end
 
-    def add(model, event, block)
-      list(model, event) << block
+    def add(model, event, *args, block)
+      list(model, event) << [block, *args]
       model
     end
 
@@ -41,8 +41,10 @@ module UnderOs::Events
     def kick(model, event, params)
       event = Event.new(event, params) unless event.is_a?(Event)
 
-      all(model, event.name).each do |block|
-        block.call
+      all(model, event.name).each do |block, context, method_name|
+        context ||= model
+        block = Proc.new{ |event| __send__(method_name, event) } if !block && method_name
+        context.instance_exec event, &block
       end
 
       model

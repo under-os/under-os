@@ -3,14 +3,14 @@
 #
 module UnderOs::UI::Events
 
-  def on(event, &block)
+  def on(event, *args, &block)
     return event.map{|e,b| self.on(e,&b)}[0] || self if event.is_a?(Hash)
 
     event, recognizer = find_recognizer_from(event)
 
     @_.addGestureRecognizer(recognizer.alloc.initWithTarget(self, action: :emit)) if recognizer
 
-    UnderOs::Events::Listeners.add(self, event, block)
+    UnderOs::Events::Listeners.add(self, event, *args, block)
   end
 
   def no(event)

@@ -32,6 +32,10 @@ class UnderOs::Page
     @view.insert(*args)
   end
 
+  def find(css_rule)
+    @view.find(css_rule)
+  end
+
   def setup_wrap
     @_ = UIViewControllerWrap.alloc.init({
       on_load_view:      Proc.new{ emit('init')      },
