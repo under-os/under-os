@@ -119,29 +119,28 @@ describe UnderOs::UI::StyleMatcher do
         @view.id = 'my-view'
       end
 
-      # it "should still match singular rules" do
-      #   score_for(@view, '#my-view').should == 1
-      # end
+      it "should still match singular rules" do
+        score_for(@view, '#my-view').should == 1
+      end
 
-      # it "should add points for matching parent" do
-      #   score_for(@view, '.v4 #my-view').should     == 2
-      #   score_for(@view, 'view.v4 #my-view').should == 3
-      # end
+      it "should add points for matching parent" do
+        score_for(@view, '.v4 #my-view').should     == 2
+        score_for(@view, 'view.v4 #my-view').should == 3
+      end
 
-      # it "should add multiple points for multiple matching parents" do
-      #   score_for(@view, '.v1 .v2 .v3 .v4 #my-view').should == 5
-      # end
+      it "should add multiple points for multiple matching parents" do
+        score_for(@view, '.v1 .v2 .v3 .v4 #my-view').should == 5
+      end
 
       it "should match parents at any level" do
-        # score_for(@view, '.v3 #my-view').should == 2
-        # score_for(@view, '.v2 #my-view').should == 2
-        p score_for(@v3, '.v3')
+        score_for(@view, '.v3 #my-view').should == 2
+        score_for(@view, '.v2 #my-view').should == 2
         score_for(@view, '.v1 .v3 #my-view').should == 3
       end
 
-      # it "should return 0 if no matching parent found" do
-      #   score_for(@view, '.non-existing #my-view').should == 0
-      # end
+      it "should return 0 if no matching parent found" do
+        score_for(@view, '.non-existing #my-view').should == 0
+      end
     end
   end
 end
