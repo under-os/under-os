@@ -36,6 +36,22 @@ class UnderOs::Page
     @view.find(css_rule)
   end
 
+  def navigation
+    @_navigation
+  end
+
+  def navigation=(navigation)
+    @_navigation = navigation
+  end
+
+  def title
+    navigation && @_.navigationItem.title
+  end
+
+  def title=(text)
+    @_.navigationItem.title = text if navigation
+  end
+
   def setup_wrap
     @_ = UIViewControllerWrap.alloc.init({
       on_load_view:      Proc.new{ emit('init')      },
