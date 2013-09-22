@@ -1,9 +1,8 @@
 class UnderOs::UI::Label < UnderOs::UI::View
+  wraps UILabel
 
-  def initialize(options={}, raw_object=UILabel)
+  def initialize(options={})
     super
-
-    options = {} if ! options.is_a?(Hash)
 
     self.text = options.delete(:text) || ''
     @_.sizeToFit

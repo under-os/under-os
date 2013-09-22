@@ -45,9 +45,8 @@ class UnderOs::Page
     })
 
     on 'load' do
-      @view = View.new({}, @_.view)
+      @view = View.new(@_.view)
       @view.instance_variable_set('@_tag_name', 'PAGE')
-      @view.page = self
 
       compile_styles
       initialize

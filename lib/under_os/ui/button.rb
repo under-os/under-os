@@ -1,13 +1,14 @@
 class UnderOS::UI::Button < UnderOS::UI::View
+  wraps UIButton
 
-  def initialize(options={}, raw_object=UIButton)
+  def initialize(options={})
     options = {style: {
       color:      :black,
       background: :lightGray,
       borderRadius: 5
     }}.merge(options)
 
-    super(options, raw_object)
+    super(options)
 
     @_.showsTouchWhenHighlighted = true
 

@@ -1,7 +1,7 @@
 module UnderOs::UI::Traversing
   def parent(css_rule=nil)
     if ! css_rule
-      UnderOs::UI::View.instance_for(@_.superview)
+      UnderOs::UI::View.new(@_.superview) if @_.superview
     else
       parent = self
       while parent = parent.parent
@@ -11,7 +11,7 @@ module UnderOs::UI::Traversing
   end
 
   def children(css_rule=nil)
-    result = @_.subviews.map{|v| UnderOs::UI::View.instance_for(v)}.compact
+    result = @_.subviews.map{|v| UnderOs::UI::View.new(v) if v}.compact
     css_rule ? result.select{|v| v.matches(css_rule)} : result
   end
 

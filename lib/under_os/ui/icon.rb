@@ -1,4 +1,6 @@
 class UnderOs::UI::Icon < UnderOs::UI::View
+  wraps UIButton
+
   NAMES_MAP = {
     'glass' => 0xF000,
     'music' => 0xF001,
@@ -363,12 +365,12 @@ class UnderOs::UI::Icon < UnderOs::UI::View
     'renren' => 0xF18B
   }
 
-  def initialize(options, raw_object=UIButton)
+  def initialize(options)
     options = {name: options} if options.is_a?(String) || options.is_a?(Symbol)
     options[:style]         ||= {}
     options[:style][:color] ||= :black
 
-    super(options, raw_object)
+    super(options)
 
     name = options.delete(:name) || :bug
     size = options.delete(:size) || 20
