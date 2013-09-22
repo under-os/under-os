@@ -84,9 +84,9 @@ class UnderOs::UI::Style
   alias :background  :backgroundColor
   alias :background= :backgroundColor=
 
-  def color
+  def color(state=UIControlStateNormal)
     if @view.is_a?(UIButton)
-      @view.getTitleColor
+      @view.titleColorForState(state)
     else
       @view.textColor if @view.respond_to?(:textColor)
     end
