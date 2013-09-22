@@ -16,11 +16,11 @@ describe UnderOs::UI::Traversing do
             @v6
     ))))
 
-    @v2.class_name = 'v1 v2'
-    @v3.class_name = 'v1 v3'
-    @v4.class_name = 'v3 v4'
-    @v5.class_name = 'v5'
-    @v6.class_name = 'v6'
+    @v2.className = 'v1 v2'
+    @v3.className = 'v1 v3'
+    @v4.className = 'v3 v4'
+    @v5.className = 'v5'
+    @v6.className = 'v6'
   end
 
   describe '#parent' do
@@ -58,7 +58,7 @@ describe UnderOs::UI::Traversing do
     end
 
     it "should return an empty list on leaf elements like buttons" do
-      UnderOs::UI::Button.new.children.should == []
+      UnderOs::UI::Image.new.children.should == []
     end
   end
 

@@ -18,6 +18,10 @@ describe UnderOs::UI::Wrap do
       wrap_class_for(UILabel).should == UnderOs::UI::Label
     end
 
+    it "should wrap images correctly" do
+      wrap_class_for(UIImageView).should == UnderOs::UI::Image
+    end
+
     it "should return the same wrapper for the same uiview all the time" do
       raw  = UIView.alloc.initWithFrame([[0,0],[0,0]])
       inst = UnderOs::UI::View.new(raw)

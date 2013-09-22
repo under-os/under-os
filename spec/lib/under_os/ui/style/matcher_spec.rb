@@ -73,36 +73,36 @@ describe UnderOs::UI::StyleMatcher do
       end
     end
 
-    describe 'class_name matching' do
+    describe 'className matching' do
       it "should add score for matching class names" do
-        @view.class_name = 'my-class'
+        @view.className = 'my-class'
         score_for(@view, '.my-class').should == 1
       end
 
       it "should not add score for mismatching class names" do
-        @view.class_name = 'my-class'
+        @view.className = 'my-class'
         score_for(@view, '.another-class').should == 0
       end
 
       it "should add point for every matching class name" do
-        @view.class_name = 'class1 class2'
+        @view.className = 'class1 class2'
         score_for(@view, '.class1.class2').should == 2
         score_for(@view, '.class2.class1').should == 2
       end
 
       it "should not add points one of multiple classes don't match" do
-        @view.class_name = 'class1 class2'
+        @view.className = 'class1 class2'
         score_for(@view, '.class1.class3').should == 0
         score_for(@view, '.class3.class2').should == 0
       end
 
       it "should not add points if the tag is different" do
-        @view.class_name = 'my-class'
+        @view.className = 'my-class'
         score_for(@view, 'button.my-class').should == 0
       end
 
       it "should not add points if the ID is different" do
-        @view.class_name = 'my-class'
+        @view.className = 'my-class'
         score_for(@view, '#another-id.my-class').should == 0
       end
     end
@@ -110,7 +110,7 @@ describe UnderOs::UI::StyleMatcher do
     describe 'multiple matches' do
       it "should count in all the matches" do
         @view.id = 'my-id'
-        @view.class_name = 'class1 class2'
+        @view.className = 'class1 class2'
         score_for(@view, 'view#my-id.class1.class2').should == 4
       end
     end

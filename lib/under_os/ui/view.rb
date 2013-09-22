@@ -11,9 +11,9 @@ class UnderOs::UI::View
   wraps UIView
 
   def initialize(options={})
-    self.id         = options.delete(:id)    if options.has_key?(:id)
-    self.class_name = options.delete(:class) if options.has_key?(:class)
-    self.style      = options.delete(:style) if options.has_key?(:style)
-    self.on         = options.delete(:on)    if options.has_key?(:on)
+    self.id        = options.delete(:id)    if options.has_key?(:id)
+    self.className = options.delete(:class) if options.has_key?(:class)
+    self.style     = options.delete(:style) if options.has_key?(:style)
+    self.on        = options.delete(:on)    if options.has_key?(:on)
   end
 end

@@ -10,19 +10,19 @@ module UnderOs::UI::Styles
     hash.each{ |key, value| style.__send__("#{key}=", value)}
   end
 
-  def class_name
-    class_names.join(' ')
+  def className
+    classNames.join(' ')
   end
 
-  def class_name=(names)
-    self.class_names = names.scan(/([a-z0-9\-_]+)/).map{|e| e[0]}
+  def className=(names)
+    self.classNames = names.scan(/([a-z0-9\-_]+)/).map{|e| e[0]}
   end
 
-  def class_names
+  def classNames
     @_class_names ||= []
   end
 
-  def class_names=(list)
+  def classNames=(list)
     @_class_names = list.uniq
   end
 end

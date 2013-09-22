@@ -40,11 +40,11 @@ private
   end
 
   def tag_score_for(view)
-    @rule[:tag] == view.tag_name ? 1 : 0
+    @rule[:tag] == view.tagName ? 1 : 0
   end
 
   def class_score_for(view)
-    match = @rule[:classes] & view.class_names
+    match = @rule[:classes] & view.classNames
     match.size == @rule[:classes].size ? match.size : 0
   end
 

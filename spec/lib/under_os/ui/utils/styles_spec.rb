@@ -21,31 +21,31 @@ describe UnderOs::UI::Styles do
     end
   end
 
-  describe '#class_names' do
+  describe '#classNames' do
     it "should return an empty list by default" do
-      @view.class_names.should == []
+      @view.classNames.should == []
     end
 
     it "should allow to assign the lists" do
-      @view.class_names = ['one', 'two']
-      @view.class_names.should == ['one', 'two']
+      @view.classNames = ['one', 'two']
+      @view.classNames.should == ['one', 'two']
     end
 
     it "should remove dups on fly" do
-      @view.class_names = ['one', 'two', 'two', 'one']
-      @view.class_names.should == ['one', 'two']
+      @view.classNames = ['one', 'two', 'two', 'one']
+      @view.classNames.should == ['one', 'two']
     end
   end
 
-  describe '#class_name' do
+  describe '#className' do
     it "should return an empty string by default" do
-      @view.class_name.should == ''
+      @view.className.should == ''
     end
 
     it "should allow to assign new class names" do
-      @view.class_name = 'one two'
-      @view.class_name.should == 'one two'
-      @view.class_names.should == ['one', 'two']
+      @view.className = 'one two'
+      @view.className.should == 'one two'
+      @view.classNames.should == ['one', 'two']
     end
   end
 end
