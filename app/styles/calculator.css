@@ -1,0 +1,37 @@
+page {
+  background-color: darkgray;
+}
+
+label {
+  left:        0;
+  top:         80;
+  color:       white;
+  height:      80;
+  width:       320;
+  font-size:   80;
+  text-align:  right;
+}
+
+button {
+  width:         79px;
+  height:        79px;
+  color:         black;
+  background:    white;
+  border-radius: 0px;
+  font-size:     40;
+}
+
+button.double { width: 159; }
+button.ops    { background: yellow; font-size: 20; }
+button.top    { background: lightgray; font-size: 20; }
+
+.row1 { bottom: 0px;   }
+.row2 { bottom: 80px;  }
+.row3 { bottom: 160px; }
+.row4 { bottom: 240px; }
+.row5 { bottom: 320px; }
+
+.col1 { left: 0;   }
+.col2 { left: 80;  }
+.col3 { left: 160; }
+.col4 { left: 240; }

@@ -43,7 +43,7 @@ module UnderOs::Events
 
       all(model, event.name).each do |block, method_name, *args|
         if !block && method_name
-          block   = Proc.new{ |event| __send__(method_name, *args) }
+          block   = Proc.new{ __send__(method_name, *args) }
           context = model
         elsif block && method_name # <- considering it's a context reference
           context = method_name

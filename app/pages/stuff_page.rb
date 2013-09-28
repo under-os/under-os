@@ -13,17 +13,17 @@ class StuffPage < UnderOs::Page
       borderColor:  :green
     })
 
-    @box.on(:tap){ fade_out.fade_in }
+    @box.on(:tap){ @box.fade_out.fade_in }
 
     @b2 = View.new(style: {background: :blue})
     @b2.size = {x: 50, y: 50}
     @b2.position = {x: 25, y: 25}
 
-    @b2.on(:tap){ highlight }
+    @b2.on(:tap, :highlight)
 
     insert @box.insert(@b2)
 
-    insert Button.new(title: 'Boo Hoo!').position(x: 100, y: 200)
+    insert Button.new(text: 'Boo Hoo!').position(x: 100, y: 200)
 
     insert Label.new(text: "Hey Label", style: {background: :red}).position({x: 100, y: 250})
 
