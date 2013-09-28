@@ -16,4 +16,8 @@ class UnderOs::Application
     @config ||= UnderOs::Config.new(self)
   end
 
+  def navigation
+    @navigation
+  end
+
 end

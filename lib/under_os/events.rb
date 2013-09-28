@@ -41,10 +41,23 @@ module UnderOs::Events
     def kick(model, event, params)
       event = Event.new(event, params) unless event.is_a?(Event)
 
-      all(model, event.name).each do |block, context, method_name|
-        context ||= model
-        block = Proc.new{ |event| __send__(method_name, event) } if !block && method_name
-        context.instance_exec event, &block
+      all(model, event.name).each do |block, method_name, *args|
+        if !block && method_name
+          block   = Proc.new{ |event| __send__(method_name, *args) }
+          context = model
+        elsif block && method_name # <- considering it's a context reference
+          context = method_name
+        else
+          context = nil
+        end
+
+        args = block.arity > 0 ? [event] : []
+
+        if context
+          context.instance_exec *args, &block
+        else
+          block.call *args
+        end
       end
 
       model

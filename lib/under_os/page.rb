@@ -8,8 +8,14 @@ class UnderOs::Page
   include UnderOs::Events
   include UnderOs::UI
 
+  attr_reader :_
+
   def self.new(*args)
     alloc.setup_wrap
+  end
+
+  def self.navigation=(navigation)
+    @navigation = navigation
   end
 
   def initialize
@@ -37,11 +43,7 @@ class UnderOs::Page
   end
 
   def navigation
-    @_navigation
-  end
-
-  def navigation=(navigation)
-    @_navigation = navigation
+    UnderOs::Page.instance_variable_get('@navigation')
   end
 
   def title
