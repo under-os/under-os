@@ -7,15 +7,16 @@ class UnderOs::Parser
     @inst.parse *args
   end
 
+  def initialize
+    @css  = CSS.new
+    @html = HTML.new
+  end
+
   def parse(filename)
-    if content = read("#{filename}.erb")
-      content = @erb.parse(content)
-    else
-      content = read(filename)
-    end
+    content = read(filename) || ''
 
     if filename.ends_with?('.css')
-      CSS.new.parse(content || '')
+      @css.parse(content)
     elsif filename.ends_with?('.html')
       @html.parse(content)
     end
