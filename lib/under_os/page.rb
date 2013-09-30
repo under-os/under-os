@@ -54,6 +54,10 @@ class UnderOs::Page
     @_.navigationItem.title = text if navigation
   end
 
+  def name
+    self.class.name.underscore.sub(/_page$/, '')
+  end
+
   def setup_wrap
     @_ = UIViewControllerWrap.alloc.init({
       on_load_view:      Proc.new{ emit('init')      },

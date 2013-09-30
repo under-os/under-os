@@ -9,9 +9,10 @@
 class UnderOs::Page::Styles
 
   def initialize(page)
-    @page   = page
-    @parser = UnderOs::Page::StylesParser.new
-    @rules  = {app: app_rules, page: page_rules}
+    @rules = {
+      app:  UnderOs::Parser.parse("application.css"),
+      page: UnderOs::Parser.parse("#{page.name}.css")
+    }
   end
 
   def apply_to(view)
@@ -46,25 +47,6 @@ private
         end
       end
     end
-  end
-
-  def app_rules
-    parse "application.css"
-  end
-
-  def page_rules
-    filename = @page.class.name.underscore
-    filename = filename.gsub(/_page$/, '')
-
-    parse "#{filename}.css"
-  end
-
-  def parse(filename)
-    filename, type = filename.split('.')
-    filename = NSBundle.mainBundle.pathForResource(filename, ofType:type)
-
-    @parser.parse NSString.stringWithContentsOfFile(
-      filename, encoding:NSUTF8StringEncoding, error:nil) || ''
   end
 
 end

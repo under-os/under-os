@@ -1,5 +1,4 @@
-class UnderOs::Page::StylesParser
-
+class UnderOs::Parser::CSS < UnderOs::Parser
   def parse(style)
     {}.tap do |result|
       style.scan(/(\A|\})([a-z0-9_\-\.\s#:]+)\{([^}]+)/).map do |rule|
@@ -28,5 +27,4 @@ class UnderOs::Page::StylesParser
 
     {key => value}
   end
-
 end

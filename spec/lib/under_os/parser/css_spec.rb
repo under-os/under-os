@@ -1,6 +1,6 @@
-describe UnderOs::Page::StylesParser do
+describe UnderOs::Parser::CSS do
   before do
-    @parser  = UnderOs::Page::StylesParser.new
+    @parser  = UnderOs::Parser::CSS.new
   end
 
   it "should parse simple tags" do
