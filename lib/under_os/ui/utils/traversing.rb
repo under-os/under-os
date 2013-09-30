@@ -31,6 +31,6 @@ module UnderOs::UI::Traversing
   end
 
   def matches(css_rule)
-    UnderOs::UI::StyleMatcher.new(css_rule).match(self)
+    UnderOs::Page::StylesMatcher.new(css_rule).match(self)
   end
 end

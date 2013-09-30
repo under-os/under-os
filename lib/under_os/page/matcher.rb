@@ -1,4 +1,4 @@
-class UnderOs::UI::StyleMatcher
+class UnderOs::Page::StylesMatcher
 
   def self.new(css_rule)
     @cache           ||= {}

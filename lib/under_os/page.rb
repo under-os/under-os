@@ -75,7 +75,7 @@ class UnderOs::Page
   end
 
   def compile_styles
-    @compound_styles = UnderOs::Page::Styles.new(self)
+    @compound_styles = Styles.new(self)
   end
 
   def apply_styles_to(view)

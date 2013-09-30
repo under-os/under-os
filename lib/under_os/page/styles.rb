@@ -41,7 +41,7 @@ private
     [].tap do |styles|
       [:app, :page].each do |source|
         @rules[source].each do |css, rule|
-          score = UnderOs::UI::StyleMatcher.new(css).score_for(view)
+          score = UnderOs::Page::StylesMatcher.new(css).score_for(view)
           styles << {score: score, style: rule} if score != 0
         end
       end

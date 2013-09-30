@@ -1,16 +1,16 @@
-describe UnderOs::UI::StyleMatcher do
+describe UnderOs::Page::StylesMatcher do
   before do
     @view    = UnderOs::UI::View.new
     @view1   = UnderOs::UI::View.new
     @view2   = UnderOs::UI::View.new
-    @matcher = UnderOs::UI::StyleMatcher.new('smth')
+    @matcher = UnderOs::Page::StylesMatcher.new('smth')
   end
 
   describe '.new' do
     it "should cache instances" do
-      @i1 = UnderOs::UI::StyleMatcher.new('.one')
-      @i2 = UnderOs::UI::StyleMatcher.new('.one')
-      @i3 = UnderOs::UI::StyleMatcher.new('.two')
+      @i1 = UnderOs::Page::StylesMatcher.new('.one')
+      @i2 = UnderOs::Page::StylesMatcher.new('.one')
+      @i3 = UnderOs::Page::StylesMatcher.new('.two')
 
       @i1.should.be.same_as @i2
       @i1.should.not == @i3
@@ -31,7 +31,7 @@ describe UnderOs::UI::StyleMatcher do
 
   describe '#score_for' do
     def score_for(view, css_rule)
-      UnderOs::UI::StyleMatcher.new(css_rule).score_for(view)
+      UnderOs::Page::StylesMatcher.new(css_rule).score_for(view)
     end
 
     describe 'tags matching' do
