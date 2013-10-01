@@ -18,28 +18,36 @@ class UnderOs::Page
     @navigation = navigation
   end
 
+  def self.layout(name=nil)
+    name ? (@layout = name) : @layout
+  end
+
   def initialize
     # page building goes in here
   end
 
   def view
-    @view
+    @_view
+  end
+
+  def view=(view)
+    @_view = view
   end
 
   def insert(*args)
-    @view.insert(*args)
+    @_view.insert(*args)
   end
 
   def append(*args)
-    @view.insert(*args)
+    @_view.insert(*args)
   end
 
   def prepend(*args)
-    @view.insert(*args)
+    @_view.insert(*args)
   end
 
   def find(css_rule)
-    @view.find(css_rule)
+    @_view.find(css_rule)
   end
 
   def navigation
@@ -66,16 +74,21 @@ class UnderOs::Page
       on_view_disappear: Proc.new{ emit('disappear') }
     })
 
-    on 'load' do
-      @view = View.new(@_.view)
-      @view.instance_variable_set('@_tag_name', 'PAGE')
-
+    on 'init' do
+      build_layout
       compile_styles
+    end
+
+    on 'load' do
       initialize
-      apply_styles_to(@view)
+      apply_styles_to(view)
     end
 
     self
+  end
+
+  def build_layout
+    @_layout = Layout.new(self)
   end
 
   def compile_styles
