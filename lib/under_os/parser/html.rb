@@ -1,6 +1,6 @@
 class UnderOs::Parser::HTML
   def parse(html)
-    parse_nodes_in(html)[0]
+    parse_nodes_in(html)
   end
 
   OPEN_TAG_RE = /<([a-z]+)([^>]*)>/

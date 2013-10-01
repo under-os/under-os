@@ -10,25 +10,25 @@ describe UnderOs::Parser::HTML do
       <page>
         asdf
       </page>
-    }).should == {
+    }).should == [{
       tag:   'page',
       text:  'asdf',
       attrs: {}
-    }
+    }]
   end
 
   it "should parse tag attributes" do
     parse(%Q{
       <page title="My Page" id='my-page'>
       </page>
-    }).should == {
+    }).should == [{
       tag:  'page',
       text: '',
       attrs: {
         title: "My Page",
         id:    "my-page"
       }
-    }
+    }]
   end
 
   it "should process nested views" do
@@ -39,13 +39,13 @@ describe UnderOs::Parser::HTML do
           </view>
         </view>
       </page>
-    }).should == {
+    }).should == [{
       tag: "page", attrs: {}, children: [
         {tag: "view", attrs: {id: "my-view"}, :children=>[
           {tag: "view", attrs: {class: "my-view"}}
         ]}
       ]
-    }
+    }]
   end
 
   it "should handle terminal nodes correctly" do
@@ -54,12 +54,12 @@ describe UnderOs::Parser::HTML do
         <img src="my-image.jpg" />
         <button>Boo Hoo</button>
       </page>
-    }).should == {
+    }).should == [{
       tag: "page", attrs: {}, children: [
         {tag: "img", attrs: {src: "my-image.jpg"}},
         {tag: "button", attrs: {}, text: "Boo Hoo"}
       ]
-    }
+    }]
   end
 
 
