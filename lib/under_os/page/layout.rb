@@ -18,9 +18,7 @@ class UnderOs::Page::Layout
   def build_layout_from_html
     if filename = find_layout_with_type('html')
       if layout = UnderOs::Parser.parse(filename)
-        p layout
         if view = UnderOs::Page::Builder.views_from(layout)[0]
-          p view
           @page._.view = view._
           @page.title  = layout[0][:attrs][:title] rescue nil
         end
