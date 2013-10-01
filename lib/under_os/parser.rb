@@ -15,10 +15,9 @@ class UnderOs::Parser
   def parse(filename)
     content = read(filename) || ''
 
-    if filename.ends_with?('.css')
-      @css.parse(content)
-    elsif filename.ends_with?('.html')
-      @html.parse(content)
+    case filename.split('.').pop
+    when 'css'  then @css.parse(content)
+    when 'html' then @html.parse(content)
     end
   end
 

@@ -12,7 +12,8 @@ Motion::Project::App.instance_eval do
 
     setup_before_under_os *args do |app|
       app.resources_dirs << File.dirname(__FILE__) + "/../resources"
-      app.resources_dirs << "app/styles/" if File.exists?("app/styles")
+      app.resources_dirs << "app/styles/"  if File.exists?("app/styles")
+      app.resources_dirs << "app/layouts/" if File.exists?("app/layouts")
 
       app.fonts << "fontawesome-webfont.ttf"
 
