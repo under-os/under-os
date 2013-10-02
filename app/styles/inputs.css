@@ -1,0 +1,37 @@
+input {
+  left: 10;
+  top:  100;
+  width: 300;
+  height: 40;
+}
+
+textarea {
+  left: 10;
+  top:  150;
+  width: 300;
+  height: 100;
+}
+
+slider {
+  left: 10;
+  top:  300;
+  width: 200;
+}
+
+switch {
+  left: 250;
+  top:  300;
+}
+
+progress {
+  left: 10;
+  top:  400;
+  width: 200;
+}
+
+spinner {
+  left: 350;
+  top:  400;
+  width: 50;
+  height: 50;
+}
