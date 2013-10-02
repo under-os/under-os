@@ -18,7 +18,7 @@ class UnderOs::UI::Slider < UnderOs::UI::View
   end
 
   def value=(value)
-    @_.value = value
+    @_.value = value.to_f
   end
 
   def min
@@ -26,7 +26,7 @@ class UnderOs::UI::Slider < UnderOs::UI::View
   end
 
   def min=(value)
-    @_.minimumValue = value
+    @_.minimumValue = value.to_f
   end
 
   def max
@@ -34,6 +34,6 @@ class UnderOs::UI::Slider < UnderOs::UI::View
   end
 
   def max=(value)
-    @_.maximumValue = value
+    @_.maximumValue = value.to_f
   end
 end

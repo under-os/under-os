@@ -9,4 +9,6 @@ class UnderOs::UI::Textarea < UnderOs::UI::View
     self.value       = options[:value]       if options[:value]
     self.keyboard    = options[:keyboard]    if options[:keyboard]
   end
+
+  alias :text= :value= # to get values from the HTML layouts
 end

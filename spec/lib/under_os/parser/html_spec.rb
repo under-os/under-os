@@ -99,4 +99,38 @@ describe UnderOs::Parser::HTML do
     ]
   end
 
+  it "should handle multiple single tags correctly" do
+    parse(%Q{
+      <view>
+        <img>
+        <icon>
+        <slide>
+      </view>
+      <switch>
+      <progress>
+    }).should == [
+      {tag: "view", attrs: {}, children: [
+        {tag: "img", attrs: {}},
+        {tag: "icon", attrs: {}},
+        {tag: "slide", attrs: {}}
+      ]},
+      {tag: "switch", attrs: {}},
+      {tag: "progress", attrs: {}}
+    ]
+  end
+
+  it "should skipp all the comments" do
+    parse(%Q{
+      <view>
+        <!-- <img> -->
+        <icon>
+        <!-- <slide> -->
+      </view>
+    }).should == [
+      {tag: "view", attrs: {}, children: [
+        {tag: "icon", attrs: {}}
+      ]}
+    ]
+  end
+
 end

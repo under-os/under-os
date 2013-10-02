@@ -1,6 +1,6 @@
 class UnderOs::Parser::HTML
   def parse(html)
-    html = html.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<')
+    html = html.strip.gsub(/<\!--[\s\S]*?-->/, '').gsub(/>\s+/, '>').gsub(/\s+</, '<')
 
     [].tap do |top|
       @top   = top
@@ -12,6 +12,13 @@ class UnderOs::Parser::HTML
         @chunk = html.slice(i, html.size)
 
         i += open_tag || close_tag || plain_text
+      end
+
+      # closing all the missing tags
+      while node = @stack.shift
+        node.delete(:children)
+        node.delete(:text)
+        @top << node if ! @top.include?(node)
       end
     end
   end
@@ -36,29 +43,19 @@ class UnderOs::Parser::HTML
 
   def close_tag
     if m = @chunk.match(/\A<\/([a-z]+)>/)
-      if @node
-        @stack.pop
-
-        if m[1] == @node[:tag]
-          @node = @stack.last
-        elsif @stack.last
-          if m[1] == @stack.last[:tag]
-            if @node[:children]
-              @stack.last[:children] += @node[:children]
-              @node.delete(:children)
-              @node.delete(:text)
-            end
-            @stack.pop
-            @node = @stack.last
-          else
-            throw "ERROR: Unexpected close tag #{m[0]}"
+      while node = @stack.pop
+        if node[:tag] != m[1]
+          if @stack.size > 0
+            @stack.last[:children] += node[:children] || []
+            node.delete(:children)
+            node.delete(:text)
           end
         else
-          throw "ERROR: No open tag for #{m[0]}"
+          break
         end
-      else
-        throw "ERROR: No open tag for #{m[0]}"
       end
+
+      @node = @stack.last
 
       m[0].size
     end
@@ -75,7 +72,10 @@ class UnderOs::Parser::HTML
   def parse_attrs_in(string)
     {}.tap do |hash|
       string.scan(/([a-z][a-z_\-\d]+)=('|")(.+?)(\2)/).each do |match|
-        hash[match[0].to_sym] = match[2]
+        value = match[0] == match[2] ? true : match[2]
+        value = true  if value == 'true'
+        value = false if value == 'false'
+        hash[match[0].to_sym] = value
       end
     end
   end

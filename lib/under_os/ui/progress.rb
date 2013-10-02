@@ -12,6 +12,6 @@ class UnderOs::UI::Progress < UnderOs::UI::View
   end
 
   def value=(value)
-    @_.setProgress value, animated: true
+    @_.setProgress value.to_f, animated: true
   end
 end
