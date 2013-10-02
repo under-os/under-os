@@ -1,7 +1,7 @@
 class HomePage < UnderOs::Page
 
   def initialize
-    self.title = 'Hello World!'
+    self.title = 'Home'
 
     insert b1 = Button.new(text: 'Various Stuff').position(x: 100, y: 100)
     insert b2 = Button.new(text: 'Caluclator Demo').position(x: 100, y: 150)

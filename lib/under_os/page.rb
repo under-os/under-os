@@ -34,20 +34,10 @@ class UnderOs::Page
     @_view = view
   end
 
-  def insert(*args)
-    @_view.insert(*args)
-  end
-
-  def append(*args)
-    @_view.insert(*args)
-  end
-
-  def prepend(*args)
-    @_view.insert(*args)
-  end
-
-  def find(css_rule)
-    @_view.find(css_rule)
+  %w[insert append prepend find first].each do |method|
+    define_method method do |*args|
+      @_view.__send__ method, *args
+    end
   end
 
   def navigation
