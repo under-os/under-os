@@ -23,7 +23,6 @@ describe UnderOs::Parser::HTML do
       </page>
     }).should == [{
       tag:  'page',
-      text: '',
       attrs: {
         title: "My Page",
         id:    "my-page"
@@ -41,7 +40,7 @@ describe UnderOs::Parser::HTML do
       </page>
     }).should == [{
       tag: "page", attrs: {}, children: [
-        {tag: "view", attrs: {id: "my-view"}, :children=>[
+        {tag: "view", attrs: {id: "my-view"}, children: [
           {tag: "view", attrs: {class: "my-view"}}
         ]}
       ]
@@ -62,5 +61,42 @@ describe UnderOs::Parser::HTML do
     }]
   end
 
+  it "should handle same tags correctly" do
+    parse(%Q{
+      <view id="level1">
+        <view id='level2'>
+          <button>A</button>
+          <button>B</button>
+
+          <view id="level3">
+            <img src="test.png" />
+          </view>
+
+          <view id="level4">
+            <icon type="ok">
+            <label>A</label>
+            <label>B</label>
+          </view>
+        </view>
+      </view>
+    }).should == [{
+      tag: "view", attrs: {id: "level1"}, children: [
+        {tag: "view", attrs: {id: "level2"}, children: [
+          {tag: "button", attrs: {}, text: "A"},
+          {tag: "button", attrs: {}, text: "B"},
+
+          {tag: "view", attrs: {id: "level3"}, children: [
+            {tag: "img", attrs: {src: "test.png"}}
+          ]},
+
+          {tag: "view", attrs: {id: "level4"}, children: [
+            {tag: "icon", attrs: {type: "ok"}},
+            {tag: "label", attrs: {}, text: "A"},
+            {tag: "label", attrs: {}, text: "B"}
+          ]}
+        ]}
+      ]}
+    ]
+  end
 
 end

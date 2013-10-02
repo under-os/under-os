@@ -1,35 +1,74 @@
 class UnderOs::Parser::HTML
   def parse(html)
-    parse_nodes_in(html)
+    html = html.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<')
+
+    [].tap do |top|
+      @top   = top
+      @stack = []
+      @node  = nil
+      i      = 0
+
+      while i < html.size
+        @chunk = html.slice(i, html.size)
+
+        i += open_tag || close_tag || plain_text
+      end
+    end
   end
 
-  OPEN_TAG_RE = /<([a-z]+)([^>]*)>/
+  def open_tag
+    if m = @chunk.match(/\A<([a-z]+)([^>]*)>/)
+      @node = {tag: m[1], attrs: parse_attrs_in(m[2])}
 
-  def parse_nodes_in(html)
-    [].tap do |nodes|
-      while l_index = html.index(OPEN_TAG_RE)
-        r_index    = html.index('>', l_index)
-        tag_str    = html.slice(l_index, r_index - l_index + 1)
-        tag, attrs = tag_str.match(OPEN_TAG_RE).to_a.slice(1, 2)
-        close_tag  = "</#{tag}>"
+      if parent = @stack.last
+        parent[:children] ||= []
+        parent[:children] << @node
+        parent.delete(:text) # it can have either text or children
+      else
+        @top << @node
+      end
 
-        node       = {tag: tag, attrs: parse_attrs_in(attrs)}
+      @stack << @node
 
-        if close_index = html.index(close_tag)
-          content      = html.slice(r_index + 1, close_index - r_index - 1)
-          if content.index(OPEN_TAG_RE)
-            node[:children] = parse_nodes_in(content)
+      m[0].size
+    end
+  end
+
+  def close_tag
+    if m = @chunk.match(/\A<\/([a-z]+)>/)
+      if @node
+        @stack.pop
+
+        if m[1] == @node[:tag]
+          @node = @stack.last
+        elsif @stack.last
+          if m[1] == @stack.last[:tag]
+            if @node[:children]
+              @stack.last[:children] += @node[:children]
+              @node.delete(:children)
+              @node.delete(:text)
+            end
+            @stack.pop
+            @node = @stack.last
           else
-            node[:text] = content.strip
+            throw "ERROR: Unexpected close tag #{m[0]}"
           end
         else
-          close_index = r_index + 1
+          throw "ERROR: No open tag for #{m[0]}"
         end
-
-        html = html.slice(close_index, html.size)
-
-        nodes << node
+      else
+        throw "ERROR: No open tag for #{m[0]}"
       end
+
+      m[0].size
+    end
+  end
+
+  def plain_text
+    if m = @chunk.match(/\A([^<]+)/)
+      @stack.last[:text] = m[1] if @stack.last
+
+      m[0].size
     end
   end
 
