@@ -1,5 +1,5 @@
 class UnderOS::UI::Button < UnderOS::UI::View
-  wraps UIButton
+  wraps UIButton, tag: 'button'
 
   def initialize(options={})
     options = {style: {

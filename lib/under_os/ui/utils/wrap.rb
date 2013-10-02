@@ -5,13 +5,15 @@
 module UnderOs::UI::Wrap
   INSTANCES_CACHE = {}
   RAW_WRAPS_MAP   = {}
+  WRAPS_TAGS_MAP  = {}
 
   def self.included(base)
     base.instance_eval do
       attr_accessor :_
 
-      def self.wraps(raw_class)
+      def self.wraps(raw_class, options={})
         RAW_WRAPS_MAP[self] = raw_class
+        WRAPS_TAGS_MAP[options[:tag].to_s] = self if options[:tag]
       end
 
       def self.new(options={})

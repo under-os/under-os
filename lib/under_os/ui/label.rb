@@ -1,5 +1,5 @@
 class UnderOs::UI::Label < UnderOs::UI::View
-  wraps UILabel
+  wraps UILabel, tag: 'label'
 
   def initialize(options={})
     super

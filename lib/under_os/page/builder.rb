@@ -38,12 +38,7 @@ class UnderOs::Page::Builder
   end
 
   def class_for_tag(tag)
-    UnderOs::UI.const_get({
-      img:    'Image',
-      icon:   'Icon',
-      label:  'Label',
-      button: 'Button'
-    }[tag.to_sym] || 'View')
+    UnderOs::UI::Wrap::WRAPS_TAGS_MAP[tag] || UnderOs::UI::View
   end
 
   def options_from_attrs(hash)

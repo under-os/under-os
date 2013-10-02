@@ -8,7 +8,7 @@ class UnderOs::UI::View
   include UnderOs::UI::Traversing
   include UnderOs::UI::Manipulation
 
-  wraps UIView
+  wraps UIView, tag: 'view'
 
   def initialize(options={})
     self.id        = options.delete(:id)    if options.has_key?(:id)

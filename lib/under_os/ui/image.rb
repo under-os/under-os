@@ -1,5 +1,5 @@
 class UnderOs::UI::Image < UnderOs::UI::View
-  wraps UIImageView
+  wraps UIImageView, tag: 'img'
 
   def initialize(options)
     options = {srs: options} unless options.is_a?(Hash)
