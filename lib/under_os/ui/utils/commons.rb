@@ -8,7 +8,7 @@ module UnderOs::UI::Commons
   end
 
   def tagName
-    @_tag_name ||= self.class.name.split('::').pop.underscore.upcase
+    @_tag_name ||= UnderOs::UI::Wrap::WRAPS_TAGS_MAP.detect{|t,k| k == self.class}[0].upcase
   end
 
   def data

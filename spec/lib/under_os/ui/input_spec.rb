@@ -12,6 +12,10 @@ describe UnderOs::UI::Input do
       @input._.class.should == UITextField
     end
 
+    it "should assign correct tag name" do
+      @input.tagName.should == 'INPUT'
+    end
+
     it "should accept the 'value' option" do
       input = UnderOs::UI::Input.new(value: 'boo hoo')
       input.value.should == 'boo hoo'

@@ -12,6 +12,10 @@ describe UnderOs::UI::Textarea do
       @textarea._.class.should == UITextView
     end
 
+    it "should assign correct tag name" do
+      @textarea.tagName.should == 'TEXTAREA'
+    end
+
     it "should accept the 'value' option" do
       textarea = UnderOs::UI::Textarea.new(value: 'boo hoo')
       textarea.value.should == 'boo hoo'

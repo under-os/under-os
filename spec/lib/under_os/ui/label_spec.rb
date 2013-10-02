@@ -14,5 +14,9 @@ describe UnderOs::UI::Label do
       label = UnderOs::UI::Label.new(text: 'label text')
       label.text.should == 'label text'
     end
+
+    it "should assign correct tag name" do
+      UnderOs::UI::Label.new.tagName.should == 'LABEL'
+    end
   end
 end

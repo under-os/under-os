@@ -15,6 +15,10 @@ describe UnderOs::UI::Icon do
       icon = UnderOs::UI::Icon.new(:ok)
       icon.style.color.should == UIColor.blackColor
     end
+
+    it "should assign correct tag name" do
+      UnderOs::UI::Icon.new.tagName.should == 'ICON'
+    end
   end
 
   describe '#type' do
