@@ -11,7 +11,7 @@ Motion::Project::App.instance_eval do
     end
 
     setup_before_under_os *args do |app|
-      app.resources_dirs << File.dirname(__FILE__) + "/../resources"
+      app.resources_dirs << File.dirname(__FILE__) + "/assets"
       app.resources_dirs << "app/styles/"  if File.exists?("app/styles")
       app.resources_dirs << "app/layouts/" if File.exists?("app/layouts")
 
