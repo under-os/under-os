@@ -28,8 +28,7 @@ class UnderOs::Page::Layout
 
   def build_layout_from_nothing
     @page._.view = UIView.alloc.initWithFrame([[0,0], [
-      UIScreen.mainScreen.bounds.size.width,
-      UIScreen.mainScreen.bounds.size.height
+      UnderOs::Screen.size.x, UnderOs::Screen.size.y
     ]])
   end
 

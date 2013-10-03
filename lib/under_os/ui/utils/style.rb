@@ -46,19 +46,19 @@ class UnderOs::UI::Style
   end
 
   def right
-    screen_width - left
+    UnderOs::Screen.size.x - left
   end
 
   def right=(right)
-    @view.frame = [[screen_width - right - left, top], [width, height]]
+    @view.frame = [[UnderOs::Screen.size.x - right - left, top], [width, height]]
   end
 
   def bottom
-    screen_height - top
+    UnderOs::Screen.size.y - top
   end
 
   def bottom=(bottom)
-    @view.frame = [[left, screen_height - bottom - height], [width, height]]
+    @view.frame = [[left, UnderOs::Screen.size.y - bottom - height], [width, height]]
   end
 
   def opacity
@@ -158,16 +158,6 @@ class UnderOs::UI::Style
   end
 
 private
-
-  def screen_width
-    # TODO check for the screen orientation
-    UIScreen.mainScreen.bounds.size.width
-  end
-
-  def screen_height
-    # TODO check for the screen orientation
-    UIScreen.mainScreen.bounds.size.height
-  end
 
   def convert_color(color)
     color = 'darkGray'  if color == 'darkgray'

@@ -24,8 +24,8 @@ class Point
     @y
   end
 
-  def ==(point)
-    point = Point.new(point) # normalizing
+  def ==(*args)
+    point = Point.new(*args) # normalizing
     x == point.x && y == point.y
   end
 end
