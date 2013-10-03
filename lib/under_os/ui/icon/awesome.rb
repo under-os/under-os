@@ -368,7 +368,8 @@ class UnderOs::UI::IconEngineAwesome
   end
 
   def self.text(name)
-    NAMES_MAP[name.to_s.gsub('_', '-')].chr(Encoding::UTF_8)
+    name = NAMES_MAP[name.to_s.gsub('_', '-')] || NAMES_MAP['bug']
+    name.chr(Encoding::UTF_8)
   end
 
 end

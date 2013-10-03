@@ -2,8 +2,13 @@
 # The styles handling API for UIView
 #
 module UnderOs::UI::Styles
-  def style
-    @_style ||= UnderOs::UI::Style.new(@_)
+  def style(hash=nil)
+    if hash
+      self.style = hash
+      self
+    else
+      @_style ||= UnderOs::UI::Style.new(@_)
+    end
   end
 
   def style=(hash)

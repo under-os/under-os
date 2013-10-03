@@ -6,16 +6,14 @@ class UnderOs::Navigation
   end
 
   def current_page
-    @current_page
+    @_.visibleViewController.wrapper
   end
 
   def main_page
-    @main_page
+    @_.topViewController.wrapper
   end
 
   def main_page=(page)
-    @main_page = @current_page = page
-
     @_.initWithRootViewController(page._)
     @_.navigationBar.hidden    = !@_visible
 

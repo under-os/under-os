@@ -13,6 +13,7 @@ class UnderOs::UI::Icon < UnderOs::UI::View
     self.type = options.delete(:type) || :bug
     self.size = options.delete(:size) || 20
 
+    @_.sizeToFit
     @_.showsTouchWhenHighlighted = true
   end
 
@@ -23,15 +24,20 @@ class UnderOs::UI::Icon < UnderOs::UI::View
   def type=(type)
     @type = type
     @_.setTitle self.class.engine.text(type), forState:UIControlStateNormal
-    @_.sizeToFit if style.width == 0
   end
 
-  def size
-    @size
+  def size(size=nil)
+    if size
+      self.size = size
+      self
+    else
+      @size
+    end
   end
 
   def size=(size)
     @size = size
     @_.setFont self.class.engine.font(size)
+    @_.sizeToFit
   end
 end

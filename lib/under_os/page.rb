@@ -11,7 +11,7 @@ class UnderOs::Page
   attr_reader :_
 
   def self.new(*args)
-    alloc.setup_wrap
+    alloc.setup_wrap(*args)
   end
 
   def self.navigation=(navigation)
@@ -56,8 +56,8 @@ class UnderOs::Page
     self.class.name.underscore.sub(/_page$/, '')
   end
 
-  def setup_wrap
-    @_ = UIViewControllerWrap.alloc.init({
+  def setup_wrap(*args)
+    @_ = UIViewControllerWrap.alloc.init(self, {
       on_load_view:      Proc.new{ emit('init')      },
       on_view_loaded:    Proc.new{ emit('load')      },
       on_view_appear:    Proc.new{ emit('appear')    },
@@ -70,7 +70,7 @@ class UnderOs::Page
     end
 
     on 'load' do
-      initialize
+      initialize(*args)
       apply_styles_to(view)
     end
 
@@ -98,8 +98,10 @@ class UnderOs::Page
   # the iOS events
   #
   class UIViewControllerWrap < UIViewController
+    attr_reader :wrapper
 
-    def init(options)
+    def init(wrapper, options)
+      @wrapper = wrapper
       @options = options
       initWithNibName(nil, bundle: nil)
     end
