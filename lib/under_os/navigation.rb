@@ -5,11 +5,17 @@ class UnderOs::Navigation
     UnderOs::Page.navigation = self
   end
 
+  def current_page
+    @current_page
+  end
+
   def main_page
     @main_page
   end
 
   def main_page=(page)
+    @main_page = @current_page = page
+
     @_.initWithRootViewController(page._)
     @_.navigationBar.hidden    = !@_visible
 
@@ -27,6 +33,7 @@ class UnderOs::Navigation
   end
 
   def push(page, animated=true)
+    @current_page = page
     @_.pushViewController(page._, animated: animated)
   end
 

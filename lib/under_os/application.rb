@@ -4,6 +4,14 @@ class UnderOs::Application
     @start_block = block
   end
 
+  def self.new(*args)
+    @inst ||= super *args
+  end
+
+  def self.current_page
+    @inst.current_page
+  end
+
   def initialize(ios_app, options)
     @_          = ios_app
     @window     = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
@@ -18,6 +26,10 @@ class UnderOs::Application
 
   def navigation
     @navigation
+  end
+
+  def current_page
+    @navigation.current_page
   end
 
 end
