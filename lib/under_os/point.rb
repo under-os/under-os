@@ -28,4 +28,12 @@ class Point
     point = Point.new(*args) # normalizing
     x == point.x && y == point.y
   end
+
+  def *(multiplier)
+    self.class.new(x: @x * multiplier, y: @y * multiplier)
+  end
+
+  def /(divider)
+    self.class.new(x: @x / divider.to_f, y: @y / divider.to_f)
+  end
 end

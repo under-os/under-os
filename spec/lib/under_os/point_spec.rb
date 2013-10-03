@@ -42,4 +42,13 @@ describe UnderOs::Point do
       @point.should.not == {x: 60, y: 50}
     end
   end
+
+  describe '#*' do
+    it "should allow to multiply pointers by a factor" do
+      point = UnderOs::Point.new(x: 15, y: 25)
+      new_point = point * 2
+      new_point.should.not == point
+      new_point.should == {x: 30, y: 50}
+    end
+  end
 end
