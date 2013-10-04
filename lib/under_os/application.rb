@@ -12,6 +12,15 @@ class UnderOs::Application
     @inst.current_page
   end
 
+  def self.stylesheet
+    @stylesheet ||= begin
+      stylesheet = UnderOs::Page::Stylesheet.new
+      stylesheet.load('under-os.css')
+      stylesheet.load('application.css')
+      stylesheet
+    end
+  end
+
   def initialize(ios_app, options)
     @_          = ios_app
     @window     = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)

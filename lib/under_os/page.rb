@@ -82,11 +82,13 @@ class UnderOs::Page
   end
 
   def compile_styles
-    @compound_styles = Styles.new(self)
+    @stylesheet = Stylesheet.new
+    @stylesheet << UnderOs::Application.stylesheet
+    @stylesheet.load("#{name}.css")
   end
 
   def apply_styles_to(view)
-    @compound_styles.apply_to(view)
+    @stylesheet.apply_to(view)
 
     view.children.each do |subview|
       apply_styles_to(subview)

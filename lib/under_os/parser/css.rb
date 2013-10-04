@@ -1,5 +1,7 @@
 class UnderOs::Parser::CSS
   def parse(style)
+    style = style.gsub(/\/\*[\s\S]+?\*\//, '').strip
+
     {}.tap do |result|
       style.scan(/(\A|\})([a-z0-9_\-\.\s#:]+)\{([^}]+)/).map do |rule|
         result[rule[1].gsub(/\s+/, ' ').strip] = parse_styles(rule[2])
