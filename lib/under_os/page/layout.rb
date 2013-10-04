@@ -27,9 +27,8 @@ class UnderOs::Page::Layout
   end
 
   def build_layout_from_nothing
-    @page._.view = UIView.alloc.initWithFrame([[0,0], [
-      UnderOs::Screen.size.x, UnderOs::Screen.size.y
-    ]])
+    @page._.view = UIView.alloc.init
+    @page._.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight
   end
 
   def find_layout_with_type(ext)

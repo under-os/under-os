@@ -160,9 +160,6 @@ class UnderOs::UI::Style
 private
 
   def convert_color(color)
-    color = 'darkGray'  if color == 'darkgray'
-    color = 'lightGray' if color == 'lightgray'
-    color = UIColor.send "#{color}Color" unless color.is_a?(UIColor)
-    color
+    UnderOs::Color.new(color).ui
   end
 end

@@ -4,8 +4,8 @@ describe UnderOs::Screen do
     it "should return the size as a Point" do
       size = UnderOs::Screen.size
       size.class.should == UnderOs::Point
-
-      p size
+      size.x.should == 320
+      size.y.should == 568
     end
   end
 end
