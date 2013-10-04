@@ -19,22 +19,22 @@ module UnderOs::Events
     extend self
 
     def list(model, event=nil)
-      @listeners               ||= {}
-      @listeners[model]        ||= {}
-      @listeners[model][event] ||= [] if event
+      @listeners                      ||= {}
+      @listeners[model]               ||= {}
+      @listeners[model][event.to_sym] ||= [] if event
     end
 
     def add(model, event, *args, block)
-      list(model, event) << [block, *args]
+      list(model, event.to_sym) << [block, *args]
       model
     end
 
     def all(model, event)
-      list(model, event)
+      list(model, event.to_sym)
     end
 
     def remove(model, event)
-      list(model).delete event
+      list(model).delete event.to_sym
       model
     end
 
@@ -68,7 +68,7 @@ module UnderOs::Events
     attr_reader :name, :params
 
     def initialize(name, params)
-      @name   = name
+      @name   = name.to_sym
       @params = params
     end
 

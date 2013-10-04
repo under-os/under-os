@@ -19,13 +19,12 @@ module UnderOs::UI::Events
 
   def emit(*event)
     if event.is_a?(UIGestureRecognizer)
-      event  = Event.new(self, event)
-      params = nil
+      event = Event.new(self, event)
     else
-      event, params = Array(event)
+      event = Event.new(self, *event)
     end
 
-    UnderOs::Events::Listeners.kick(self, event, params || {})
+    UnderOs::Events::Listeners.kick(self, event, {})
   end
 
   def on=(hash)
@@ -66,10 +65,10 @@ private
   class Event < UnderOs::Events::Event
     attr_reader :target
 
-    def initialize(view, recognizer)
+    def initialize(view, event, params={})
       @target = view
-      name, r = view.__send__ :find_recognizer_from, recognizer.class
-      super name, {}
+      event, r = view.__send__ :find_recognizer_from, event.class if event.is_a?(UIGestureRecognizer)
+      super event, params
     end
   end
 end
