@@ -11,11 +11,6 @@ describe UnderOs::UI::Icon do
       icon.size.should == 20
     end
 
-    it "should set default color to 'black'" do
-      icon = UnderOs::UI::Icon.new(:ok)
-      icon.style.color.should == UIColor.blackColor
-    end
-
     it "should assign correct tag name" do
       UnderOs::UI::Icon.new.tagName.should == 'ICON'
     end

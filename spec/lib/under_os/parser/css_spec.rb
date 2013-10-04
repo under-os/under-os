@@ -55,4 +55,15 @@ describe UnderOs::Parser::CSS do
       'icon#delete .col1.col2' => {color: "red"}
     }
   end
+
+  it "should parse several rules" do
+    @parser.parse(%Q{
+      input, textarea {
+        width: 100;
+      }
+    }).should == {
+      'input'    => {width: 100.0},
+      'textarea' => {width: 100.0}
+    }
+  end
 end

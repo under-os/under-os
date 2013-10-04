@@ -2,13 +2,7 @@ class UnderOS::UI::Button < UnderOS::UI::View
   wraps UIButton, tag: 'button'
 
   def initialize(options={})
-    options = {style: {
-      color:      :black,
-      background: :lightGray,
-      borderRadius: 5
-    }}.merge(options)
-
-    super(options)
+    super
 
     self.text  = options.delete(:text) || ''
     @_.sizeToFit

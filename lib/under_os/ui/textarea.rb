@@ -4,14 +4,6 @@ class UnderOs::UI::Textarea < UnderOs::UI::View
   wraps UITextView, tag: 'textarea'
 
   def initialize(options={})
-    options.merge!({
-      style: {
-        borderWidth: 1,
-        borderColor: :lightGray,
-        borderRadius: 2
-      }
-    })
-
     super
 
     self.value       = options[:value]       if options[:value]

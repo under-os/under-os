@@ -6,7 +6,6 @@ class UnderOs::UI::Icon < UnderOs::UI::View
 
   def initialize(options)
     options = {type: options} if ! options.is_a?(Hash)
-    options = {style: {color: 'black'}}.merge(options)
 
     super(options)
 

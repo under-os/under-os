@@ -4,14 +4,6 @@ class UnderOs::UI::Input < UnderOs::UI::View
   wraps UITextField, tag: 'input'
 
   def initialize(options={})
-    options.merge!({
-      style: {
-        borderWidth: 1,
-        borderColor: :lightGray,
-        borderRadius: 2
-      }
-    })
-
     super
 
     # self.type        = options[:type]        if options[:type]

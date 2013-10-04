@@ -1,3 +1,19 @@
 /**
  * The under-os stock stylesheet
  */
+
+button {
+  color:         black;
+  background:    lightgray;
+  border-radius: 5;
+}
+
+icon {
+  color: black;
+}
+
+input, textarea {
+  border-width:  1;
+  border-color:  lightgray;
+  border-radius: 2;
+}
