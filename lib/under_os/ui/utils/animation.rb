@@ -61,7 +61,7 @@ module UnderOs::UI::Animation
     def run
       @view.emit('animation:start')
 
-      UIView.animateWithDuration 0.5,
+      UIView.animateWithDuration duration,
                           delay: delay,
                         options: options,
                      animations: ->{ @block.call },
@@ -69,7 +69,7 @@ module UnderOs::UI::Animation
     end
 
     def duration
-      @options[:duration] || 0.4
+      @options[:duration] || 0.25
     end
 
     def delay

@@ -50,7 +50,7 @@ class UnderOs::UI::Style
   end
 
   def right=(right)
-    @view.frame = [[UnderOs::Screen.size.x - right - left, top], [width, height]]
+    @view.frame = [[UnderOs::Screen.size.x - right - width, top], [width, height]]
   end
 
   def bottom

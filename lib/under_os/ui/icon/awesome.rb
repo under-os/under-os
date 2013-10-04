@@ -13,6 +13,7 @@ class UnderOs::UI::IconEngineAwesome
     'th' => 0xF00A,
     'th-list' => 0xF00B,
     'ok' => 0xF00C,
+    'cancel' => 0xF00D,
     'remove' => 0xF00D,
     'zoom-in' => 0xF00E,
     'zoom-out' => 0xF010,
