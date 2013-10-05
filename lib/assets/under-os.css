@@ -22,7 +22,12 @@ sidebar {
   left:  -1000;
 }
 
-sidebar button {
-  width:      100%;
-  background: clear;
+sidebar.left, sidebar.right {
+  height: 100%;
+  top:    0;
+}
+
+sidebar.top, sidebar.bottom {
+  width: 100%;
+  left:  0;
 }

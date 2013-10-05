@@ -1,8 +1,12 @@
 #buttons {
   top:    100;
   left:   100;
-  width:  200;
+  width:  150;
   height: 200;
+}
+
+#buttons button {
+  width: 100%;
 }
 
 #buttons #top    { top: 0;   }
@@ -12,6 +16,11 @@
 
 sidebar {
   background: yellow;
+}
+
+sidebar button {
+  width:      100%;
+  background: clear;
 }
 
 sidebar #b1 { top: 50;  }

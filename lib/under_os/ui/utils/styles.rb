@@ -29,7 +29,7 @@ module UnderOs::UI::Styles
 
   def classNames=(list)
     prev_list = @_class_names
-    @_class_names = list.uniq
+    @_class_names = list.uniq.map(&:to_s)
 
     repaint if prev_list != @_class_names
   end

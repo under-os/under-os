@@ -1,11 +1,12 @@
 class UnderOs::UI::Sidebar < UnderOs::UI::View
   wraps UIView, tag: :sidebar
 
+  LOCATIONS = [:top, :left, :right, :bottom]
+
   def initialize(options={})
     super
 
     self.location = options.delete(:location) if options.has_key?(:location)
-    self.animated = options.delete(:animated) if options.has_key?(:animated)
   end
 
   def location
@@ -14,46 +15,31 @@ class UnderOs::UI::Sidebar < UnderOs::UI::View
 
   def location=(value)
     @location = value.to_sym
-  end
-
-  def animated
-    @animated == nil ? true : @animated
-  end
-
-  def animated=(value)
-    @animated = value
+    @location = nil if ! LOCATIONS.include?(@location)
   end
 
   def show
-    self.style = if [:bottom, :top].include?(location)
-      {:width => '100%', :left =>  0, location => -size.y}
-    else
-      {:height => '100%', :top => 0, location => -size.x}
-    end
+    class_names = self.classNames
+    class_names.reject!{ |n| LOCATIONS.include?(n.to_sym) }
 
-    if animated
-      animate location => 0
-    else
-      self.style = {location => 0}
-    end
+    self.classNames = class_names + [location, 'visible']
+    self.style = {location => -slide_distance}
 
-    @visible = true
+    animate location => 0
   end
 
   def hide
-    pos = [:top, :bottom].include?(location) ? -size.y : -size.x
+    @_class_names -= ['visible']
 
-    if animated
-      animate location => pos
-    else
-      self.style = {location => pos}
-    end
-
-    @visible = false
+    animate location => -slide_distance
   end
 
   def visible?
-    @visible
+    classNames.include?('visible')
+  end
+
+  def slide_distance
+    [:top, :bottom].include?(location) ? size.y : size.x
   end
 
 end
