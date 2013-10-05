@@ -18,7 +18,7 @@ class UnderOs::UI::Style
   end
 
   def width=(width)
-    @view.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [convert_size(width, :x), height]]
   end
 
   def height
@@ -26,7 +26,7 @@ class UnderOs::UI::Style
   end
 
   def height=(height)
-    @view.frame = [[left, top], [width, height]]
+    @view.frame = [[left, top], [width, convert_size(height, :y)]]
   end
 
   def top
@@ -34,7 +34,7 @@ class UnderOs::UI::Style
   end
 
   def top=(top)
-    @view.frame = [[left, top], [width, height]]
+    @view.frame = [[left, convert_size(top, :y)], [width, height]]
   end
 
   def left
@@ -42,7 +42,7 @@ class UnderOs::UI::Style
   end
 
   def left=(left)
-    @view.frame = [[left, top], [width, height]]
+    @view.frame = [[convert_size(left, :x), top], [width, height]]
   end
 
   def right
@@ -50,7 +50,7 @@ class UnderOs::UI::Style
   end
 
   def right=(right)
-    @view.frame = [[UnderOs::Screen.size.x - right - width, top], [width, height]]
+    @view.frame = [[UnderOs::Screen.size.x - convert_size(right, :x) - width, top], [width, height]]
   end
 
   def bottom
@@ -58,7 +58,7 @@ class UnderOs::UI::Style
   end
 
   def bottom=(bottom)
-    @view.frame = [[left, UnderOs::Screen.size.y - bottom - height], [width, height]]
+    @view.frame = [[left, UnderOs::Screen.size.y - convert_size(bottom, :y) - height], [width, height]]
   end
 
   def opacity
@@ -161,5 +161,17 @@ private
 
   def convert_color(color)
     UnderOs::Color.new(color).ui
+  end
+
+  def convert_size(size, dim)
+    if size.is_a?(String)
+      if size.ends_with?('%')
+        size = size.slice(0, size.size-1).to_f
+        parent_size = view.superview.frame.size.send dim == :x ? :width : :height
+        size = parent_size / 100.0 * size
+      end
+    end
+
+    size
   end
 end

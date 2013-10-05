@@ -4,7 +4,7 @@ module UnderOs::UI::Traversing
       UnderOs::UI::View.new(@_.superview) if @_.superview
     else
       parent = self
-      while parent = parent.parent
+      while parent.is_a?(UnderOs::UI::View) && (parent = parent.parent)
         return parent if parent.matches(css_rule)
       end
     end

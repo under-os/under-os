@@ -1,0 +1,21 @@
+#buttons {
+  top:    100;
+  left:   100;
+  width:  200;
+  height: 200;
+}
+
+#buttons #top    { top: 0;   }
+#buttons #left   { top: 50;  }
+#buttons #right  { top: 100; }
+#buttons #bottom { top: 150; }
+
+sidebar {
+  background: yellow;
+}
+
+sidebar #b1 { top: 50;  }
+sidebar #b2 { top: 100; }
+sidebar #b3 { top: 150; }
+sidebar #b4 { top: 200; }
+

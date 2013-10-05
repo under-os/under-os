@@ -17,3 +17,12 @@ input, textarea {
   border-color:  lightgray;
   border-radius: 2;
 }
+
+sidebar {
+  left:  -1000;
+}
+
+sidebar button {
+  width:      100%;
+  background: clear;
+}

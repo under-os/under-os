@@ -6,6 +6,7 @@ class UnderOS::UI::Button < UnderOS::UI::View
 
     self.text  = options.delete(:text) || ''
     @_.sizeToFit
+    @_.showsTouchWhenHighlighted = true
   end
 
   def text

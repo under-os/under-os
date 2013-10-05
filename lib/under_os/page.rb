@@ -70,8 +70,9 @@ class UnderOs::Page
     end
 
     on 'load' do
+      rerender
       initialize(*args)
-      apply_styles_to(view)
+      rerender
     end
 
     self
@@ -85,6 +86,10 @@ class UnderOs::Page
     @stylesheet = Stylesheet.new
     @stylesheet << UnderOs::Application.stylesheet
     @stylesheet.load("#{name}.css")
+  end
+
+  def rerender
+    apply_styles_to(view)
   end
 
   def apply_styles_to(view)
