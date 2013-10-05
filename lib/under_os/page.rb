@@ -8,7 +8,7 @@ class UnderOs::Page
   include UnderOs::Events
   include UnderOs::UI
 
-  attr_reader :_
+  attr_reader :_, :stylesheet
 
   def self.new(*args)
     alloc.setup_wrap(*args)
@@ -70,9 +70,9 @@ class UnderOs::Page
     end
 
     on 'load' do
-      rerender
+      repaint
       initialize(*args)
-      rerender
+      repaint
     end
 
     self
@@ -88,16 +88,8 @@ class UnderOs::Page
     @stylesheet.load("#{name}.css")
   end
 
-  def rerender
-    apply_styles_to(view)
-  end
-
-  def apply_styles_to(view)
-    @stylesheet.apply_to(view)
-
-    view.children.each do |subview|
-      apply_styles_to(subview)
-    end
+  def repaint
+    view.repaint if view
   end
 
   #

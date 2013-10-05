@@ -28,6 +28,17 @@ module UnderOs::UI::Styles
   end
 
   def classNames=(list)
+    prev_list = @_class_names
     @_class_names = list.uniq
+
+    repaint if prev_list != @_class_names
+  end
+
+  def repaint
+    if page && page.stylesheet
+      page.stylesheet.apply_to(self)
+    end
+
+    self
   end
 end

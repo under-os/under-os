@@ -11,6 +11,9 @@ class UnderOs::Page::Stylesheet
 
   def apply_to(view)
     view.style = styles_for(view)
+    view.children.each do |subview|
+      self.apply_to(subview)
+    end
   end
 
   def styles_for(view)

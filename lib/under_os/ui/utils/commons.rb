@@ -18,4 +18,16 @@ module UnderOs::UI::Commons
   def data=(hash)
     @_data = hash
   end
+
+  def page
+    resp = @_
+
+    while resp = resp.nextResponder
+      if resp.is_a?(UIViewController)
+        return resp.wrapper
+      end
+    end
+
+    nil
+  end
 end
