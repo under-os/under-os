@@ -4,34 +4,16 @@ describe UnderOs::UI::Style do
     @style = @view.style
   end
 
-  describe '#borderRadius' do
-    it "should allow to set it" do
-      @style.borderRadius = 10
-      @style.borderRadius.should == 10
-    end
-
-    it "should change the view's layout property" do
-      @style.borderRadius = 20
-      @view._.clipsToBounds.should == true
-      @view._.layer.cornerRadius.should == 20
-    end
+  it "should be an instance of UnderOs::UI::Style" do
+    @style.class.should == UnderOs::UI::Style
   end
 
-  describe '#display' do
-    it "should return :block by default" do
-      @view.style.display.should == :block
-    end
-
-    it "should understand the 'none' value" do
-      @view.style.display = 'none'
-      @view.hidden?.should == true
-      @view.style.display.should == :none
-    end
-
-    it "should understand the 'block' value" do
-      @view.style.display = 'block'
-      @view.visible?.should == true
-      @view.style.display.should  == :block
-    end
+  it "should incapsulate the Element's raw uiview object" do
+    @style.view.should === @view._
   end
+
+  it "should always return the same object" do
+    @view.style.should === @style
+  end
+
 end
