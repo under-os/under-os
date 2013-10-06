@@ -23,7 +23,7 @@ module UnderOs::UI::Manipulation
     self
   end
 
-  def insert_to(view, position=nil)
+  def insertTo(view, position=nil)
     view.insert(self, position)
     self
   end

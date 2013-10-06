@@ -16,7 +16,8 @@ module UnderOs::UI
       end
 
       def fontSize=(value)
-        @view.font = @view.font.fontWithSize(value)
+        @view.font  = @view.font.fontWithSize(value)
+        @view.sizeToFit if @type == :icon
       end
 
       def textAlign

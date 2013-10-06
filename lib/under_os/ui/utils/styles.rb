@@ -7,7 +7,7 @@ module UnderOs::UI::Styles
       self.style = hash
       self
     else
-      @_style ||= UnderOs::UI::Style.new(@_)
+      @_style ||= UnderOs::UI::Style.new(self)
     end
   end
 
@@ -28,10 +28,41 @@ module UnderOs::UI::Styles
   end
 
   def classNames=(list)
-    prev_list = @_class_names
-    @_class_names = list.uniq.map(&:to_s)
+    repaint_if_classes_change do
+      @_class_names = list.uniq.map(&:to_s)
+    end
+  end
 
-    repaint if prev_list != @_class_names
+  def hasClass(name)
+    classNames.include?(name)
+  end
+
+  def addClass(name)
+    repaint_if_classes_change do
+      self.classNames += [name]
+    end
+  end
+
+  def removeClass(name)
+    repaint_if_classes_change do
+      self.classNames -= [name]
+    end
+  end
+
+  def toggleClass(name)
+    if hasClass(name)
+      removeClass name
+    else
+      addClass name
+    end
+  end
+
+  def radioClass(name)
+    parent.children.each do |view|
+      view.removeClass(name) if view != self
+    end
+
+    addClass name
   end
 
   def repaint
@@ -39,6 +70,15 @@ module UnderOs::UI::Styles
       page.stylesheet.apply_to(self)
     end
 
+    self
+  end
+
+private
+
+  def repaint_if_classes_change
+    prev_list = @_class_names.to_s
+    yield if block_given?
+    repaint if prev_list != @_class_names.to_s
     self
   end
 end

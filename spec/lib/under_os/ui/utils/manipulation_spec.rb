@@ -66,24 +66,24 @@ describe UnderOs::UI::Manipulation do
     end
   end
 
-  describe '#insert_to' do
+  describe '#insertTo' do
     it "should allow to insert view into others" do
-      @v2.insert_to(@v1)
-      @v3.insert_to(@v1)
+      @v2.insertTo(@v1)
+      @v3.insertTo(@v1)
 
       @v1.children.should == [@v2, @v3]
     end
 
     it "should allo to insert intems on top of the stack" do
       @v1.insert(@v2)
-      @v3.insert_to(@v1, :top)
+      @v3.insertTo(@v1, :top)
 
       @v1.children.should == [@v3, @v2]
     end
 
     it "should return the view itself after each operation" do
-      @v2.insert_to(@v1).should == @v2
-      @v3.insert_to(@v1).should == @v3
+      @v2.insertTo(@v1).should == @v2
+      @v3.insertTo(@v1).should == @v3
     end
   end
 

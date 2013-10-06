@@ -14,7 +14,8 @@ class UnderOs::UI::Style
   attr_reader :view
 
   def initialize(view)
-    @view = view
+    @view = view._
+    @type = view.tagName.downcase.to_sym
   end
 
 end

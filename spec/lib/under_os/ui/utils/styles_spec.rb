@@ -48,4 +48,93 @@ describe UnderOs::UI::Styles do
       @view.classNames.should == ['one', 'two']
     end
   end
+
+  describe '#hasClass' do
+    it "should return 'true' if the view has the class" do
+      @view.className = 'boo hoo'
+      @view.hasClass('boo').should == true
+    end
+
+    it "should return false if the view has no class" do
+      @view.className = 'boo hoo'
+      @view.hasClass('foo').should == false
+    end
+  end
+
+  describe '#addClass' do
+    it "should add the class name if it's missing" do
+      @view.addClass 'boo'
+      @view.classNames.should == ['boo']
+    end
+
+    it "should not duplicat the class if it's already exists" do
+      @view.classNames = ['boo']
+      @view.addClass 'boo'
+      @view.classNames.should == ['boo']
+    end
+
+    it "should return the view itself back" do
+      @view.addClass('boo').should === @view
+    end
+  end
+
+  describe '#removeClass' do
+    it "should remove the class name if it was set" do
+      @view.classNames = ['boo']
+      @view.removeClass('boo')
+      @view.classNames.should == []
+    end
+
+    it "should return the view itself back" do
+      @view.removeClass('boo').should === @view
+    end
+  end
+
+  describe '#toggleClass' do
+    it "should add the class if it's missing" do
+      @view.toggleClass('test')
+      @view.classNames.should == ['test']
+    end
+
+    it "should remove the class if was set before" do
+      @view.classNames = ['test']
+      @view.toggleClass('test')
+      @view.classNames.should == []
+    end
+
+    it "should return the view itself back" do
+      @view.toggleClass('test').should === @view
+    end
+  end
+
+  describe '#radioClass' do
+    before do
+      @v1 = UnderOs::UI::View.new.insertTo(@view)
+      @v2 = UnderOs::UI::View.new.insertTo(@view)
+      @v3 = UnderOs::UI::View.new.insertTo(@view)
+    end
+
+    it "should set the class only on one element" do
+      @v2.radioClass('boo')
+
+      @v1.hasClass('boo').should == false
+      @v2.hasClass('boo').should == true
+      @v1.hasClass('boo').should == false
+    end
+
+    it "should automatically remove the class from any of the siblings" do
+      @v1.className = 'boo'
+      @v3.className = 'boo'
+
+      @v2.radioClass('boo')
+
+      @v1.hasClass('boo').should == false
+      @v2.hasClass('boo').should == true
+      @v1.hasClass('boo').should == false
+    end
+
+    it "should return the view itself back" do
+      @v2.radioClass('boo').should === @v2
+    end
+  end
 end

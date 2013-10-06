@@ -29,25 +29,40 @@ describe UnderOs::UI::Commons do
     end
   end
 
-  describe '#hidden?' do
+  describe '#hidden' do
     it "shoudl return 'false' for visible views" do
-      @view.hidden?.should == false
+      @view.hidden.should == false
     end
 
     it "should return 'true' for hidden views" do
       @view._.hidden = true
-      @view.hidden?.should == true
+      @view.hidden.should == true
     end
   end
 
-  describe '#visible?' do
+  describe '#visible' do
     it "should return 'true' if the element's visible" do
-      @view.visible?.should == true
+      @view.visible.should == true
     end
 
     it "should return 'false' if the element's is hidden" do
       @view._.hidden = true
-      @view.visible?.should == false
+      @view.visible.should == false
+    end
+  end
+
+  describe '#hide' do
+    it "should hide elmements" do
+      @view.hide
+      @view.hidden.should == true
+    end
+  end
+
+  describe '#show' do
+    it "should show hidden elements" do
+      @view.hide
+      @view.show
+      @view.visible.should == true
     end
   end
 end

@@ -31,11 +31,19 @@ module UnderOs::UI::Commons
     nil
   end
 
-  def hidden?
+  def hide
+    style.display = :none
+  end
+
+  def show
+    style.display = :block
+  end
+
+  def hidden
     @_.isHidden
   end
 
-  def visible?
-    !hidden?
+  def visible
+    !hidden
   end
 end
