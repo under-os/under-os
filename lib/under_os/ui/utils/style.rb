@@ -69,6 +69,15 @@ class UnderOs::UI::Style
     @view.alpha = value
   end
 
+  def display
+    @display || :block
+  end
+
+  def display=(value)
+    @display = %w[none block inline].include?(value.to_s) ? value.to_sym : :block
+    @view.hidden = @display == :none
+  end
+
   def backgroundColor
     @view.backgroundColor
   end

@@ -30,4 +30,12 @@ module UnderOs::UI::Commons
 
     nil
   end
+
+  def hidden?
+    @_.isHidden
+  end
+
+  def visible?
+    !hidden?
+  end
 end
