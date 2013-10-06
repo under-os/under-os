@@ -66,8 +66,10 @@ module UnderOs::UI
       end
 
       def parent_size
-        size = view.superview.frame.size
-        {x: size.width, y: size.height}
+        parent = view.superview
+        parent = parent.superview ? parent.frame : UIScreen.mainScreen.bounds
+
+        {x: parent.size.width, y: parent.size.height}
       end
     end
   end

@@ -18,4 +18,8 @@ class String
   def ends_with?(substr)
     size - rindex(substr) == substr.size
   end
+
+  def blank?
+    self =~ /^\s*$/
+  end
 end

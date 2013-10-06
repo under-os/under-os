@@ -47,6 +47,10 @@ module UnderOs::UI::Wrap
           wrap = wrap.superclass
         end
       end
+
+      def self.wrap_for(raw_view)
+        INSTANCES_CACHE[raw_view]
+      end
     end
   end
 

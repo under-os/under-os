@@ -3,18 +3,20 @@
  */
 
 button {
+  display:       inline;
   color:         black;
-  background:    lightgray;
+  background:    #ddd;
   border-radius: 5;
 }
 
 icon {
-  color: black;
+  display: inline;
+  color:   black;
 }
 
 input, textarea {
   border-width:  1;
-  border-color:  lightgray;
+  border-color:  #ddd;
   border-radius: 2;
 }
 
