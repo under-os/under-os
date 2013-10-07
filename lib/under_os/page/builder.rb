@@ -30,9 +30,7 @@ class UnderOs::Page::Builder
 
     klass.new(options).tap do |view|
       if node[:children] && node[:children].any?
-        from_nodes(node[:children]).each do |child|
-          view.insert child
-        end
+        build_children_for(view, node[:children])
       end
     end
   end
@@ -45,6 +43,33 @@ class UnderOs::Page::Builder
     {}.tap do |options|
       hash.each do |key, value|
         options[key] = value
+      end
+    end
+  end
+
+  def build_children_for(view, nodes)
+    if view.is_a?(UnderOs::UI::Select)
+      view.optgroups = select_optgroups_from(nodes)
+    else
+      from_nodes(nodes).each do |child|
+        view.insert child
+      end
+    end
+  end
+
+  def select_optgroups_from(nodes)
+    nodes = [{tag: 'optgroup', children: nodes}] if nodes[0][:tag] == 'option'
+
+    nodes.map do |group|
+      {}.tap do |options|
+        group[:children].each do |option|
+          if option[:tag] == 'option'
+            label = option[:text]
+            value = option[:attrs][:value] || label
+
+            options[value] = label if value && label
+          end
+        end
       end
     end
   end

@@ -35,3 +35,13 @@ spinner {
   width: 50;
   height: 50;
 }
+
+#select-buttons {
+  top:    450;
+  width:  100%;
+  height: 20;
+}
+#select-buttons button {
+  display: inline;
+  margin:  0 10;
+}

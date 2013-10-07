@@ -5,6 +5,10 @@ module UnderOs::UI::Animation
       options = style
       style   = nil
     else
+      [:complete, :curve, :autoreverse, :repeat, :duration, :delay].each do |key|
+        options[key] = style.delete(key) if style.has_key?(key)
+      end
+
       block   = Proc.new{ self.style = style }
     end
 

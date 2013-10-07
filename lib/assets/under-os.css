@@ -3,14 +3,12 @@
  */
 
 button {
-  display:       inline;
   color:         black;
   background:    #ddd;
   border-radius: 5;
 }
 
 icon {
-  display: inline;
   color:   black;
 }
 
@@ -21,7 +19,7 @@ input, textarea {
 }
 
 sidebar {
-  left:  -1000;
+  display: none;
 }
 
 sidebar.left, sidebar.right {
@@ -32,4 +30,10 @@ sidebar.left, sidebar.right {
 sidebar.top, sidebar.bottom {
   width: 100%;
   left:  0;
+}
+
+select {
+  display:    none;
+  background: white;
+  bottom:     0;
 }

@@ -39,6 +39,10 @@ module UnderOs::UI::Commons
     style.display = :block
   end
 
+  def toggle
+    hidden ? show : hide
+  end
+
   def hidden
     @_.isHidden
   end
@@ -46,4 +50,7 @@ module UnderOs::UI::Commons
   def visible
     !hidden
   end
+
+  alias :hidden?  :hidden
+  alias :visible? :visible
 end

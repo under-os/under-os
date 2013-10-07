@@ -94,6 +94,7 @@ class UnderOs::Color
 
     def color_from_string(name)
       name = name.downcase.strip
+      name = 'clear'     if name == 'transparent'
       name = 'darkGray'  if name == 'darkgray'
       name = 'lightGray' if name == 'lightgray'
 

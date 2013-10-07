@@ -65,4 +65,17 @@ describe UnderOs::UI::Commons do
       @view.visible.should == true
     end
   end
+
+  describe '#toggle' do
+    it "should show an element if it's hidden" do
+      @view.hide
+      @view.toggle
+      @view.visible.should == true
+    end
+
+    it "should hide visible elements" do
+      @view.toggle
+      @view.hidden.should == true
+    end
+  end
 end

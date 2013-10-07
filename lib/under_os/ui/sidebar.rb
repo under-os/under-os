@@ -23,7 +23,7 @@ class UnderOs::UI::Sidebar < UnderOs::UI::View
     class_names.reject!{ |n| LOCATIONS.include?(n.to_sym) }
 
     self.classNames = class_names + [location, 'visible']
-    self.style = {location => -slide_distance}
+    self.style = {location => -slide_distance, display: :block}
 
     animate location => 0
   end

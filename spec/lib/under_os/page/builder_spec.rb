@@ -81,4 +81,48 @@ describe UnderOs::Page::Builder do
       level3.map(&:text).should == ['A', 'B']
     end
   end
+
+  describe 'selectboxes build' do
+    before do
+      @result = build(%Q{
+        <select>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option>Three</option>
+        </select>
+      })[0]
+    end
+
+    it "should allow to build a select box" do
+      @result.class.should == UnderOs::UI::Select
+    end
+
+    it "should recognize options" do
+      @result.options.should == {
+        '1'     => 'One',
+        '2'     => 'Two',
+        'Three' => 'Three'
+      }
+    end
+
+    it "should allow to build multi-select boxes" do
+      select = build(%Q{
+        <select>
+          <optgroup>
+            <option value="1">One</option>
+          </optgroup>
+          <optgroup>
+            <option value="2">Two</option>
+          </optgroup>
+          <optgroup>
+            <option value="3">Three</option>
+          </optgroup>
+        </select>
+      })[0]
+
+      select.optgroups.should == [
+        {'1' => 'One'}, {'2' => 'Two'}, {'3' => 'Three'}
+      ]
+    end
+  end
 end
