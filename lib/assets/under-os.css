@@ -37,3 +37,8 @@ select {
   background: white;
   bottom:     0;
 }
+
+scroll {
+  content-width:  auto;
+  content-height: auto;
+}

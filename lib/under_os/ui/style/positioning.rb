@@ -52,6 +52,43 @@ module UnderOs::UI
         @view.frame = [[left, parent_size[:y] - convert_size(bottom, :y) - height], [width, height]]
       end
 
+      def contentWidth
+        @view.contentSize.width rescue 0
+      end
+
+      def contentWidth=(value)
+        return unless @view.is_a?(UIScrollView)
+
+        if value.to_s == 'auto'
+
+          if last_view = last_scroll_view_child_frame
+            value = last_view.origin.x + last_view.size.width
+          else
+            value = 0
+          end
+        end
+
+        @view.contentSize = CGSizeMake(value, contentHeight)
+      end
+
+      def contentHeight
+        @view.contentSize.height rescue 0
+      end
+
+      def contentHeight=(value)
+        return unless @view.is_a?(UIScrollView)
+
+        if value.to_s == 'auto'
+          if last_view = last_scroll_view_child_frame
+            value = last_view.origin.y + last_view.size.height
+          else
+            value = 0
+          end
+        end
+
+        @view.contentSize = CGSizeMake(contentWidth, value)
+      end
+
     private
 
       def convert_size(size, dim)
@@ -70,6 +107,11 @@ module UnderOs::UI
         parent = parent.superview ? parent.frame : UIScreen.mainScreen.bounds
 
         {x: parent.size.width, y: parent.size.height}
+      end
+
+      def last_scroll_view_child_frame
+        children = @view.subviews
+        children.size == 0 ? nil : children[children.size-1].frame
       end
     end
   end

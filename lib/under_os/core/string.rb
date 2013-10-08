@@ -11,6 +11,10 @@ class String
     underscore.gsub('_', '-')
   end
 
+  def capitalize
+    self[0].upcase + slice(1, size)
+  end
+
   def starts_with?(substr)
     index(substr) == 0
   end

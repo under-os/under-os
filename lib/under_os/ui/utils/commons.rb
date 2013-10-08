@@ -8,7 +8,21 @@ module UnderOs::UI::Commons
   end
 
   def tagName
-    @_tag_name ||= UnderOs::UI::Wrap::WRAPS_TAGS_MAP.detect{|t,k| k == self.class}[0].upcase
+    @_tag_name ||= begin
+      wraps = UnderOs::UI::Wrap::WRAPS_TAGS_MAP
+      klass = self.class; tag = 'VIEW'
+
+      while klass
+        if wrap = wraps.detect{|t,k| k == klass}
+          tag = wrap[0].upcase
+          break
+        else
+          klass = klass.superclass
+        end
+      end
+
+      tag
+    end
   end
 
   def data

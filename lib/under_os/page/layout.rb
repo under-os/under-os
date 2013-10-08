@@ -20,7 +20,7 @@ class UnderOs::Page::Layout
       if layout = UnderOs::Parser.parse(filename)
         if view = UnderOs::Page::Builder.views_from(layout)[0]
           @page._.view = view._
-          @page.title  = layout[0][:attrs][:title] rescue nil
+          @page.title  = layout[0][:attrs][:title] || ''
         end
       end
     end
