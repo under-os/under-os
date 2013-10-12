@@ -78,8 +78,8 @@ class UnderOs::Color
       elsif origin.is_a?(Array)   then color_from_array(*origin)
       elsif origin.is_a?(String)  then color_from_string(origin)
       elsif origin.is_a?(Symbol)  then color_from_string(origin.to_s)
-      elsif origin.is_a?(Float)   then color_from_angle(origin)
-      elsif origin.is_a?(Integer) then color_from_angle(origin / 360.0)
+      elsif origin.is_a?(Float)   then color_from_param(origin)
+      elsif origin.is_a?(Integer) then color_from_param(origin / 100.0)
       else                             UIColor.redColor # fallback
       end
     end
@@ -114,22 +114,21 @@ class UnderOs::Color
       color_from_array(r, g, b)
     end
 
-    def color_from_angle(angle) # in PIs
-      color_from_array *angle_2_rgb(angle)
+    def color_from_param(param) # 0.0..1.0
+      color_from_array *param_2_rgb(param)
     end
 
-    def angle_2_rgb(angle)
-      a = angle % Math::PI
+    def param_2_rgb(a) # 0.0..1.0
       x = 1 / 6.0
       s = a % x / x
       r = 1 - s
 
-      if    a < x     then [1, 0, s]
-      elsif a < x * 2 then [r, 0, 1]
-      elsif a < x * 3 then [0, s, 1]
-      elsif a < x * 4 then [0, 1, r]
-      elsif a < x * 5 then [s, 1, 0]
-      else                 [1, r, 0]
+      if    a < x     then [1.0, s,   0.0]
+      elsif a < x * 2 then [r,   1.0, 0.0]
+      elsif a < x * 3 then [0.0, 1.0, s]
+      elsif a < x * 4 then [0.0, r,   1.0]
+      elsif a < x * 5 then [s,   0.0, 1.0]
+      else                 [1.0, 0.0, r]
       end
     end
 

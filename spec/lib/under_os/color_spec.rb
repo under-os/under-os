@@ -48,12 +48,12 @@ describe UnderOs::Color do
       from('#ff0').should == UIColor.yellowColor
     end
 
-    it 'should work with flaot (in PIs) color circle angles' do
-      from(1.23).to_s.should == '#019e00'
+    it 'should work with flaot color circle params' do
+      from(0.23).to_s.should == '#9eff00'
     end
 
-    it 'should work with integer (in degrees) color circle angles' do
-      from(123).to_s.should == '#000d01'
+    it 'should work with integer (in degrees) color circle params' do
+      from(23).to_s.should == '#9eff00'
     end
   end
 
