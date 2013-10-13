@@ -125,5 +125,8 @@ class UnderOs::Page
       @options[:on_view_disappear].call
     end
 
+    def prefersStatusBarHidden
+      !UnderOs::Application.config.status_bar
+    end
   end
 end

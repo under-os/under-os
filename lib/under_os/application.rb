@@ -5,11 +5,20 @@ class UnderOs::Application
   end
 
   def self.new(*args)
-    @inst ||= super *args
+    if ! @inst
+      @inst = alloc
+      @inst.initialize(*args)
+    end
+
+    @inst
+  end
+
+  def self.config
+    @inst.config
   end
 
   def self.current_page
-    @inst.current_page
+    @inst.navigation.current_page
   end
 
   def self.stylesheet
@@ -35,10 +44,6 @@ class UnderOs::Application
 
   def navigation
     @navigation
-  end
-
-  def current_page
-    @navigation.current_page
   end
 
 end

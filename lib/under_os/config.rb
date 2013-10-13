@@ -7,21 +7,23 @@ class UnderOs::Config
     @app = app
   end
 
+  def main_page
+    @app.navigation.main_page
+  end
+
   def main_page=(page)
-    @app.instance_eval do
-      @navigation.main_page = page
-    end
+    @app.navigation.main_page = page
+  end
+
+  def status_bar
+    @status_bar
   end
 
   def status_bar=(visible)
-    @app.instance_eval do
-      @_.setStatusBarHidden(!visible, withAnimation: false)
-    end
+    @status_bar = visible
   end
 
   def navigation=(visible)
-    @app.instance_eval do
-      @navigation.visible = visible
-    end
+    @app.navigation.visible = visible
   end
 end
