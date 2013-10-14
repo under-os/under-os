@@ -70,13 +70,28 @@ class UnderOs::Parser::HTML
   end
 
   def parse_attrs_in(string)
-    {}.tap do |hash|
+    merge_data_attrs({}.tap do |hash|
       string.scan(/([a-z][a-z_\-\d]+)=('|")(.+?)(\2)/).each do |match|
         value = match[0] == match[2] ? true : match[2]
         value = true  if value == 'true'
         value = false if value == 'false'
         hash[match[0].to_sym] = value
       end
+    end)
+  end
+
+  def merge_data_attrs(hash)
+    hash.keys.each do |key|
+      if key.to_s.starts_with?('data-')
+        hash[:data] ||= {}
+
+        value = hash.delete(key)
+        key   = key.to_s.gsub(/^data\-/, '').camelize
+
+        hash[:data][key.to_sym] = value
+      end
     end
+
+    hash
   end
 end

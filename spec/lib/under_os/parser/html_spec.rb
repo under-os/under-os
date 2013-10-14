@@ -30,6 +30,22 @@ describe UnderOs::Parser::HTML do
     }]
   end
 
+  it "should parse tad data-attributes" do
+    parse(%Q{
+      <view data-one="1" data-two="2" data-three="true" data-four-and-half="four/2"></view>
+    }).should == [{
+      tag: 'view',
+      attrs: {
+        data: {
+          one: '1',
+          two: '2',
+          three: true,
+          fourAndHalf: 'four/2'
+        }
+      }
+    }]
+  end
+
   it "should process nested views" do
     parse(%Q{
       <page>
