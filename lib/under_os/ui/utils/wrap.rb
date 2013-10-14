@@ -16,20 +16,20 @@ module UnderOs::UI::Wrap
         WRAPS_TAGS_MAP[options[:tag].to_s] = self if options[:tag]
       end
 
-      def self.new(options={})
+      def self.new(options={}, *args)
         return INSTANCES_CACHE[options] if INSTANCES_CACHE[options]
 
         if options.is_a?(UIView)
           klass  = find_wrap_for(options.class); return nil if ! klass
           inst   = klass.alloc
-          inst._ = options; options = {}
+          inst._ = options; options = args.shift || {}
         else
           inst   = alloc
           inst._ = find_raw_class_for(self).alloc.initWithFrame([[0, 0], [0, 0]])
         end
 
         INSTANCES_CACHE[inst._] = inst
-        inst.__send__ :initialize, options
+        inst.__send__ :initialize, options, *args
         inst
       end
 

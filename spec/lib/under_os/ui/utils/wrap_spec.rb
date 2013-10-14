@@ -46,4 +46,24 @@ describe UnderOs::UI::Wrap do
     end
   end
 
+  describe 'weird subclasses' do
+
+    class WeirdView < UnderOs::UI::View
+      attr_reader :a, :b, :c
+      def initialize(a,b,c)
+        super({})
+        @a = a
+        @b = b
+        @c = c
+      end
+    end
+
+    it "should anny arguments for the constructor" do
+      view = WeirdView.new(1, 2, 3)
+      view.a.should == 1
+      view.b.should == 2
+      view.c.should == 3
+    end
+  end
+
 end
