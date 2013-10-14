@@ -89,6 +89,14 @@ module UnderOs::UI
         @view.contentSize = CGSizeMake(contentWidth, value)
       end
 
+      def zIndex
+        @view.layer.zPosition
+      end
+
+      def zIndex=(number)
+        @view.layer.zPosition = number
+      end
+
     private
 
       def convert_size(size, dim)

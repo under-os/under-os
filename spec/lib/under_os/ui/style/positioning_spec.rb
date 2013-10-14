@@ -17,4 +17,15 @@ describe UnderOs::UI::Style::Positioning do
       @view.style.contentHeight.should == 200
     end
   end
+
+  describe '#zIndex' do
+    it "should return 0 by default" do
+      @view.style.zIndex.should == 0
+    end
+
+    it "should allow to change it" do
+      @view.style.zIndex = 100
+      @view.style.zIndex.should == 100
+    end
+  end
 end
