@@ -4,10 +4,14 @@
 module UnderOs::UI::Manipulation
 
   def insert(view, position=:end)
-    if position == :top
-      @_.insertSubview(view._, atIndex: 0)
+    if view.is_a?(Array)
+      view.each{|v| insert(v, position)}
     else
-      @_.addSubview(view._)
+      if position == :top
+        @_.insertSubview(view._, atIndex: 0)
+      else
+        @_.addSubview(view._)
+      end
     end
 
     self

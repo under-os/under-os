@@ -24,6 +24,11 @@ describe UnderOs::UI::Manipulation do
       @v1.insert(@v2).should == @v1
       @v1.insert(@v3).should == @v1
     end
+
+    it "should accept lists of items" do
+      @v1.insert([@v2, @v3])
+      @v1.children.should == [@v2, @v3]
+    end
   end
 
   describe '#append' do
