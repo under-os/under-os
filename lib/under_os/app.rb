@@ -1,4 +1,4 @@
-class UnderOs::Application
+class UnderOs::App
 
   def self.start(&block)
     @start_block = block

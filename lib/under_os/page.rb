@@ -84,7 +84,7 @@ class UnderOs::Page
 
   def compile_styles
     @stylesheet = Stylesheet.new
-    @stylesheet << UnderOs::Application.stylesheet
+    @stylesheet << UnderOs::App.stylesheet
     @stylesheet.load("#{name}.css")
   end
 
@@ -126,7 +126,7 @@ class UnderOs::Page
     end
 
     def prefersStatusBarHidden
-      !UnderOs::Application.config.status_bar
+      !UnderOs::App.config.status_bar
     end
   end
 end

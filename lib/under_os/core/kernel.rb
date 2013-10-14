@@ -1,6 +1,6 @@
 module Kernel
   def u(css_rule)
-    page = UnderOs::Application.current_page
+    page = UnderOs::App.current_page
     elements = page.find(css_rule)
 
     if elements.size == 0
