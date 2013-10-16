@@ -1,33 +1,36 @@
 class UnderOs::Navigation
-  def initialize(window)
-    @_      = UINavigationController.alloc
-    @window = window
-    UnderOs::Page.navigation = self
+  attr_reader :_
+
+  def initialize
+    @_ = UINavigationController.alloc
+  end
+
+  def root_page
+    @_.topViewController.wrapper
+  end
+
+  def root_page=(page)
+    @_.initWithRootViewController(page._)
   end
 
   def current_page
     @_.visibleViewController.wrapper
   end
 
-  def main_page
-    @_.topViewController.wrapper
+  def hide(animated=true)
+    @_.setNavigationBarHidden(true, animated:animated)
   end
 
-  def main_page=(page)
-    @_.initWithRootViewController(page._)
-    @_.navigationBar.hidden    = !@_visible
+  def show(animated=true)
+    @_.setNavigationBarHidden(false, animated:animated)
+  end
 
-    @window.rootViewController = @_
-    @window.makeKeyAndVisible
+  def hidden
+    @_.navigationBarHidden
   end
 
   def visible
-    !@_.navigationBar.hidden
-  end
-
-  def visible=(visible)
-    @_visible = visible
-    @_.navigationBar.hidden = !visible if @_.navigationBar
+    !hidden
   end
 
   def push(page, animated=true)
@@ -35,6 +38,13 @@ class UnderOs::Navigation
     @_.pushViewController(page._, animated: animated)
   end
 
-  def pop
+  alias :<< :push
+
+  def pop(page=nil, animated=true)
+    if page
+      @_.popViewController(page._, animated: animated)
+    else
+      @_.popViewControllerAnimated(animated)
+    end
   end
 end

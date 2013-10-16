@@ -14,10 +14,6 @@ class UnderOs::Page
     alloc.setup_wrap(*args)
   end
 
-  def self.navigation=(navigation)
-    @navigation = navigation
-  end
-
   def self.layout(name=nil)
     name ? (@layout = name) : @layout
   end
@@ -41,15 +37,15 @@ class UnderOs::Page
   end
 
   def navigation
-    UnderOs::Page.instance_variable_get('@navigation')
+    UnderOs::App.navigation
   end
 
   def title
-    navigation && @_.navigationItem.title
+    @_.navigationItem.title
   end
 
   def title=(text)
-    @_.navigationItem.title = text if navigation
+    @_.navigationItem.title = text
   end
 
   def name

@@ -7,12 +7,12 @@ class UnderOs::Config
     @app = app
   end
 
-  def main_page
-    @app.navigation.main_page
+  def root_page
+    @app.navigation.root_page
   end
 
-  def main_page=(page)
-    @app.navigation.main_page = page
+  def root_page=(page)
+    @app.navigation.root_page = page
   end
 
   def status_bar
@@ -24,6 +24,6 @@ class UnderOs::Config
   end
 
   def navigation=(visible)
-    @app.navigation.visible = visible
+    @app.navigation.__send__ visible ? :show : :hide, false
   end
 end

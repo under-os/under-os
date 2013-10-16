@@ -3,7 +3,7 @@
 #
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions:launchOptions)
-    UnderOs::App.new(application, launchOptions)
+    UnderOs::App.setup(application, launchOptions)
 
     true
   end

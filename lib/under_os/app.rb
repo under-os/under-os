@@ -1,49 +1,35 @@
 class UnderOs::App
 
-  def self.start(&block)
-    @start_block = block
-  end
-
-  def self.new(*args)
-    if ! @inst
-      @inst = alloc
-      @inst.initialize(*args)
+  class << self
+    def start(&block)
+      @start_block = block
     end
 
-    @inst
-  end
+    def setup(ios_app, options)
+      @navigation = UnderOs::Navigation.new
 
-  def self.config
-    @inst.config
-  end
+      instance_exec self, &@start_block
 
-  def self.current_page
-    @inst.navigation.current_page
-  end
+      @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
+      @window.rootViewController = @navigation._
+      @window.makeKeyAndVisible
+    end
 
-  def self.stylesheet
-    @stylesheet ||= begin
-      stylesheet = UnderOs::Page::Stylesheet.new
-      stylesheet.load('under-os.css')
-      stylesheet.load('application.css')
-      stylesheet
+    def config
+      @config ||= UnderOs::Config.new(self)
+    end
+
+    def navigation
+      @navigation
+    end
+
+    def stylesheet
+      @stylesheet ||= begin
+        stylesheet = UnderOs::Page::Stylesheet.new
+        stylesheet.load('under-os.css')
+        stylesheet.load('application.css')
+        stylesheet
+      end
     end
   end
-
-  def initialize(ios_app, options)
-    @_          = ios_app
-    @window     = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-    @navigation = UnderOs::Navigation.new(@window)
-
-    instance_exec self, &self.class.instance_variable_get('@start_block')
-  end
-
-  def config
-    @config ||= UnderOs::Config.new(self)
-  end
-
-  def navigation
-    @navigation
-  end
-
 end
