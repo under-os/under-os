@@ -2,12 +2,19 @@ page {
   background: white;
 }
 
-.test {
-  background:    blue;
-  border-radius: 5;
-  color:         yellow;
+#buttons {
+  top:    100;
+  left:   60;
+  width:  200;
+  height: 400;
 }
 
-view.test {
-  border-radius: 10;
+#buttons button {
+  width: 100%;
 }
+
+#buttons button#b1 { top: 0;   }
+#buttons button#b2 { top: 50;  }
+#buttons button#b3 { top: 100; }
+#buttons button#b4 { top: 150; }
+#buttons button#b5 { top: 200; }

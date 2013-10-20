@@ -25,8 +25,8 @@ module UnderOs::UI::Commons
     end
   end
 
-  def data
-    @_data
+  def data(key=nil)
+    key && @_data ? @_data[key.to_sym] : @_data
   end
 
   def data=(hash)

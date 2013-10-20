@@ -47,4 +47,30 @@ class UnderOs::Navigation
       @_.popViewControllerAnimated(animated)
     end
   end
+
+  SYSTEM_BUTTONS = {
+    done:      UIBarButtonSystemItemDone,
+    cancel:    UIBarButtonSystemItemCancel,
+    edit:      UIBarButtonSystemItemEdit,
+    save:      UIBarButtonSystemItemSave,
+    add:       UIBarButtonSystemItemAdd,
+    space:     UIBarButtonSystemItemFlexibleSpace,
+    compose:   UIBarButtonSystemItemCompose,
+    reply:     UIBarButtonSystemItemReply,
+    action:    UIBarButtonSystemItemAction,
+    organize:  UIBarButtonSystemItemOrganize,
+    bookmarks: UIBarButtonSystemItemBookmarks,
+    search:    UIBarButtonSystemItemSearch,
+    refresh:   UIBarButtonSystemItemRefresh,
+    camera:    UIBarButtonSystemItemCamera,
+    trash:     UIBarButtonSystemItemTrash,
+    stop:      UIBarButtonSystemItemStop,
+    play:      UIBarButtonSystemItemPlay,
+    pause:     UIBarButtonSystemItemPause,
+    rewind:    UIBarButtonSystemItemRewind,
+    forward:   UIBarButtonSystemItemFastForward,
+    undor:     UIBarButtonSystemItemUndo,
+    redo:      UIBarButtonSystemItemRedo,
+    curl:      UIBarButtonSystemItemPageCurl,
+  }
 end

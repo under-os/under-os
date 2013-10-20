@@ -1,14 +1,3 @@
-#buttons {
-  top:    100;
-  left:   100;
-  width:  150;
-  height: 200;
-}
-
-#buttons button {
-  width: 100%;
-}
-
 #buttons #top    { top: 0;   }
 #buttons #left   { top: 50;  }
 #buttons #right  { top: 100; }
