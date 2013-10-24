@@ -3,7 +3,9 @@ module Kernel
     page = UnderOs::App.navigation.current_page
     elements = page.find(css_rule)
 
-    if elements.size == 0
+    if css_rule == 'page'
+      page
+    elsif elements.size == 0
       nil
     elsif elements.size == 1
       elements[0]

@@ -23,6 +23,10 @@ class UnderOs::Config
     @status_bar = visible
   end
 
+  def navigation
+    @app.navigation.visible
+  end
+
   def navigation=(visible)
     @app.navigation.__send__ visible ? :show : :hide, false
   end
