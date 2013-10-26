@@ -100,22 +100,34 @@ class UnderOs::Color
 
       return UIColor.send("#{name}Color") if IOS_COLORS.include?(name)
 
-      hex = HTML_COLORS[name] || name
-      hex = "#" + hex[1]*2 + hex[2]*2 + hex[3]*2 if hex =~ /^#[abcdef0-9]{3}$/
+      name = HTML_COLORS[name] || name
+      name = "#" + name[1]*2 + name[2]*2 + name[3]*2 if name =~ /^#[abcdef0-9]{3}$/
 
-      raise "Malformed color hex #{hex}" unless hex =~ /^#[abcdef0-9]{6}$/
+      r, g, b, a = if name =~ /^#[abcdef0-9]{6}$/
+        hex_2_rgb(name)
+      elsif m = name.match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*\)$/)
+        [m[1].to_i, m[2].to_i, m[3].to_i]
+      elsif m = name.match(/^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*,\s*([\d\.]+)\s*\)$/)
+        [m[1].to_i, m[2].to_i, m[3].to_i, m[4].to_f]
+      else
+        raise "Malformed color spec: #{name.inspect}"
+      end
 
+      color_from_array(r, g, b, a || 1.0)
+    end
+
+    def color_from_param(param) # 0.0..1.0
+      color_from_array *param_2_rgb(param)
+    end
+
+    def hex_2_rgb(hex)
       int = hex[1..-1].to_i(16)
 
       r   = (int & 0xFF0000) >> 16
       g   = (int & 0xFF00)   >> 8
       b   = (int & 0xFF)
 
-      color_from_array(r, g, b)
-    end
-
-    def color_from_param(param) # 0.0..1.0
-      color_from_array *param_2_rgb(param)
+      [r, g, b]
     end
 
     def param_2_rgb(a) # 0.0..1.0

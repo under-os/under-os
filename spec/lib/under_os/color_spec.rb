@@ -48,6 +48,14 @@ describe UnderOs::Color do
       from('#ff0').should == UIColor.yellowColor
     end
 
+    it "should work with rgb() strings" do
+      from('rgb(10, 20, 30)').to_rgba.should == [10, 20, 30, 1.0]
+    end
+
+    it "should work with rgba() strings" do
+      from('rgba(100, 200, 250, 0.5)').to_rgba.should == [100, 200, 250, 0.5]
+    end
+
     it 'should work with flaot color circle params' do
       from(0.23).to_s.should == '#9eff00'
     end
