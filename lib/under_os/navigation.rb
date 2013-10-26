@@ -55,8 +55,10 @@ class UnderOs::Navigation
   end
 
   def right_buttons=(views)
+    views = [views] if views.is_a?(Hash)
     @right_buttons = views
-    @_.visibleViewController.navigationItem.rightBarButtonItems = views.map{|v| to_navigation_item(v)}
+    @_.visibleViewController.navigationItem.rightBarButtonItems =
+      views.map{|v| to_navigation_item(v)}.flatten.compact.reverse
   end
 
   def push(page, animated=true)
@@ -78,9 +80,22 @@ private
 
   def to_navigation_item(view)
     view = view.to_sym if view.is_a?(String)
-    view = SYSTEM_BUTTONS[view] if SYSTEM_BUTTONS[view]
-    view = UIBarButtonItem.alloc.initWithCustomView(view._) if view.is_a?(UnderOs::UI::View)
-    view
+    view = {view: Proc.new{}} if view.is_a?(Symbol)
+    view = view._ if view.is_a?(UnderOs::UI::View)
+
+    if view.is_a?(UIView) && !view.is_a?(UIBarButtonItem)
+      UIBarButtonItem.alloc.initWithCustomView(view)
+    elsif view.is_a?(Hash)
+      view.map do |type, callback|
+        if SYSTEM_BUTTONS[type.to_sym]
+          UIBarButtonItem.alloc.initWithBarButtonSystemItem SYSTEM_BUTTONS[type.to_sym], target: callback, action: :call
+        elsif type.is_a?(UIImage)
+          UIBarButtonItem.alloc.initWithImage(type, style: UIBarButtonItemStylePlain, target: callback, action: :call)
+        else
+          UIBarButtonItem.alloc.initWithTitle(type.to_s, style: UIBarButtonItemStylePlain, target: callback, action: :call)
+        end
+      end
+    end
   end
 
   SYSTEM_BUTTONS = {
