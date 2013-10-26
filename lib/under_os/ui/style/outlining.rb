@@ -30,16 +30,20 @@ module UnderOs::UI
       def color(state=UIControlStateNormal)
         if @view.is_a?(UIButton)
           @view.titleColorForState(state)
-        else
-          @view.textColor if @view.respond_to?(:textColor)
+        elsif @view.respond_to?(:textColor)
+          @view.textColor
+        elsif @view.respond_to?(:color)
+          @view.color
         end
       end
 
       def color=(color, state=UIControlStateNormal)
         if @view.is_a?(UIButton)
           @view.setTitleColor convert_color(color), forState:state
-        else
-          @view.textColor = convert_color(color) if @view.respond_to?(:textColor)
+        elsif @view.respond_to?(:textColor)
+          @view.textColor = convert_color(color)
+        elsif @view.respond_to?(:color)
+          @view.color = convert_color(color)
         end
       end
 

@@ -42,3 +42,54 @@ scroll {
   content-width:  auto;
   content-height: auto;
 }
+
+spinner {
+  color: black;
+}
+
+locker {
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 10000;
+}
+
+locker view.locker-dialog {
+  width:  60;
+  height: 60;
+  left:   130;
+  top:    254;
+  background: rgba(0,0,0,0.8);
+  border-radius: 5;
+}
+
+locker spinner {
+  color:      white;
+  width:      100%;
+  height:     100%;
+  background: transparent;
+}
+
+locker label {
+  color:      white;
+  width:      80%;
+  height:     15;
+  bottom:     8;
+  left:       8;
+  text-align: center;
+  font-size:  12;
+}
+
+
+locker.with-label view.locker-dialog {
+  width:  80;
+  height: 80;
+  left:   120;
+  top:    244;
+}
+
+locker.with-label spinner {
+  height: 90%;
+}

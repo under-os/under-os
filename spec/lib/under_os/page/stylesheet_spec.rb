@@ -68,7 +68,7 @@ describe UnderOs::Page::Stylesheet do
   describe '#styles_for' do
     before do
       @view = UnderOs::UI::View.new(class: 'test')
-      @stylesheet.load('application.css')
+      @stylesheet.load('app.css')
       @stylesheet.load('test.css')
     end
 
