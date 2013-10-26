@@ -18,6 +18,10 @@ input, textarea {
   border-radius: 2;
 }
 
+slider {
+  height: 30;
+}
+
 sidebar {
   display: none;
 }

@@ -24,6 +24,14 @@ class UnderOs::UI::Locker < UnderOs::UI::View
     remove
   end
 
+  def text
+    @label.text
+  end
+
+  def text=(text)
+    @label.text = text
+  end
+
   def show_for(&block)
     show
     UnderOs::Timer.new 0.001 do

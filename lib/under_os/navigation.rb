@@ -70,10 +70,18 @@ class UnderOs::Navigation
 
   def pop(page=nil, animated=true)
     if page
-      @_.popViewController(page._, animated: animated)
+      @_.popToViewController(page._, animated: animated)
     else
       @_.popViewControllerAnimated(animated)
     end
+  end
+
+  def pop_to(page, animated=true)
+    pop(page, animated)
+  end
+
+  def pop_to_root(animated=true)
+    @_.popToRootViewControllerAnimated(animated)
   end
 
 private
