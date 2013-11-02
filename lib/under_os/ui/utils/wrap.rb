@@ -16,7 +16,7 @@ module UnderOs::UI::Wrap
         WRAPS_TAGS_MAP[options[:tag].to_s] = self if options[:tag]
       end
 
-      def self.new(options={}, *args)
+      def self.new(options={}, *args, &block)
         return INSTANCES_CACHE[options] if INSTANCES_CACHE[options]
 
         if options.is_a?(UIView)
@@ -29,7 +29,7 @@ module UnderOs::UI::Wrap
         end
 
         INSTANCES_CACHE[inst._] = inst
-        inst.__send__ :initialize, options, *args
+        inst.__send__ :initialize, options, *args, &block
         inst
       end
 
