@@ -33,4 +33,8 @@ module UnderOs::UI::Traversing
   def matches(css_rule)
     UnderOs::Page::StylesMatcher.new(css_rule).match(self)
   end
+
+  def empty?
+    @_.subviews.empty?
+  end
 end

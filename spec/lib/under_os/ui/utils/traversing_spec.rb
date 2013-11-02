@@ -94,4 +94,15 @@ describe UnderOs::UI::Traversing do
     end
   end
 
+  describe '#empty?' do
+    it "should return true when there is no child elements" do
+      view = UnderOs::UI::View.new
+      view.empty?.should == true
+    end
+
+    it "should return false when there are child elements" do
+      @v1.empty?.should == false
+    end
+  end
+
 end

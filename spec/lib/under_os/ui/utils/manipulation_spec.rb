@@ -114,4 +114,17 @@ describe UnderOs::UI::Manipulation do
       @v3.remove.should == @v3
     end
   end
+
+  describe '#clear' do
+    before { @v1.append(@v2, @v3) }
+
+    it "should remove all the child elements" do
+      @v1.clear
+      @v1.children.should == []
+    end
+
+    it "should return itself back as a reference" do
+      @v1.clear.should.be.same_as @v1
+    end
+  end
 end

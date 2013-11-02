@@ -37,4 +37,8 @@ module UnderOs::UI::Manipulation
     self
   end
 
+  def clear
+    children.each(&:remove)
+    self
+  end
 end
