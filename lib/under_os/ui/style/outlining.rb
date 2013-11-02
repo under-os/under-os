@@ -24,6 +24,16 @@ module UnderOs::UI
         end
       end
 
+      def backgroundImage
+        @background_image
+      end
+
+      def backgroundImage=(image)
+        @background_image = UnderOs::UI::Image.new(src: image, class: 'uos-background-image') if image.is_a?(String)
+        @background_image._.frame = [[0, 0], [@view.frame.size.width, @view.frame.size.height]]
+        @view.insertSubview(@background_image._, atIndex: 0)
+      end
+
       alias :background  :backgroundColor
       alias :background= :backgroundColor=
 

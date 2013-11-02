@@ -11,6 +11,14 @@ describe UnderOs::Parser::CSS do
     ]).should == {'page' => {backgroundColor: "darkgray"}}
   end
 
+  it "should unquote quoted values" do
+    @parser.parse(%Q{
+      page {
+        background-image: "image.png";
+      }
+    }).should == {'page' => {backgroundImage: "image.png"}}
+  end
+
   it "should parse heaps of styles" do
     @parser.parse(%Q{
       button {

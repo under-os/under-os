@@ -24,6 +24,7 @@ class UnderOs::Parser::CSS
   def normalized_values(key, value)
     key   = key.camelize.to_sym
     value = value.strip.gsub(/px$/, '')
+    value = value.gsub(/^('|")(.*?)\1$/, '\2')
     value = value.to_f if value =~ /^[\-\d\.]+$/
 
     if key == :background && value =~ /^[\S]+$/

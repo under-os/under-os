@@ -8,6 +8,13 @@ button {
   border-radius: 5;
 }
 
+image.uos-background-image {
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 100%;
+}
+
 icon {
   color:   black;
 }
