@@ -51,7 +51,7 @@ class Scroll < UnderOs::UI::View
   end
 
   def contentSize
-    UnderOs::UI::Size.new(x: @_.contentSize.width, y: @_.contentSize.height)
+    UnderOs::Point.new(x: @_.contentSize.width, y: @_.contentSize.height)
   end
 
   def contentSize=(*args)

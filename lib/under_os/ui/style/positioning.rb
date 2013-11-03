@@ -59,12 +59,11 @@ module UnderOs::UI
       def contentWidth=(value)
         return unless @view.is_a?(UIScrollView)
 
-        if value.to_s == 'auto'
-
-          if last_view = last_scroll_view_child_frame
-            value = last_view.origin.x + last_view.size.width
-          else
-            value = 0
+        if value == 'auto'
+          value = 0
+          @view.subviews.each do |view|
+            x = view.origin.x + view.size.width
+            value = x if x > value
           end
         end
 
@@ -78,11 +77,11 @@ module UnderOs::UI
       def contentHeight=(value)
         return unless @view.is_a?(UIScrollView)
 
-        if value.to_s == 'auto'
-          if last_view = last_scroll_view_child_frame
-            value = last_view.origin.y + last_view.size.height
-          else
-            value = 0
+        if value == 'auto'
+          value = 0
+          @view.subviews.each do |view|
+            y = view.origin.y + view.size.height
+            value = y if y > value
           end
         end
 
@@ -115,11 +114,6 @@ module UnderOs::UI
         parent = parent.superview ? parent.frame : UIScreen.mainScreen.bounds
 
         {x: parent.size.width, y: parent.size.height}
-      end
-
-      def last_scroll_view_child_frame
-        children = @view.subviews
-        children.size == 0 ? nil : children[children.size-1].frame
       end
     end
   end

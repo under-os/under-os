@@ -36,4 +36,12 @@ class Point
   def /(divider)
     self.class.new(x: @x / divider.to_f, y: @y / divider.to_f)
   end
+
+  def to_s
+    "x=#{x} y=#{y}"
+  end
+
+  def inspect
+    "#<#{self.class.name}:0x#{__id__.to_s(16)} #{to_s}>"
+  end
 end
