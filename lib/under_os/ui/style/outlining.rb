@@ -29,9 +29,15 @@ module UnderOs::UI
       end
 
       def backgroundImage=(image)
-        @background_image = UnderOs::UI::Image.new(src: image, class: 'uos-background-image') if image.is_a?(String)
-        @background_image._.frame = [[0, 0], [@view.frame.size.width, @view.frame.size.height]]
-        @view.insertSubview(@background_image._, atIndex: 0)
+        image = UIImage.UIImage.imageNamed(image) if image.is_a?(String)
+
+        if @view.is_a?(UIButton)
+          @view.setBackgroundImage(image, forState:UIControlStateNormal)
+        else
+          @background_image = UnderOs::UI::Image.new(src: image, class: 'uos-background-image')
+          @background_image._.frame = [[0, 0], [@view.frame.size.width, @view.frame.size.height]]
+          @view.insertSubview(@background_image._, atIndex: 0)
+        end
       end
 
       alias :background  :backgroundColor

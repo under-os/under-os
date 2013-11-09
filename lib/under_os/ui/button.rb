@@ -7,6 +7,7 @@ class UnderOS::UI::Button < UnderOS::UI::View
     self.text  = options.delete(:text) || ''
     @_.sizeToFit
     @_.showsTouchWhenHighlighted = true
+    @_.setBackgroundImage(options.delete(:image), forState:UIControlStateNormal) if options[:image]
   end
 
   def text
