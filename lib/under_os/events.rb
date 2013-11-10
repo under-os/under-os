@@ -7,7 +7,7 @@ module UnderOs::Events
     Listeners.add(self, event, *args, block)
   end
 
-  def no(event)
+  def off(event)
     Listeners.remove(self, event)
   end
 
@@ -22,6 +22,7 @@ module UnderOs::Events
       @listeners                      ||= {}
       @listeners[model]               ||= {}
       @listeners[model][event.to_sym] ||= [] if event
+      event ? @listeners[model][event.to_sym] : @listeners[model]
     end
 
     def add(model, event, *args, block)

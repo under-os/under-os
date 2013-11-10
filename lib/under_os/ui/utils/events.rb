@@ -13,7 +13,7 @@ module UnderOs::UI::Events
     UnderOs::Events::Listeners.add(self, event, *args, block)
   end
 
-  def no(event)
+  def off(event)
     UnderOs::Events::Listeners.remove(self, event)
   end
 
