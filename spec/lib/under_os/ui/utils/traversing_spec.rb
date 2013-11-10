@@ -23,6 +23,38 @@ describe UnderOs::UI::Traversing do
     @v6.className = 'v6'
   end
 
+  describe '#find' do
+    it "should return a list of matching items from all levels" do
+      @v1.find('.v1').should == [@v2, @v3]
+      @v1.find('.v3').should == [@v3, @v4]
+    end
+
+    it "should return an empty list when nothing's found" do
+      @v1.find(".non-existing").should == []
+    end
+  end
+
+  describe '#first' do
+    it "should return the first correctly matching view" do
+      @v1.first('.v1').should == @v2
+      @v1.first('.v3').should == @v3
+    end
+
+    it "should return nil when nothing matching found" do
+      @v1.first('.non-existing').should == nil
+    end
+  end
+
+  describe '#matches' do
+    it "should return 'true' when it's given a matching css-rule" do
+      @v2.matches('.v2').should == true
+    end
+
+    it "should return 'false' when it's given a non-matching css-rule" do
+      @v2.matches('.something-else').should == false
+    end
+  end
+
   describe '#parent' do
     it "should be nil by default" do
       @v1.parent.should == nil
@@ -62,35 +94,19 @@ describe UnderOs::UI::Traversing do
     end
   end
 
-  describe '#find' do
-    it "should return a list of matching items from all levels" do
-      @v1.find('.v1').should == [@v2, @v3]
-      @v1.find('.v3').should == [@v3, @v4]
+  describe '#siblings' do
+    it "should return the list of sibling nodes" do
+      @v3.siblings.should == [@v4]
+      @v4.siblings.should == [@v3]
     end
 
-    it "should return an empty list when nothing's found" do
-      @v1.find(".non-existing").should == []
-    end
-  end
-
-  describe '#first' do
-    it "should return the first correctly matching view" do
-      @v1.first('.v1').should == @v2
-      @v1.first('.v3').should == @v3
+    it "should accept a css rule as a filter" do
+      @v3.siblings('.v4').should == [@v4]
+      @v3.siblings('.non-existing').should == []
     end
 
-    it "should return nil when nothing matching found" do
-      @v1.first('.non-existing').should == nil
-    end
-  end
-
-  describe '#matches' do
-    it "should return 'true' when it's given a matching css-rule" do
-      @v2.matches('.v2').should == true
-    end
-
-    it "should return 'false' when it's given a non-matching css-rule" do
-      @v2.matches('.something-else').should == false
+    it "should fall back to an empty list when there is no parent" do
+      UnderOs::UI::View.new.siblings.should == []
     end
   end
 
