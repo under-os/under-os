@@ -9,6 +9,7 @@ module UnderOs::UI::Events
     event, recognizer = find_recognizer_from(event)
 
     @_.addGestureRecognizer(recognizer.alloc.initWithTarget(self, action: :emit)) if recognizer
+    @_.userInteractionEnabled = true
 
     UnderOs::Events::Listeners.add(self, event, *args, block)
   end
