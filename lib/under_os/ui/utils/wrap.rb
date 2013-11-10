@@ -20,17 +20,28 @@ module UnderOs::UI::Wrap
         return INSTANCES_CACHE[options] if INSTANCES_CACHE[options]
 
         if options.is_a?(UIView)
-          klass  = find_wrap_for(options.class); return nil if ! klass
-          inst   = klass.alloc
-          inst._ = options; options = args.shift || {}
+          klass = find_wrap_for(options.class)
+          view  = options; options = args.shift || {}
         else
-          inst   = alloc
-          inst._ = find_raw_class_for(self).alloc.initWithFrame([[0, 0], [0, 0]])
+          klass = self
+          view  = find_raw_class_for(self).alloc.initWithFrame([[0, 0], [0, 0]])
         end
 
-        INSTANCES_CACHE[inst._] = inst
-        inst.__send__ :initialize, options, *args, &block
-        inst
+        return nil if ! klass
+
+        klass.alloc.tap do |inst|
+          INSTANCES_CACHE[inst._ = view] = inst
+          inst.__send__ :initialize, options, *args, &block
+        end
+      end
+
+      def self.rewrap(view, *args, &block)
+        view = view._ if view.is_a?(UnderOs::UI::View)
+
+        alloc.tap do |inst|
+          INSTANCES_CACHE[inst._ = view] = inst
+          inst.__send__ :initialize, *args, &block
+        end
       end
 
       def self.find_wrap_for(raw_class)
