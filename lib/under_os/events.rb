@@ -52,7 +52,7 @@ module UnderOs::Events
           context = nil
         end
 
-        args = block.arity > 0 ? [event] : []
+        args = block.arity == 0 ? [] : [event]
 
         if context
           context.instance_exec *args, &block

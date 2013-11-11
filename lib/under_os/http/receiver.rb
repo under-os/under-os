@@ -9,8 +9,9 @@ class UnderOs::HTTP::Request
     end
 
     def connection(connection, didReceiveResponse:response)
-      @response = response
       @data.setLength(0)
+      @response = UnderOs::HTTP::Response.new(response, @data)
+
       emit(:response)
     end
 
@@ -32,10 +33,8 @@ class UnderOs::HTTP::Request
     end
 
     def emit(event)
-      response = {response: UnderOs::HTTP::Response.new(@data, @response)}
-
-      @request.emit(event, response)
-      @request.emit(:complete, response) if event == :failure || event == :success
+      @request.emit(event, response: @response)
+      @request.emit(:complete, response: @response) if event == :failure || event == :success
     end
   end
 end

@@ -1,9 +1,9 @@
 class UnderOs::HTTP::Response
   attr_reader :data
 
-  def initialize(data, response)
-    @data     = data
+  def initialize(response, data)
     @response = response
+    @data     = data # raw NSData
   end
 
   def headers
@@ -16,5 +16,13 @@ class UnderOs::HTTP::Response
 
   def image
     @image ||= UIImage.imageWithData(@data)
+  end
+
+  def content_length
+    headers["Content-Length"].to_i
+  end
+
+  def content_type
+    headers["Content-Type"]
   end
 end

@@ -11,8 +11,10 @@ class UnderOs::HTTP::Request
   end
 
   def on(*args, &block)
-    callback = Proc.new{|event| block.call(event.params[:response]) } if block_given?
-    super *args, &(callback || Proc.new{})
+    super *args do |event|
+      args = block.arity == 0 ? [] : [event.params[:response]]
+      block.call *args
+    end
   end
 
   def send
