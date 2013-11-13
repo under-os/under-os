@@ -21,20 +21,38 @@ module UnderOs::UI
       end
 
       def textAlign
-        case @view.textAlignment
-          when NSTextAlignmentRight     then 'right'
-          when NSTextAlignmentCenter    then 'center'
-          when NSTextAlignmentJustified then 'justify'
-          else                               'left'
+        if @view.is_a?(UIButton)
+          case @view.contentHorizontalAlignment
+            when UIControlContentHorizontalAlignmentRight  then 'right'
+            when UIControlContentHorizontalAlignmentCenter then 'center'
+            when UIControlContentHorizontalAlignmentFill   then 'justify'
+            else                                                'left'
+          end
+        elsif @view.respond_to?(:textAlignment)
+          case @view.textAlignment
+            when NSTextAlignmentRight     then 'right'
+            when NSTextAlignmentCenter    then 'center'
+            when NSTextAlignmentJustified then 'justify'
+            else                               'left'
+          end
         end
       end
 
       def textAlign=(value)
-        @view.textAlignment = case value.to_s
-        when 'right'   then NSTextAlignmentRight
-        when 'center'  then NSTextAlignmentCenter
-        when 'justify' then NSTextAlignmentJustified
-        else                NSTextAlignmentLeft
+        if @view.is_a?(UIButton)
+          @view.contentHorizontalAlignment = case value.to_s
+            when 'right'   then UIControlContentHorizontalAlignmentRight
+            when 'center'  then UIControlContentHorizontalAlignmentCenter
+            when 'justify' then UIControlContentHorizontalAlignmentFill
+            else                UIControlContentHorizontalAlignmentLeft
+          end
+        elsif @view.respond_to?(:textAlignment)
+          @view.textAlignment = case value.to_s
+            when 'right'   then NSTextAlignmentRight
+            when 'center'  then NSTextAlignmentCenter
+            when 'justify' then NSTextAlignmentJustified
+            else                NSTextAlignmentLeft
+          end
         end
       end
     end
