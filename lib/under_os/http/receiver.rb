@@ -3,8 +3,9 @@
 #
 class UnderOs::HTTP::Request
   class Receiver
-    def initialize(request)
+    def initialize(request, stream=false)
       @request = request
+      @stream  = stream
       @data    = NSMutableData.dataWithCapacity(0)
     end
 
@@ -16,6 +17,7 @@ class UnderOs::HTTP::Request
     end
 
     def connection(connection, didReceiveData:data)
+      @data.setLength(0) if @stream
       @data.appendData(data)
       emit(:data)
     end

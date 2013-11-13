@@ -1,3 +1,18 @@
+#
+# Options:
+#
+#   * :method  - GET, POST, ...
+#   * :cookies - Hash of cookie values
+#   * :stream  - boolean, in case you want to stream stuff
+#
+# Events:
+#
+#   * :response - when response header is received
+#   * :data     - when a chunk of data is received
+#   * :success  - when the request is successfully finished
+#   * :failure  - when request has failed for whatever reason
+#   * :complete - when it's complete (either way)
+#
 class UnderOs::HTTP::Request
   include UnderOs::Events
 
@@ -19,7 +34,7 @@ class UnderOs::HTTP::Request
 
   def send
     @request    = build_request
-    @receiver   = Receiver.new(self)
+    @receiver   = Receiver.new(self, @options[:stream])
     @connection = NSURLConnection.alloc.initWithRequest(@request, delegate:@receiver)
     @connection.start
   end
