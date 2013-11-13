@@ -62,6 +62,54 @@ module UnderOs::UI
         set_offsets
       end
 
+      def padding
+        [paddingTop, paddingRight, paddingBottom, paddingLeft]
+      end
+
+      def padding=(value)
+        value = to_4dim_array(value)
+        self.paddingTop    = value[0]
+        self.paddingLeft   = value[3]
+        self.paddingRight  = value[1]
+        self.paddingBottom = value[2]
+      end
+
+      def paddingTop
+        @padding_top || 0
+      end
+
+      def paddingTop=(value)
+        @padding_top = value
+        set_paddings
+      end
+
+      def paddingLeft
+        @padding_left || 0
+      end
+
+      def paddingLeft=(value)
+        @padding_left = value
+        set_paddings
+      end
+
+      def paddingRight
+        @padding_right || 0
+      end
+
+      def paddingRight=(value)
+        @padding_right = value
+        set_paddings
+      end
+
+      def paddingBottom
+        @padding_botom || 0
+      end
+
+      def paddingBottom=(value)
+        @padding_botom = value
+        set_paddings
+      end
+
     private
 
       def to_4dim_array(value)
@@ -100,6 +148,12 @@ module UnderOs::UI
         view.frame = [[position_x, position_y],[
           view.frame.size.width, view.frame.size.height
         ]]
+      end
+
+      def set_paddings
+        if @view.respond_to?(:contentEdgeInsets)
+          @view.contentEdgeInsets = UIEdgeInsetsMake(paddingTop, paddingLeft, paddingBottom, paddingRight)
+        end
       end
     end
   end

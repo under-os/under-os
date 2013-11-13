@@ -62,4 +62,45 @@ describe UnderOs::UI::Style::Margins do
       @style.margin.should == [10, 20, 30, 40]
     end
   end
+
+  describe '#padding' do
+    it "should return an array of zeros by default" do
+      @style.padding.should == [0, 0, 0, 0]
+    end
+
+    it 'should accept simple numbers' do
+      @style.padding = 10
+      @style.padding.should == [10, 10, 10, 10]
+    end
+
+    it "should accept arrays" do
+      @style.padding = [20]
+      @style.padding.should == [20, 20, 20, 20]
+    end
+
+    it "should accept two dim arrays" do
+      @style.padding = [10, 20]
+      @style.padding.should == [10, 20, 10, 20]
+    end
+
+    it "should accept four dims arrays" do
+      @style.padding = [10, 20, 30, 40]
+      @style.padding.should == [10, 20, 30, 40]
+    end
+
+    it "should accept single value strings" do
+      @style.padding = '10px'
+      @style.padding.should == [10, 10, 10, 10]
+    end
+
+    it "should accept two value strings" do
+      @style.padding = '10px 20'
+      @style.padding.should == [10, 20, 10, 20]
+    end
+
+    it "should accept the four values strings" do
+      @style.padding = '10px 20 30px 40'
+      @style.padding.should == [10, 20, 30, 40]
+    end
+  end
 end
