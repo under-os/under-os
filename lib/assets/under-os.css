@@ -16,7 +16,15 @@ image.uos-background-image {
 }
 
 icon {
-  color:   black;
+  color: black;
+}
+icon.navigation-item {
+  color:       #007AFF;
+  font-size:   24;
+  width:       24;
+  height:      24;
+  text-align:  right;
+  padding-top: 4;
 }
 
 input, textarea {

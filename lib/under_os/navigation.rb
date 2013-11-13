@@ -87,11 +87,11 @@ class UnderOs::Navigation
 private
 
   def to_navigation_item(view)
-    view = view.to_sym if view.is_a?(String)
-    view = {view: Proc.new{}} if view.is_a?(Symbol)
-    view = view._ if view.is_a?(UnderOs::UI::View)
+    view = to_raw_uiview(view)
 
-    if view.is_a?(UIView) && !view.is_a?(UIBarButtonItem)
+    if view.is_a?(UIBarButtonItem)
+      view
+    elsif view.is_a?(UIView)
       UIBarButtonItem.alloc.initWithCustomView(view)
     elsif view.is_a?(Hash)
       view.map do |type, callback|
@@ -104,6 +104,19 @@ private
         end
       end
     end
+  end
+
+  def to_raw_uiview(view)
+    view = view.to_sym if view.is_a?(String)
+    view = {view: Proc.new{}} if view.is_a?(Symbol)
+
+    if view.is_a?(UnderOs::UI::View)
+      view.addClass('navigation-item')
+      UnderOs::App.navigation.current_page.stylesheet.apply_to(view)
+      view = view._
+    end
+
+    view
   end
 
   SYSTEM_BUTTONS = {
