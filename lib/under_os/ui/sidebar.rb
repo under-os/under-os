@@ -34,8 +34,8 @@ class UnderOs::UI::Sidebar < UnderOs::UI::View
     animate location => -slide_distance
   end
 
-  def visible?
-    classNames.include?('visible')
+  def hidden
+    !classNames.include?('visible')
   end
 
   def slide_distance

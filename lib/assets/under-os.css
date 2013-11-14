@@ -39,6 +39,7 @@ slider {
 
 sidebar {
   display: none;
+  z-index: 1000;
 }
 
 sidebar.left, sidebar.right {

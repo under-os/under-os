@@ -10,6 +10,8 @@ class UnderOs::UI::Input < UnderOs::UI::View
     self.value       = options[:value]       if options[:value]
     self.placeholder = options[:placeholder] if options[:placeholder]
     self.keyboard    = options[:keyboard]    if options[:keyboard]
+
+    @_.delegate      = self
   end
 
   # FIXME apparently there is a problem with this property in rubymotion
@@ -26,5 +28,14 @@ class UnderOs::UI::Input < UnderOs::UI::View
   #   when :password then @_.secureTextEntry = true
   #   end
   # end
+
+  def textFieldShouldReturn(textField)
+    hide_keyboard
+    false
+  end
+
+  def hide_keyboard
+    @_.resignFirstResponder
+  end
 
 end
