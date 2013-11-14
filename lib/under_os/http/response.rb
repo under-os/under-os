@@ -14,10 +14,6 @@ class UnderOs::HTTP::Response
     @body ||= @data.to_s
   end
 
-  def image
-    @image ||= UIImage.imageWithData(@data)
-  end
-
   def content_length
     headers["Content-Length"].to_i
   end

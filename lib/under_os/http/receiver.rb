@@ -27,6 +27,8 @@ class UnderOs::HTTP::Request
     # end
 
     def connection(connection, didFailWithError:error)
+      @response = UnderOs::HTTP::Response.new(error, @data)
+
       emit(:failure)
     end
 

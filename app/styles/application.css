@@ -3,10 +3,10 @@ page {
 }
 
 #buttons {
-  top:    100;
+  top:    60;
   left:   60;
   width:  200;
-  height: 400;
+  height: 500;
 }
 
 #buttons button {
