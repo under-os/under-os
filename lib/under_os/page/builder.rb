@@ -21,7 +21,7 @@ class UnderOs::Page::Builder
   end
 
   def build_view_from(node)
-    klass   = class_for_tag(node[:tag])
+    klass   = class_for(node)
     options = options_from_attrs(node[:attrs] || {})
 
     if klass.instance_methods.include?(:text) && node[:text]
@@ -35,8 +35,12 @@ class UnderOs::Page::Builder
     end
   end
 
-  def class_for_tag(tag)
-    UnderOs::UI::Wrap::WRAPS_TAGS_MAP[tag] || UnderOs::UI::View
+  def class_for(node)
+    if node[:attrs] && node[:attrs][:data] && node[:attrs][:data][:wrapper]
+      Kernel.const_get(node[:attrs][:data][:wrapper])
+    else
+      UnderOs::UI::Wrap::WRAPS_TAGS_MAP[node[:tag]] || UnderOs::UI::View
+    end
   end
 
   def options_from_attrs(hash)
