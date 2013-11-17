@@ -17,4 +17,15 @@ class UnderOs::UI::View
     self.on        = options.delete(:on)    if options.has_key?(:on)
     self.data      = options.delete(:data)  if options.has_key?(:data)
   end
+
+  def inspect
+    params = {tag: tagName}
+    params[:id]    = id if id
+    params[:class] = className unless classNames.empty?
+    params = params.map do |key, value|
+      "#{key}=\"#{value}\""
+    end
+
+    "#<#{self.class.name} #{params.join(" ")}>"
+  end
 end
