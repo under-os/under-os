@@ -14,7 +14,7 @@ class UnderOs::Page::Stylesheet
     content_size = styles.select{|k,v|[:contentWidth,:contentHeight].include?(k)}
     view.style   = styles.reject{|k,v|[:contentWidth,:contentHeight].include?(k)}
     view.children.each do |subview|
-      self.apply_to(subview)
+      subview.repaint(self)
     end
     view.style = content_size if content_size.size > 0
   end

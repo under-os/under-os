@@ -57,7 +57,9 @@ class UnderOs::Page
       on_load_view:      Proc.new{ emit('init')      },
       on_view_loaded:    Proc.new{ emit('load')      },
       on_view_appear:    Proc.new{ emit('appear')    },
-      on_view_disappear: Proc.new{ emit('disappear') }
+      on_view_disappear: Proc.new{ emit('disappear') },
+      on_view_rerender:  Proc.new{ emit('rerender')  },
+      on_view_rotate:    Proc.new{ emit('rotate')    }
     })
 
     on 'init' do
@@ -68,6 +70,10 @@ class UnderOs::Page
     on 'load' do
       repaint
       initialize(*args)
+      repaint
+    end
+
+    on 'rotate' do
       repaint
     end
 
@@ -85,7 +91,7 @@ class UnderOs::Page
   end
 
   def repaint
-    view.repaint if view
+    view.repaint(stylesheet) if view
   end
 
   #
@@ -119,6 +125,16 @@ class UnderOs::Page
     def viewDidDisappear(animated)
       super
       @options[:on_view_disappear].call
+    end
+
+    def viewWillLayoutSubviews
+      super
+      @options[:on_view_rerender].call
+    end
+
+    def didRotateFromInterfaceOrientation(orientation)
+      super
+      @options[:on_view_rotate].call
     end
 
     def prefersStatusBarHidden

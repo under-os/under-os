@@ -65,10 +65,9 @@ module UnderOs::UI::Styles
     addClass name
   end
 
-  def repaint
-    if page && page.stylesheet
-      page.stylesheet.apply_to(self)
-    end
+  def repaint(stylesheet=nil)
+    stylesheet ||= page && page.stylesheet
+    stylesheet.apply_to(self) if stylesheet
 
     self
   end
