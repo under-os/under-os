@@ -13,8 +13,7 @@ class HttpPage < UnderOs::Page
     @locker.show
 
     UnderOs::HTTP.get search_url do |response|
-      UnderOs::HTTP.get parse_first_image_url(response.body) do |response|
-        @result.src = UIImage.imageWithData(response.data)
+      @result.load parse_first_image_url(response.body) do
         @locker.hide
       end
     end
