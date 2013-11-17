@@ -62,8 +62,12 @@ class UnderOs::Navigation
   end
 
   def push(page, animated=true)
-    @current_page = page
-    @_.pushViewController(page._, animated: animated)
+    if pages.include?(page)
+      pop_to(page)
+    else
+      @current_page = page
+      @_.pushViewController(page._, animated: animated)
+    end
   end
 
   alias :<< :push
@@ -74,6 +78,10 @@ class UnderOs::Navigation
     else
       @_.popViewControllerAnimated(animated)
     end
+  end
+
+  def pages
+    @_.viewControllers.map{|c| c.wrapper rescue nil }.compact
   end
 
   def pop_to(page, animated=true)
