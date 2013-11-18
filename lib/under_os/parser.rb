@@ -13,18 +13,12 @@ class UnderOs::Parser
   end
 
   def parse(filename)
-    content = read(filename) || ''
+    filepath = NSBundle.mainBundle.pathForResource(filename, ofType:nil)
+    content  = UnderOs::File.read(filepath) rescue ''
 
     case filename.split('.').pop
     when 'css'  then @css.parse(content)
     when 'html' then @html.parse(content)
     end
-  end
-
-  def read(filename)
-    filename, type = filename.match(/^(.+?)\.([a-z]+)$/).to_a.slice(1,2)
-    filename = NSBundle.mainBundle.pathForResource(filename, ofType:type)
-
-    NSString.stringWithContentsOfFile(filename, encoding:NSUTF8StringEncoding, error:nil)
   end
 end

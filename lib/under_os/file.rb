@@ -25,8 +25,8 @@ class UnderOs::File
     path.to_s[0] == '/' ? path : NSHomeDirectory().stringByAppendingPathComponent(path)
   end
 
-  def self.tmp(filename, &block)
-    new NSTemporaryDirectory().stringByAppendingPathComponent(filename), "w", &block
+  def self.tmp(filename, mode="w", &block)
+    new NSTemporaryDirectory().stringByAppendingPathComponent(filename), mode, &block
   end
 
   def self.exists?(path, is_dir=nil)
