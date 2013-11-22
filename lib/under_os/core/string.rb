@@ -4,7 +4,7 @@ class String
   end
 
   def camelize
-    gsub(/(\-|_)+(.)?/){|m| $2 ? $2.upcase : ''}
+    gsub(/(\-|_)+([a-z])?/){|m| $2 ? $2.upcase : ''}
   end
 
   def dasherize
@@ -20,10 +20,21 @@ class String
   end
 
   def ends_with?(substr)
-    size - rindex(substr) == substr.size
+    rindex(substr)  == size - substr.size
   end
 
   def blank?
-    self =~ /^\s*$/
+    self !~ /[^[:space:]]/
+  end
+
+  def constantize
+    names = self.split('::')
+    names.shift if names.empty? || names.first.empty?
+
+    constant = Object
+    names.each do |name|
+      constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
+    end
+    constant
   end
 end

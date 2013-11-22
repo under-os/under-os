@@ -36,8 +36,8 @@ class UnderOs::Page::Builder
   end
 
   def class_for(node)
-    if node[:attrs] && node[:attrs][:data] && node[:attrs][:data][:wrapper]
-      Kernel.const_get(node[:attrs][:data][:wrapper])
+    if node[:attrs] && node[:attrs][:wrapper].is_a?(String)
+      node[:attrs].delete(:wrapper).constantize
     else
       UnderOs::UI::Wrap::WRAPS_TAGS_MAP[node[:tag]] || UnderOs::UI::View
     end
