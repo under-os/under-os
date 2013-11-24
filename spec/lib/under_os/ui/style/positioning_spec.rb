@@ -28,4 +28,42 @@ describe UnderOs::UI::Style::Positioning do
       @view.style.zIndex.should == 100
     end
   end
+
+  describe 'scroller related styles' do
+    before do
+      @view = UnderOs::UI::Scroll.new
+    end
+
+    describe '#overflow' do
+      it "accepts 'visible'" do
+        @view.style.overflow = 'visible'
+        @view.style.overflowX.should == :visible
+        @view.style.overflowY.should == :visible
+      end
+
+      it "accepts 'hidden'" do
+        @view.style.overflow = :hidden
+        @view.style.overflowX.should == :hidden
+        @view.style.overflowY.should == :hidden
+      end
+
+      it "accepts 'x'" do
+        @view.style.overflow = 'x'
+        @view.style.overflowX.should == :visible
+        @view.style.overflowY.should == :hidden
+      end
+
+      it "accepts 'y'" do
+        @view.style.overflow = 'y'
+        @view.style.overflowX.should == :hidden
+        @view.style.overflowY.should == :visible
+      end
+
+      it "falls back to 'visible'" do
+        @view.style.overflow = 'weird stuff'
+        @view.style.overflowX.should == :visible
+        @view.style.overflowY.should == :visible
+      end
+    end
+  end
 end

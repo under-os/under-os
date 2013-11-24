@@ -96,6 +96,50 @@ module UnderOs::UI
         @view.layer.zPosition = number
       end
 
+      def overflow
+        case "#{overflowX}-#{overflowY}"
+        when 'visible-visible' then :visible
+        when 'hidden-hidden'   then :hidden
+        when 'visible-hidden'  then :x
+        when 'hidden-visible'  then :y
+        else                   [overflowX, overflowY]
+        end
+      end
+
+      def overflow=(value)
+        x, y = case value.to_s
+        when 'x'       then ['visible', 'hidden']
+        when 'y'       then ['hidden', 'visible']
+        when 'hidden'  then ['hidden', 'hidden']
+        else                ['visible', 'visible']
+        end
+
+        self.overflowX = x
+        self.overflowY = y
+      end
+
+      def overflowX
+        @view.isScrollEnabled && @view.showsHorizontalScrollIndicator ? :visible : :hidden
+      end
+
+      def overflowX=(value)
+        return unless @view.is_a?(UIScrollView)
+        @view.showsHorizontalScrollIndicator = value.to_s == 'visible'
+        @view.directionalLockEnabled = overflowY == :hidden
+        @view.scrollEnabled = overflowX != :hidden || overflowY != :hidden
+      end
+
+      def overflowY
+        @view.isScrollEnabled && @view.showsVerticalScrollIndicator ? :visible : :hidden
+      end
+
+      def overflowY=(value)
+        return unless @view.is_a?(UIScrollView)
+        @view.showsVerticalScrollIndicator = value.to_s == 'visible'
+        @view.directionalLockEnabled = overflowX == :hidden
+        @view.scrollEnabled = overflowX != :hidden || overflowY != :hidden
+      end
+
     private
 
       def convert_size(size, dim)

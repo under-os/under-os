@@ -8,10 +8,11 @@ scroll button {
 }
 
 scroll#horizontal {
-  top:    80;
-  left:   10;
-  height: 60;
-  width:  300;
+  top:      80;
+  left:     10;
+  height:   60;
+  width:    300;
+  overflow: x;
 }
 
 scroll#horizontal button {
@@ -21,10 +22,11 @@ scroll#horizontal button {
 }
 
 scroll#vertical {
-  top:    150;
-  left:   10;
-  width:  60;
-  height: 400;
+  top:      150;
+  left:     10;
+  width:    60;
+  height:   400;
+  overflow: y;
 }
 scroll#vertical button {
   width:  100%;
@@ -42,10 +44,11 @@ scroll#vertical button.b8 { top: 480; }
 scroll#vertical button.b9 { top: 540; }
 
 scroll#both {
-  top:    150;
-  left:   80;
-  width:  230;
-  height: 400;
+  top:      150;
+  left:     80;
+  width:    230;
+  height:   400;
+  overflow: visible;
 }
 scroll#both button {
   width:  58;
