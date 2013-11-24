@@ -14,7 +14,7 @@ class UnderOs::Parser
 
   def parse(filename)
     filepath = NSBundle.mainBundle.pathForResource(filename, ofType:nil)
-    content  = UnderOs::File.read(filepath) rescue ''
+    content  = filepath ? UnderOs::File.read(filepath) : ''
 
     case filename.split('.').pop
     when 'css'  then @css.parse(content)

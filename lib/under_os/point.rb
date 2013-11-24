@@ -1,10 +1,10 @@
 #
 # Generic Point/Size unit
 #
-class Point
+class UnderOs::Point
 
   def initialize(x, y=nil)
-    if x.is_a?(Point)
+    if x.is_a?(UnderOs::Point)
       y = x.y if x.y
       x = x.x
     elsif x.is_a?(Hash)
@@ -25,7 +25,7 @@ class Point
   end
 
   def ==(*args)
-    point = Point.new(*args) # normalizing
+    point = UnderOs::Point.new(*args) # normalizing
     x == point.x && y == point.y
   end
 

@@ -12,7 +12,7 @@ module UnderOs::UI::Dimensions
   end
 
   def size=(size)
-    size = Point.new(size) # cleaning up
+    size = UnderOs::Point.new(size) # cleaning up
 
     self.size.x = size.x if size.x
     self.size.y = size.y if size.y
@@ -28,7 +28,7 @@ module UnderOs::UI::Dimensions
   end
 
   def position=(position)
-    position = Point.new(position) # cleaning up
+    position = UnderOs::Point.new(position) # cleaning up
 
     self.position.x = position.x if position.x
     self.position.y = position.y if position.y

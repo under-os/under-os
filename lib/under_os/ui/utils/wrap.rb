@@ -24,7 +24,12 @@ module UnderOs::UI::Wrap
           view  = options; options = args.shift || {}
         else
           klass = self
-          view  = find_raw_class_for(self).alloc.initWithFrame([[0, 0], [0, 0]])
+          view  = find_raw_class_for(self).alloc
+          if view.class == UICollectionView
+            view.initWithFrame([[0, 0], [0, 0]], collectionViewLayout: UICollectionViewFlowLayout.alloc.init)
+          else
+            view.initWithFrame([[0, 0], [0, 0]])
+          end
         end
 
         return nil if ! klass
