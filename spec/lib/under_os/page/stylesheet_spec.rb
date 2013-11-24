@@ -80,16 +80,4 @@ describe UnderOs::Page::Stylesheet do
       }
     end
   end
-
-  describe '#apply_to' do
-    before do
-      @view = UnderOs::UI::View.new(class: 'test')
-      @stylesheet.load('test.css')
-      @stylesheet.apply_to(@view)
-    end
-
-    it "should apply styles to the view" do
-      @view.style.backgroundColor.should == UIColor.greenColor
-    end
-  end
 end

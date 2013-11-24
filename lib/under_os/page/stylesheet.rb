@@ -9,16 +9,6 @@ class UnderOs::Page::Stylesheet
     end
   end
 
-  def apply_to(view)
-    styles       = styles_for(view)
-    content_size = styles.select{|k,v|[:contentWidth,:contentHeight].include?(k)}
-    view.style   = styles.reject{|k,v|[:contentWidth,:contentHeight].include?(k)}
-    view.children.each do |subview|
-      subview.repaint(self)
-    end
-    view.style = content_size if content_size.size > 0
-  end
-
   def styles_for(view)
     {}.tap do |styles|
       weighted_styles_for(view).each do |hash|

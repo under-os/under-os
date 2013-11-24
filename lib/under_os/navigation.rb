@@ -120,7 +120,7 @@ private
 
     if view.is_a?(UnderOs::UI::View)
       view.addClass('navigation-item')
-      UnderOs::App.navigation.current_page.stylesheet.apply_to(view)
+      view.repaint(UnderOs::App.navigation.current_page.stylesheet)
       view = view._
     end
 

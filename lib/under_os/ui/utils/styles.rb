@@ -65,9 +65,14 @@ module UnderOs::UI::Styles
     addClass name
   end
 
-  def repaint(stylesheet=nil)
+  def repaint(stylesheet=nil, &block)
     stylesheet ||= page && page.stylesheet
-    stylesheet.apply_to(self) if stylesheet
+
+    if stylesheet
+      self.style = styles = stylesheet.styles_for(self)
+      children.each{ |view| view.repaint(stylesheet) }
+      block.call(styles) if block_given?
+    end
 
     self
   end

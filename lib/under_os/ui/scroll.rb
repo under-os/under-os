@@ -59,6 +59,12 @@ class Scroll < UnderOs::UI::View
     @_.contentSize = CGSizeMake(size.x, size.y)
   end
 
+  def repaint(*args)
+    super *args do |styles|
+      self.style = styles.select{|k,v|[:contentWidth,:contentHeight].include?(k)}
+    end
+  end
+
 private
 
   def normalize(value)
