@@ -6,12 +6,12 @@ class UnderOs::App
     end
 
     def setup(ios_app, options)
-      @navigation = UnderOs::Navigation.new
+      @history = UnderOs::History.new
 
       instance_exec self, &@start_block
 
       @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-      @window.rootViewController = @navigation._
+      @window.rootViewController = @history._
       @window.makeKeyAndVisible
     end
 
@@ -19,16 +19,14 @@ class UnderOs::App
       @config ||= UnderOs::Config.new(self)
     end
 
-    def navigation
-      @navigation
+    def history
+      @history
     end
 
     def stylesheet
-      @stylesheet ||= begin
-        stylesheet = UnderOs::Page::Stylesheet.new
+      @stylesheet ||= UnderOs::Page::Stylesheet.new.tap do |stylesheet|
         stylesheet.load('under-os.css')
         stylesheet.load('application.css')
-        stylesheet
       end
     end
   end

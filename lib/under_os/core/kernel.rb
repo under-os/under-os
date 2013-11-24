@@ -1,11 +1,11 @@
 module Kernel
   def u(css_rule)
-    page = UnderOs::App.navigation.current_page
+    return UnderOs::App.history.current_page if css_rule == 'page'
+    return UnderOs::App.history.navbar       if css_rule == 'navbar'
+
     elements = page.find(css_rule)
 
-    if css_rule == 'page'
-      page
-    elsif elements.size == 0
+    if elements.size == 0
       nil
     elsif elements.size == 1
       elements[0]

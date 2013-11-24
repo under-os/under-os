@@ -1,20 +1,11 @@
-class UnderOs::Navigation
+class UnderOs::UI::Navbar
   attr_reader :_
 
-  def initialize
-    @_ = UINavigationController.alloc
+  def initialize(ui_navigation_controller)
+    @_ = ui_navigation_controller
   end
 
-  def root_page
-    @_.topViewController.wrapper
-  end
-
-  def root_page=(page)
-    @_.initWithRootViewController(page._)
-  end
-
-  def current_page
-    @_.visibleViewController.wrapper
+  def repaint(stylesheet)
   end
 
   def hide(animated=true)
@@ -61,37 +52,6 @@ class UnderOs::Navigation
       views.map{|v| to_navigation_item(v)}.flatten.compact.reverse
   end
 
-  def push(page, animated=true)
-    if pages.include?(page)
-      pop_to(page)
-    else
-      @current_page = page
-      @_.pushViewController(page._, animated: animated)
-    end
-  end
-
-  alias :<< :push
-
-  def pop(page=nil, animated=true)
-    if page
-      @_.popToViewController(page._, animated: animated)
-    else
-      @_.popViewControllerAnimated(animated)
-    end
-  end
-
-  def pages
-    @_.viewControllers.map{|c| c.wrapper rescue nil }.compact
-  end
-
-  def pop_to(page, animated=true)
-    pop(page, animated)
-  end
-
-  def pop_to_root(animated=true)
-    @_.popToRootViewControllerAnimated(animated)
-  end
-
 private
 
   def to_navigation_item(view)
@@ -119,8 +79,8 @@ private
     view = {view: Proc.new{}} if view.is_a?(Symbol)
 
     if view.is_a?(UnderOs::UI::View)
-      view.addClass('navigation-item')
-      view.repaint(UnderOs::App.navigation.current_page.stylesheet)
+      view.addClass('navbar-item')
+      view.repaint(UnderOs::App.history.current_page.stylesheet)
       view = view._
     end
 

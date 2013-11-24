@@ -16,7 +16,7 @@ class UnderOs::UI::Locker < UnderOs::UI::View
   end
 
   def show
-    insertTo(UnderOs::App.navigation.current_page.view) if ! parent
+    insertTo(UnderOs::App.history.current_page.view) if ! parent
     repaint
   end
 

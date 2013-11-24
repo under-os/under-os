@@ -36,8 +36,12 @@ class UnderOs::Page
     end
   end
 
-  def navigation
-    UnderOs::App.navigation
+  def history
+    UnderOs::App.history
+  end
+
+  def navbar
+    history.navbar
   end
 
   def title
@@ -91,7 +95,8 @@ class UnderOs::Page
   end
 
   def repaint
-    view.repaint(stylesheet) if view
+    view.repaint(stylesheet)   if view
+    navbar.repaint(stylesheet) if navbar
   end
 
   #

@@ -8,11 +8,11 @@ class UnderOs::Config
   end
 
   def root_page
-    @app.navigation.root_page
+    @app.history.root_page
   end
 
   def root_page=(page)
-    @app.navigation.root_page = page
+    @app.history.root_page = page
   end
 
   def status_bar
@@ -23,11 +23,11 @@ class UnderOs::Config
     @status_bar = visible
   end
 
-  def navigation
-    @app.navigation.visible
+  def navbar
+    @app.history.navbar.visible
   end
 
-  def navigation=(visible)
-    @app.navigation.__send__ visible ? :show : :hide, false
+  def navbar=(visible)
+    @app.history.navbar.__send__ visible ? :show : :hide, false
   end
 end
