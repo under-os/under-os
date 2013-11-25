@@ -7,7 +7,7 @@ module UnderOs::UI::Styles
       self.style = hash
       self
     else
-      @_style ||= UnderOs::UI::Style.new(self)
+      @_style ||= UnderOs::UI::Style.new(_, tagName.downcase.to_sym)
     end
   end
 
@@ -69,9 +69,10 @@ module UnderOs::UI::Styles
     stylesheet ||= page && page.stylesheet
 
     if stylesheet
-      self.style = styles = stylesheet.styles_for(self)
+      styles = stylesheet.styles_for(self)
+      styles = block.call(styles) if block_given?
+      self.style = styles
       children.each{ |view| view.repaint(stylesheet) }
-      block.call(styles) if block_given?
     end
 
     self

@@ -3,3 +3,8 @@ collection {
   height:     100%;
   background: white;
 }
+
+collection item {
+  width:  100px;
+  height: 30px;
+}

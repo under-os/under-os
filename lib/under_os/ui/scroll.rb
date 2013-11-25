@@ -26,8 +26,16 @@ class Scroll < UnderOs::UI::View
   end
 
   def repaint(*args)
+    content_size = {}
+
     super *args do |styles|
-      self.style = styles.select{|k,v|[:contentWidth,:contentHeight].include?(k)}
+      styles.keys.each do |key|
+        if [:contentWidth, :contentHeight].include?(key)
+          content_size[key] = styles.delete(key)
+        end
+      end
     end
+
+    self.style = content_size unless content_size.empty?
   end
 end
