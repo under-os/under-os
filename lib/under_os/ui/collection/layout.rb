@@ -4,7 +4,7 @@ class Layout
   def initialize(layout=nil)
     @_ = layout || UICollectionViewFlowLayout.alloc.init
 
-    self.items_spacing = 1
+    self.items_spacing = 0
     self.rows_spacing  = 1
   end
 

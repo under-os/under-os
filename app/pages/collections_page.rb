@@ -5,7 +5,6 @@ class CollectionsPage < UnderOs::Page
 
     @collection.on :item do |item, index|
       item.text = "##{index + 1}"
-      item.size = {x: 100, y: 30}
     end
   end
 
