@@ -1,6 +1,14 @@
-class UnderOs::UI::Collection::Delegate
-  def initialize(collection)
-    @collection = collection
+#
+# The iOS level events receiver, not for a public use
+#
+class UnderOs::UI::Collection::Delegate < UIViewController
+
+  def self.new(collection)
+    alloc.tap do |instance|
+      instance.instance_eval do
+        @collection = collection
+      end
+    end
   end
 
   ################################################################
@@ -16,7 +24,7 @@ class UnderOs::UI::Collection::Delegate
   end
 
   def collectionView(collection, cellForItemAtIndexPath: indexPath)
-    collection.dequeueReusableCellWithReuseIdentifier('CollectionItem', forIndexPath:indexPath).tap do |item|
+    collection.dequeueReusableCellWithReuseIdentifier('UOSCollectionCell', forIndexPath:indexPath).tap do |item|
       @collection.emit(:item, item: item.uos_view_for(@collection), index: indexPath.row, section: indexPath.section)
     end
   end

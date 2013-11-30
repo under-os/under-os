@@ -155,9 +155,14 @@ module UnderOs::UI
 
       def parent_size
         parent = view.superview
-        parent = parent.superview ? parent.frame : UIScreen.mainScreen.bounds
 
-        {x: parent.size.width, y: parent.size.height}
+        if !parent.superview && parent == UnderOs::App.history.current_page.view._
+          parent = UIScreen.mainScreen.bounds.size
+        else
+          parent = parent.frame.size
+        end
+
+        {x: parent.width, y: parent.height}
       end
     end
   end

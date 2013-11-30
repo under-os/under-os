@@ -1,3 +1,6 @@
+#
+# The basic, grid (flow) layout. inheritable.
+#
 class Layout
   attr_reader :_
 

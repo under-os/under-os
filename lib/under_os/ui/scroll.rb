@@ -29,9 +29,9 @@ class Scroll < UnderOs::UI::View
     content_size = {}
 
     super *args do |styles|
-      styles.keys.each do |key|
+      styles.reject do |key, value|
         if [:contentWidth, :contentHeight].include?(key)
-          content_size[key] = styles.delete(key)
+          content_size[key] = value
         end
       end
     end

@@ -1,38 +1,32 @@
-class UnderOs::UI::Collection::Item < UICollectionViewCell
-  def self.classes
-    @classes ||= {}
+#
+# This is the collection item class that you supposed
+# to inherit (well, if you need to)
+#
+class UnderOs::UI::Collection::Item < UnderOs::UI::View
+
+  tag :item
+
+  def self.build(collection, &builder)
+    @builders           ||= {}
+    @builders[collection] = builder
+    collection.item_class = self
   end
 
-  def self.styles
-    @styles ||= {}
-  end
-
-  def uos_view_for(collection)
-    paint_for(collection)
-
-    @uos_view ||= self.class.classes[collection].new.tap do |view|
-      contentView.addSubview(view._)
-
-      # spoofing the #parent reference to use the item styles receiver as a reference
+  def self.for(collection, stylesheet=nil)
+    new.tap do |view|
       def view.parent; @_parent; end
-      view.instance_variable_set('@_parent', UnderOs::UI::Collection::Styles.items_receiver(collection))
+      view.instance_variable_set('@_parent', collection)
 
-      # repainting the item using the current stylesheet
-      view.repaint(UnderOs::App.history.current_page.stylesheet)
-    end
-  end
-
-  def paint_for(collection)
-    if ! @style
-      @style = UnderOs::UI::Style.new(self, :item)
-      (self.class.styles[collection] || {}).each do |key, value|
-        @style.__send__ "#{key}=", value
+      @builders[collection] && @builders[collection].call.each do |child|
+        view.insert child
       end
+
+      view.repaint(stylesheet || UnderOs::App.history.current_page.stylesheet)
     end
   end
 
-  def prepareForReuse
-    super
-    @uos_view.cleanup if @uos_view && @uos_view.respond_to?(:cleanup)
+  def cleanup
+    # implement me if you need to clean cells between reuse
   end
+
 end

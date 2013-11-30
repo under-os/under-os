@@ -54,6 +54,8 @@ class UnderOs::Page::Builder
   def build_children_for(view, nodes)
     if view.is_a?(UnderOs::UI::Select)
       view.optgroups = select_optgroups_from(nodes)
+    elsif view.is_a?(UnderOs::UI::Collection)
+      find_collection_items_for(view, nodes)
     else
       from_nodes(nodes).each do |child|
         view.insert child
@@ -77,4 +79,18 @@ class UnderOs::Page::Builder
       end
     end
   end
+
+  def find_collection_items_for(collection, nodes)
+    nodes.each do |node|
+      klass = class_for(node)
+
+      if klass <= UnderOs::UI::Collection::Item
+        klass.build(collection) { from_nodes(node[:children]) }
+      end
+
+      # header
+      # footer
+    end
+  end
+
 end

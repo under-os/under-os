@@ -7,10 +7,9 @@ class UnderOs::UI::Collection < UnderOs::UI::View
     self.layout = Layout.new                          if ! options[:layout]
     self.layout = options.delete(:layout)             if options[:layout].is_a?(Class)
     self.layout = options.delete(:layout).constantize if options[:layout].is_a?(String)
-    self.item   = options.delete(:item)               if options[:item].is_a?(Class)
-    self.item   = options.delete(:item).constantize   if options[:item].is_a?(String)
 
-    @_.dataSource = @_.delegate = @delegate = Delegate.new(self) # isolating the context
+    @_.delegate = @_.dataSource = Delegate.new(self)
+    @_.registerClass(Cell, forCellWithReuseIdentifier:'UOSCollectionCell')
   end
 
   def on(*args, &block)
@@ -31,13 +30,12 @@ class UnderOs::UI::Collection < UnderOs::UI::View
     @_.collectionViewLayout = (@layout = layout)._
   end
 
-  def item
-    Item.classes[self]
+  def item_class
+    Cell.classes[self]
   end
 
-  def item=(item_class)
-    Item.classes[self] = item_class
-    @_.registerClass(Item, forCellWithReuseIdentifier:'CollectionItem')
+  def item_class=(klass)
+    Cell.classes[self] = klass
   end
 
   def reload

@@ -7,6 +7,7 @@ collection {
 collection item {
   width:  106px;
   height: 30px;
+  margin-bottom: 1px;
 }
 
 collection item label {

@@ -13,7 +13,11 @@ module UnderOs::UI::Wrap
 
       def self.wraps(raw_class, options={})
         RAW_WRAPS_MAP[self] = raw_class
-        WRAPS_TAGS_MAP[options[:tag].to_s] = self if options[:tag]
+        tag(options[:tag]) if options[:tag]
+      end
+
+      def self.tag(name)
+        WRAPS_TAGS_MAP[name.to_s] = self
       end
 
       def self.new(options={}, *args, &block)
