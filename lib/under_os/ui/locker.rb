@@ -34,9 +34,9 @@ class UnderOs::UI::Locker < UnderOs::UI::View
 
   def show_for(&block)
     show
-    UnderOs::Timer.new 0.001 do
+    1.ms.later do
       block.call
-      UnderOs::Timer.new(0.001) { hide }
+      1.ms.later { hide }
     end
   end
 end

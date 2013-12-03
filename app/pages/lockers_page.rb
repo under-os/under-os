@@ -6,11 +6,11 @@ class LockersPage < UnderOs::Page
 
   def show_simple_locker
     @locker = Locker.new.show
-    UnderOs::Timer.new(2) { @locker.hide }
+    2.seconds.later { @locker.hide }
   end
 
   def show_locker_with_label
     @locker = Locker.new(text: "Wait...").show
-    UnderOs::Timer.new(2) { @locker.hide }
+    2.seconds.later { @locker.hide }
   end
 end
