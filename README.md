@@ -10,9 +10,61 @@ of JavaScript and compiles into native code in the end.
 
 That's gonna be legendary!
 
+## How To Use
+
+1) install the `under-os` gem
+
+```
+gem install under-os
+```
+
+2) Clone the RubyMotion template in place
+
+```
+mkdir -p ~/Library/RubyMotion/template/uos
+git clone https://github.com/under-os/under-os-template.git ~/Library/RubyMotion/template/uos
+```
+
+3) Make a new app using the `uos` template
+
+```
+motion create test --template=uos
+```
+
+Now, Run it!
+
+```
+cd test && rake
+```
+
+## What's What
+
+* `app/layouts` - where you keep your HTML layouts
+* `app/pages` - where the page scripts live
+* `app/styles` - where the CSS files go
+* `app/models` - where your data models chill
+* `app/views` - where you keep your custom views/components classes
+
 
 # Copyright & License
 
 All code in this library is released under the terms of the MIT license
 
 Copyright (C) 2013 Nikolay Nemshilov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

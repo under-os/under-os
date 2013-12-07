@@ -1,2 +1,3 @@
 build
 .repl_history
+*.gem

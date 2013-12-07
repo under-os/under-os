@@ -36,6 +36,10 @@ class UnderOs::Page
     end
   end
 
+  def alert(*args)
+    Alert.new(*args)
+  end
+
   def history
     UnderOs::App.history
   end
