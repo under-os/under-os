@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/under-os/under-os.png)](https://travis-ci.org/under-os/under-os)
+[![Code Climate](https://codeclimate.com/github/under-os/under-os.png)](https://codeclimate.com/github/under-os/under-os)
+
 # Under OS
 
 An experiment to build a thin web-like wrapper over iOS using rubymotion
