@@ -2,10 +2,10 @@
 
 An experiment to build a thin web-like wrapper over iOS using rubymotion
 
-The idea is to use incapsulation instead of monkey patching and build the
+The idea is to use encapsulation instead of monkey patching and build the
 entire development platform correctly and from scratch.
 
-The result should be a webbish like ifrastructure that uses ruby instead
+The result should be a _webbish_ infrastructure that uses ruby instead
 of JavaScript and compiles into native code in the end.
 
 That's gonna be legendary!
