@@ -1,16 +1,18 @@
 PATH
   remote: .
   specs:
-    under-os (0.0.0)
+    under-os (1.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    motion-facon (0.5.0.1)
     rake (10.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  motion-facon
   rake
   under-os!
