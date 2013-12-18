@@ -37,4 +37,12 @@ class String
     end
     constant
   end
+
+  def url_encode(encoding=NSUTF8StringEncoding)
+    stringByAddingPercentEscapesUsingEncoding encoding
+  end
+
+  def url_decode(encoding=NSUTF8StringEncoding)
+    stringByReplacingPercentEscapesUsingEncoding encoding
+  end
 end
