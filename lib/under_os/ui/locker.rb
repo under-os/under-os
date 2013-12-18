@@ -1,7 +1,7 @@
 class UnderOs::UI::Locker < UnderOs::UI::View
   wraps UIView, tag: :locker
 
-  attr_reader :label, :sinner
+  attr_reader :label, :spinner
 
   def initialize(options={})
     super options
