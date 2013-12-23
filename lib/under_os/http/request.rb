@@ -1,9 +1,11 @@
 #
 # Options:
 #
-#   * :method  - GET, POST, ...
-#   * :cookies - Hash of cookie values
-#   * :stream  - boolean, in case you want to stream stuff
+#   * :method   - GET, POST, ...
+#   * :cookies  - Hash of cookie values
+#   * :stream   - boolean, in case you want to stream stuff
+#   * :params   - the POST/PUT/PATCH params hash
+#   * :encoding - the POST data encoding
 #
 # Events:
 #
@@ -37,10 +39,14 @@ class UnderOs::HTTP::Request
     @receiver   = Receiver.new(self, @options[:stream])
     @connection = NSURLConnection.alloc.initWithRequest(@request, delegate:@receiver)
     @connection.start
+
+    return self
   end
 
   def cancel
     @connection.cancel
+
+    return self
   end
 
   def method
@@ -58,13 +64,24 @@ class UnderOs::HTTP::Request
     @options[:cookies] || {}
   end
 
+  def params
+    @options[:params] || {}
+  end
+
+  def encoding
+    @options[:encoding] || 'utf-8'
+  end
+
 protected
 
   def build_request
-    url = NSURL.URLWithString(NSString.stringWithFormat(@url))
+    query = params.to_query
+
+    url   = @url + (method != "GET" || query.empty? ? '' : (@url.include?('?') ? '&' : '?') + query)
+    url   = NSURL.URLWithString(url)
+
     NSMutableURLRequest.requestWithURL(url).tap do |request|
       request.setHTTPMethod self.method
-      #request.setHTTPBody self.params
 
       cookies = self.cookies.map do |key, value|
         NSHTTPCookie.cookieWithProperties({
@@ -81,8 +98,10 @@ protected
         request.addValue value, forHTTPHeaderField:key
       end
 
-      # [newRequest addValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-      # [newRequest setHTTPBody:[query dataUsingEncoding:NSUTF8StringEncoding]];
+      if %w[POST PUT PATCH DELETE].include?(method)
+        request.addValue "application/x-www-form-urlencoded;charset=#{encoding}", forHTTPHeaderField:"Content-Type"
+        request.setHTTPBody query.dataUsingEncoding(NSUTF8StringEncoding)
+      end
     end
   end
 end

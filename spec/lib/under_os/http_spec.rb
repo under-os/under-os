@@ -2,7 +2,7 @@ describe UnderOs::HTTP do
   extend Facon::SpecHelpers
 
   before do
-    @url = 'http://example.com/'
+    @url = 'http://test.com'
     @req = mock 'request', send: :request
   end
 
