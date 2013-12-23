@@ -19,11 +19,7 @@ module UnderOs::UI
       end
 
       def margin=(value)
-        value = to_4dim_array(value)
-        self.marginTop    = value[0]
-        self.marginLeft   = value[3]
-        self.marginRight  = value[1]
-        self.marginBottom = value[2]
+        set_property(:margin, value)
       end
 
       def marginTop
@@ -67,11 +63,7 @@ module UnderOs::UI
       end
 
       def padding=(value)
-        value = to_4dim_array(value)
-        self.paddingTop    = value[0]
-        self.paddingLeft   = value[3]
-        self.paddingRight  = value[1]
-        self.paddingBottom = value[2]
+        set_property(:padding, value)
       end
 
       def paddingTop
@@ -112,11 +104,17 @@ module UnderOs::UI
 
     private
 
-      def to_4dim_array(value)
-        if value.is_a?(String)
-          value = value.gsub('px', '').strip.split().reject(&:blank?).map(&:to_f)
-        end
+      def set_property(property, value)
+        value = to_4dim_array(value)
 
+        __send__ "#{property}Top=",    value[0]
+        __send__ "#{property}Left=",   value[3]
+        __send__ "#{property}Right=",  value[1]
+        __send__ "#{property}Bottom=", value[2]
+      end
+
+      def to_4dim_array(value)
+        value = value.gsub('px', '').split.map(&:to_f) if value.is_a?(String)
         value = Array(value)
         case value.size
         when 1 then value * 4
@@ -128,24 +126,10 @@ module UnderOs::UI
       def set_offsets
         return nil if display != :inline
 
-        position_x    = marginLeft
-        position_y    = marginTop
+        position_x = marginLeft + parent_offset_x
+        position_y = marginTop
 
-        parent_view   = view.superview
-        previous_view = parent_view.subviews[parent_view.subviews.index(view)-1] unless parent_view.subviews[0] === view
-
-        if previous_view
-          pos  = previous_view.frame.origin
-          size = previous_view.frame.size
-
-          position_x += pos.x + size.width
-
-          if wrap = UnderOs::UI::View.wrap_for(view)
-            position_x += wrap.style.marginRight
-          end
-        end
-
-        view.frame = [[position_x, position_y],[
+        view.frame = [[position_x, position_y], [
           view.frame.size.width, view.frame.size.height
         ]]
       end
@@ -154,6 +138,26 @@ module UnderOs::UI
         if @view.respond_to?(:contentEdgeInsets)
           @view.contentEdgeInsets = UIEdgeInsetsMake(paddingTop, paddingLeft, paddingBottom, paddingRight)
         end
+      end
+
+      def parent_offset_x
+        offset        = 0
+        parent_view   = view.superview
+
+        unless parent_view.subviews[0] === view
+          if previous_view = parent_view.subviews[parent_view.subviews.index(view)-1]
+            pos  = previous_view.frame.origin
+            size = previous_view.frame.size
+
+            offset += pos.x + size.width
+
+            if wrap = UnderOs::UI::View.wrap_for(view)
+              offset += wrap.style.marginRight
+            end
+          end
+        end
+
+        offset
       end
     end
   end
