@@ -1,9 +1,6 @@
-[![Build Status](https://travis-ci.org/under-os/under-os.png)](https://travis-ci.org/under-os/under-os)
-[![Code Climate](https://codeclimate.com/github/under-os/under-os.png)](https://codeclimate.com/github/under-os/under-os)
+# Under OS [![Build Status](https://travis-ci.org/under-os/under-os.png)](https://travis-ci.org/under-os/under-os) [![Code Climate](https://codeclimate.com/github/under-os/under-os.png)](https://codeclimate.com/github/under-os/under-os)
 
-# Under OS
-
-An experiment to build a thin web-like wrapper over iOS using rubymotion
+[UnderOS](http://under-os.com) is an experiment in building a thin web-like wrapper over iOS using rubymotion
 
 The idea is to use encapsulation instead of monkey patching and build the
 entire development platform correctly and from scratch.
@@ -39,14 +36,6 @@ Now, Run it!
 ```
 cd test && rake
 ```
-
-## What's What
-
-* `app/layouts` - where you keep your HTML layouts
-* `app/pages` - where the page scripts live
-* `app/styles` - where the CSS files go
-* `app/models` - where your data models chill
-* `app/views` - where you keep your custom views/components classes
 
 
 # Copyright & License
