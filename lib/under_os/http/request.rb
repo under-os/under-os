@@ -81,24 +81,13 @@ protected
     url   = NSURL.URLWithString(url)
 
     NSMutableURLRequest.requestWithURL(url).tap do |request|
-      request.setHTTPMethod self.method
+      request.setHTTPMethod method
 
-      cookies = self.cookies.map do |key, value|
-        NSHTTPCookie.cookieWithProperties({
-          NSHTTPCookieDomain => url.host,
-          NSHTTPCookiePath   => "/",
-          NSHTTPCookieName   => key.to_s,
-          NSHTTPCookieValue  => value.to_s
-        })
-      end
-
-      request.setAllHTTPHeaderFields NSHTTPCookie.requestHeaderFieldsWithCookies(cookies) if cookies.size > 0
-
-      headers.each do |key, value|
+      headers.merge(UnderOs::HTTP::Cookies.new(cookies, url).headers).each do |key, value|
         request.addValue value, forHTTPHeaderField:key
       end
 
-      if %w[POST PUT PATCH DELETE].include?(method)
+      if %w[POST PUT PATCH DELETE].include?(method) && !query.empty?
         request.addValue "application/x-www-form-urlencoded;charset=#{encoding}", forHTTPHeaderField:"Content-Type"
         request.setHTTPBody query.dataUsingEncoding(NSUTF8StringEncoding)
       end
