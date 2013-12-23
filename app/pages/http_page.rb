@@ -12,7 +12,11 @@ class HttpPage < UnderOs::Page
     @search.hide_keyboard
     @locker.show
 
+    p search_url
+
     UnderOs::HTTP.get search_url do |response|
+      p response.body
+
       @result.load parse_first_image_url(response.body) do
         @locker.hide
       end
