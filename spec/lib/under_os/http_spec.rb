@@ -3,60 +3,18 @@ describe UnderOs::HTTP do
 
   before do
     @url = 'http://example.com/'
-    @req = mock 'request', send: :response
+    @req = mock 'request', send: :request
   end
 
-  describe ".get" do
-    it "makes a GET request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :get).and_return @req
+  %w[get post put patch head delete].each do |method|
+    describe ".#{method}" do
+      it "sends a #{method.upcase} request" do
+        UnderOs::HTTP::Request.should.receive(:new)
+          .with(@url, foo: 'bar', method: method.to_sym)
+          .and_return(@req)
 
-      UnderOs::HTTP.get(@url, foo: 'bar').should == :response
-    end
-  end
-
-  describe ".post" do
-    it "makes a POST request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :post).and_return @req
-
-      UnderOs::HTTP.post(@url, foo: 'bar').should == :response
-    end
-  end
-
-  describe ".put" do
-    it "makes a PUT request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :put).and_return @req
-
-      UnderOs::HTTP.put(@url, foo: 'bar').should == :response
-    end
-  end
-
-  describe ".delete" do
-    it "makes a DELETE request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :delete).and_return @req
-
-      UnderOs::HTTP.delete(@url, foo: 'bar').should == :response
-    end
-  end
-
-  describe ".patch" do
-    it "makes a DELETE request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :patch).and_return @req
-
-      UnderOs::HTTP.patch(@url, foo: 'bar').should == :response
-    end
-  end
-
-  describe ".head" do
-    it "makes a HEAD request" do
-      UnderOs::HTTP::Request.should.receive(:new).
-        with(@url, foo: 'bar', method: :head).and_return @req
-
-      UnderOs::HTTP.head(@url, foo: 'bar').should == :response
+        UnderOs::HTTP.__send__(method, @url, foo: 'bar').should == :request
+      end
     end
   end
 end

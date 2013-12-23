@@ -16,8 +16,6 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
 
-  gem.add_development_dependency 'rake'
-
   gem.post_install_message = %Q{
   If you want to use the UnderOS template with RubyMotion, please run the following:
 
@@ -29,4 +27,8 @@ Gem::Specification.new do |gem|
 
     motion create awesomness --template=uos
   }
+
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'motion-facon'
+
 end

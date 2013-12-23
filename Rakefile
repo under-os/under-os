@@ -5,6 +5,7 @@ require 'bundler'
 Bundler.require
 
 require 'under-os'
+require 'motion-facon' if ARGV[0] == 'spec'
 
 Motion::Project::App.setup do |app|
   app.name       = 'uos-demo'
