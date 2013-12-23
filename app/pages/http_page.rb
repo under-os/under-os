@@ -12,12 +12,12 @@ class HttpPage < UnderOs::Page
     @search.hide_keyboard
     @locker.show
 
-    p search_url
-
     UnderOs::HTTP.get search_url do |response|
-      p response.body
-
-      @result.load parse_first_image_url(response.body) do
+      if image_url = parse_first_image_url(response)
+        @result.load image_url do
+          @locker.hide
+        end
+      else
         @locker.hide
       end
     end
@@ -26,12 +26,13 @@ class HttpPage < UnderOs::Page
   def search_url
     query = @search.value
     query = 'puppy' if query.empty?
+    query = String.new(query).url_encode
 
-    "https://www.google.com.au/search?q=#{query}&source=lnms&tbm=isch"
+    "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=#{query}"
   end
 
-  def parse_first_image_url(html)
-    html.scan(/imgurl=(http:\/\/[^&]+)/)[0][0]
+  def parse_first_image_url(response)
+    response.json["responseData"]["results"][0]["url"] rescue nil # ftw!
   end
 
 end

@@ -14,6 +14,10 @@ class UnderOs::HTTP::Response
     @body ||= @data.to_s
   end
 
+  def json
+    JSON.parse(body)
+  end
+
   def content_length
     headers["Content-Length"].to_i
   end
