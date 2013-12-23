@@ -69,7 +69,7 @@ class UnderOs::File
       NSFileManager.defaultManager.createFileAtPath @path, contents:nil, attributes:nil
     end
 
-    content = content.dataUsingEncoding(NSUTF8StringEncoding) if content.is_a?(String)
+    content = content.to_data('utf-8') if content.is_a?(String)
 
     open
     @handle.writeData content

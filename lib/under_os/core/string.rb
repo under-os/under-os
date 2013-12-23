@@ -38,11 +38,43 @@ class String
     constant
   end
 
-  def url_encode(encoding=NSUTF8StringEncoding)
-    stringByAddingPercentEscapesUsingEncoding encoding
+  def url_encode(encoding=nil)
+    stringByAddingPercentEscapesUsingEncoding ENCODINGS[encoding] || NSUTF8StringEncoding
   end
 
-  def url_decode(encoding=NSUTF8StringEncoding)
-    stringByReplacingPercentEscapesUsingEncoding encoding
+  def url_decode(encoding=nil)
+    stringByReplacingPercentEscapesUsingEncoding ENCODINGS[encoding] || NSUTF8StringEncoding
   end
+
+  def to_data(encoding=nil)
+    dataUsingEncoding ENCODINGS[encoding] || NSUTF8StringEncoding
+  end
+
+  ENCODINGS = {
+    'utf-8'  => NSUTF8StringEncoding,
+    'utf-16' => NSUTF16StringEncoding,
+    'utf-32' => NSUTF32StringEncoding,
+    'ascii'  => NSASCIIStringEncoding,
+    'latin1' => NSISOLatin1StringEncoding,
+    'latin2' => NSISOLatin2StringEncoding,
+    'cp1250' => NSWindowsCP1250StringEncoding,
+    'cp1251' => NSWindowsCP1251StringEncoding,
+    'cp1252' => NSWindowsCP1252StringEncoding,
+    'cp1253' => NSWindowsCP1253StringEncoding,
+    'cp1254' => NSWindowsCP1254StringEncoding,
+
+
+    # NSNEXTSTEPStringEncoding = 2,
+    # NSJapaneseEUCStringEncoding = 3,
+    # NSSymbolStringEncoding = 6,
+    # NSNonLossyASCIIStringEncoding = 7,
+    # NSShiftJISStringEncoding = 8,
+    # NSISO2022JPStringEncoding = 21,
+    # NSMacOSRomanStringEncoding = 30,
+    # NSUTF16BigEndianStringEncoding = 0x90000100,
+    # NSUTF16LittleEndianStringEncoding = 0x94000100,
+    # NSUTF32BigEndianStringEncoding = 0x98000100,
+    # NSUTF32LittleEndianStringEncoding = 0x9c000100,
+    # NSProprietaryStringEncoding = 65536
+  }
 end

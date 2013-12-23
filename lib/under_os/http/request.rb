@@ -89,7 +89,7 @@ protected
 
       if %w[POST PUT PATCH DELETE].include?(method) && !query.empty?
         request.addValue "application/x-www-form-urlencoded;charset=#{encoding}", forHTTPHeaderField:"Content-Type"
-        request.setHTTPBody query.dataUsingEncoding(NSUTF8StringEncoding)
+        request.setHTTPBody query.to_data(encoding)
       end
     end
   end

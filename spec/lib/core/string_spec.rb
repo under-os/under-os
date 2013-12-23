@@ -104,4 +104,18 @@ describe String do
       "Hello%20World".url_decode.should == "Hello World"
     end
   end
+
+  describe '#to_data' do
+    before do
+      @data = "ohai there".to_data
+    end
+
+    it "converts the string into a data object" do
+      @data.is_a?(NSData).should == true
+    end
+
+    it "converts it into data with correct content" do
+      @data.to_s.should == "ohai there"
+    end
+  end
 end
