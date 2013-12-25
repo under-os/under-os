@@ -17,3 +17,7 @@ collection item label {
   border-radius: 2px;
   text-align:    center;
 }
+
+collection item.selected label {
+  background: yellow;
+}

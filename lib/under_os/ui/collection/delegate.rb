@@ -59,10 +59,12 @@ class UnderOs::UI::Collection::Delegate < UIViewController
   ################################################################
 
   def collectionView(collection, didSelectItemAtIndexPath: indexPath)
-    @collection.emit(:select, index: indexPath.row, section: indexPath.section)
+    item = collection.cellForItemAtIndexPath(indexPath).uos_view_for(@collection)
+    @collection.emit(:select, item: item, index: indexPath.row, section: indexPath.section)
   end
 
   def collectionView(collection, didDeselectItemAtIndexPath: indexPath)
-    @collection.emit(:unselect, index: indexPath.row, section: indexPath.section)
+    item = collection.cellForItemAtIndexPath(indexPath).uos_view_for(@collection)
+    @collection.emit(:unselect, item: item, index: indexPath.row, section: indexPath.section)
   end
 end

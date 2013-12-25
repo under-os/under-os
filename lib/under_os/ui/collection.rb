@@ -14,7 +14,7 @@ class UnderOs::UI::Collection < UnderOs::UI::View
 
   def on(*args, &block)
     super *args do |event|
-      params = [event.item, event.index, event.section].compact
+      params = [event.item, event.index, event.section]
       params = params.slice(0, block.arity) if block.arity > -1
 
       block.call *params
@@ -40,6 +40,7 @@ class UnderOs::UI::Collection < UnderOs::UI::View
 
   def reload
     @_.reloadData
+    self
   end
 
   def number_of_items(section=0)
@@ -48,6 +49,7 @@ class UnderOs::UI::Collection < UnderOs::UI::View
 
   def number_of_items=(value)
     @number_of_items = value.is_a?(Numeric) ? [value] : value
+    reload
   end
 
   def number_of_sections
