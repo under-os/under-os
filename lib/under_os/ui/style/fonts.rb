@@ -22,39 +22,33 @@ module UnderOs::UI
 
       def textAlign
         if @view.is_a?(UIButton)
-          case @view.contentHorizontalAlignment
-            when UIControlContentHorizontalAlignmentRight  then 'right'
-            when UIControlContentHorizontalAlignmentCenter then 'center'
-            when UIControlContentHorizontalAlignmentFill   then 'justify'
-            else                                                'left'
-          end
+          BUTTONS_ALIGMENTS_MAP.key(@view.contentHorizontalAlignment)
         elsif @view.respond_to?(:textAlignment)
-          case @view.textAlignment
-            when NSTextAlignmentRight     then 'right'
-            when NSTextAlignmentCenter    then 'center'
-            when NSTextAlignmentJustified then 'justify'
-            else                               'left'
-          end
+          TEXTNODES_ALIGMENTS_MAP.key(@view.textAlignment)
         end
       end
 
       def textAlign=(value)
         if @view.is_a?(UIButton)
-          @view.contentHorizontalAlignment = case value.to_s
-            when 'right'   then UIControlContentHorizontalAlignmentRight
-            when 'center'  then UIControlContentHorizontalAlignmentCenter
-            when 'justify' then UIControlContentHorizontalAlignmentFill
-            else                UIControlContentHorizontalAlignmentLeft
-          end
+          @view.contentHorizontalAlignment = BUTTONS_ALIGMENTS_MAP[value.to_s] || BUTTONS_ALIGMENTS_MAP['left']
         elsif @view.respond_to?(:textAlignment)
-          @view.textAlignment = case value.to_s
-            when 'right'   then NSTextAlignmentRight
-            when 'center'  then NSTextAlignmentCenter
-            when 'justify' then NSTextAlignmentJustified
-            else                NSTextAlignmentLeft
-          end
+          @view.textAlignment = TEXTNODES_ALIGMENTS_MAP[value.to_s] || BUTTONS_ALIGMENTS_MAP['left']
         end
       end
+
+      BUTTONS_ALIGMENTS_MAP = {
+        'right'   => UIControlContentHorizontalAlignmentRight,
+        'center'  => UIControlContentHorizontalAlignmentCenter,
+        'justify' => UIControlContentHorizontalAlignmentFill,
+        'left'    => UIControlContentHorizontalAlignmentLeft
+      }
+
+      TEXTNODES_ALIGMENTS_MAP = {
+        'right'   => NSTextAlignmentRight,
+        'center'  => NSTextAlignmentCenter,
+        'justify' => NSTextAlignmentJustified,
+        'left'    => NSTextAlignmentLeft
+      }
     end
   end
 end

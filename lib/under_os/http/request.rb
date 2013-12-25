@@ -76,9 +76,7 @@ protected
 
   def build_request
     query = params.to_query
-
-    url   = @url + (method != "GET" || query.empty? ? '' : (@url.include?('?') ? '&' : '?') + query)
-    url   = NSURL.URLWithString(url)
+    url   = build_url(query)
 
     NSMutableURLRequest.requestWithURL(url).tap do |request|
       request.setHTTPMethod method
@@ -92,6 +90,17 @@ protected
         request.setHTTPBody query.to_data(encoding)
       end
     end
+  end
+
+  def build_url(query)
+    url  = @url
+
+    if method == "GET" && !query.empty?
+      url += url.include?('?') ? '&' : '?'
+      url += query
+    end
+
+    NSURL.URLWithString(url)
   end
 end
 

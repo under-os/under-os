@@ -19,7 +19,8 @@ module UnderOs::UI
       end
 
       def margin=(value)
-        set_property(:margin, value)
+        @margin_top, @margin_right, @margin_botom, @margin_left = to_4dim_array(value)
+        set_offsets
       end
 
       def marginTop
@@ -63,7 +64,8 @@ module UnderOs::UI
       end
 
       def padding=(value)
-        set_property(:padding, value)
+        @padding_top, @padding_right, @padding_botom, @padding_left = to_4dim_array(value)
+        set_offsets
       end
 
       def paddingTop
@@ -104,15 +106,6 @@ module UnderOs::UI
 
     private
 
-      def set_property(property, value)
-        value = to_4dim_array(value)
-
-        __send__ "#{property}Top=",    value[0]
-        __send__ "#{property}Left=",   value[3]
-        __send__ "#{property}Right=",  value[1]
-        __send__ "#{property}Bottom=", value[2]
-      end
-
       def to_4dim_array(value)
         value = value.gsub('px', '').split.map(&:to_f) if value.is_a?(String)
         value = Array(value)
@@ -129,8 +122,8 @@ module UnderOs::UI
         position_x = marginLeft + parent_offset_x
         position_y = marginTop
 
-        view.frame = [[position_x, position_y], [
-          view.frame.size.width, view.frame.size.height
+        @view.frame = [[position_x, position_y], [
+          @view.frame.size.width, @view.frame.size.height
         ]]
       end
 
@@ -141,23 +134,30 @@ module UnderOs::UI
       end
 
       def parent_offset_x
-        offset        = 0
-        parent_view   = view.superview
+        offset       = 0
+        parent_frame = parent_view_frame
 
-        unless parent_view.subviews[0] === view
-          if previous_view = parent_view.subviews[parent_view.subviews.index(view)-1]
-            pos  = previous_view.frame.origin
-            size = previous_view.frame.size
+        if parent_frame
+          offset += parent_frame.origin.x + parent_frame.size.width
 
-            offset += pos.x + size.width
-
-            if wrap = UnderOs::UI::View.wrap_for(view)
-              offset += wrap.style.marginRight
-            end
+          if wrap = UnderOs::UI::View.wrap_for(@view)
+            offset += wrap.style.marginRight
           end
         end
 
         offset
+      end
+
+      def parent_view_frame
+        parent_view  = @view.superview
+        parent_frame = nil
+
+        unless parent_view.subviews[0] === @view
+          previous_view = parent_view.subviews[parent_view.subviews.index(@view)-1]
+          parent_frame  = previous_view && previous_view.frame
+        end
+
+        parent_frame
       end
     end
   end

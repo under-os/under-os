@@ -94,26 +94,28 @@ class UnderOs::Color
 
     def color_from_string(name)
       name = name.downcase.strip
-      name = 'clear'     if name == 'transparent'
-      name = 'darkGray'  if name == 'darkgray'
-      name = 'lightGray' if name == 'lightgray'
+      name = ALIASES[name] || name
 
       return UIColor.send("#{name}Color") if IOS_COLORS.include?(name)
 
       name = HTML_COLORS[name] || name
       name = "#" + name[1]*2 + name[2]*2 + name[3]*2 if name =~ /^#[abcdef0-9]{3}$/
 
-      r, g, b, a = if name =~ /^#[abcdef0-9]{6}$/
-        hex_2_rgb(name)
-      elsif m = name.match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*\)$/)
-        [m[1].to_i, m[2].to_i, m[3].to_i]
-      elsif m = name.match(/^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*,\s*([\d\.]+)\s*\)$/)
-        [m[1].to_i, m[2].to_i, m[3].to_i, m[4].to_f]
-      else
-        raise "Malformed color spec: #{name.inspect}"
-      end
+      r, g, b, a = color_2_rgba(name)
 
       color_from_array(r, g, b, a || 1.0)
+    end
+
+    def color_2_rgba(color)
+      if color =~ /^#[abcdef0-9]{6}$/
+        hex_2_rgb(color)
+      elsif m = color.match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*\)$/)
+        [m[1].to_i, m[2].to_i, m[3].to_i]
+      elsif m = color.match(/^rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d*)\s*,\s*([\d\.]+)\s*\)$/)
+        [m[1].to_i, m[2].to_i, m[3].to_i, m[4].to_f]
+      else
+        raise "Malformed color spec: #{color.inspect}"
+      end
     end
 
     def color_from_param(param) # 0.0..1.0
@@ -143,6 +145,12 @@ class UnderOs::Color
       else                 [1.0, 0.0, r]
       end
     end
+
+    ALIASES = {
+      'transparent' => 'clear',
+      'darkgray'    => 'darkGray',
+      'lightgray'   => 'lightGray'
+    }
 
     IOS_COLORS = %w[
       black
