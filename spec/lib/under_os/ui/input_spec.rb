@@ -16,6 +16,11 @@ describe UnderOs::UI::Input do
       @input.tagName.should == 'INPUT'
     end
 
+    it "should accept the 'name' option" do
+      input = UnderOs::UI::Input.new(name: 'some_name')
+      input.name.should == 'some_name'
+    end
+
     it "should accept the 'value' option" do
       input = UnderOs::UI::Input.new(value: 'boo hoo')
       input.value.should == 'boo hoo'
@@ -47,6 +52,13 @@ describe UnderOs::UI::Input do
   #     @input.type.should == 'text'
   #   end
   # end
+
+  describe '#name' do
+    it "should assign the name to an input field" do
+      @input.name = 'newname'
+      @input.name.should == 'newname'
+    end
+  end
 
   describe '#value' do
     it "should assign the value to the wrapped element" do

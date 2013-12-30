@@ -3,6 +3,10 @@ describe UnderOs::UI::Switch do
     @switch = UnderOs::UI::Switch.new
   end
 
+  it "inherits fromthe UnderOs::UI::Input" do
+    (UnderOs::UI::Switch < UnderOs::UI::Input).should == true
+  end
+
   describe '#initialize' do
     it "should spawn new switchs" do
       @switch.class.should == UnderOs::UI::Switch

@@ -1,12 +1,8 @@
-class UnderOs::UI::Switch < UnderOs::UI::View
-  include UnderOs::UI::Editable
-
+class UnderOs::UI::Switch < UnderOs::UI::Input
   wraps UISwitch, tag: 'switch'
 
   def initialize(options={})
     super
-
-    self.value   = options[:value]   if options[:value]
     self.checked = options[:checked] if options[:checked]
   end
 

@@ -1,15 +1,12 @@
-class UnderOs::UI::Select < UnderOs::UI::View
+class UnderOs::UI::Select < UnderOs::UI::Input
   wraps UIPickerView, tag: :select
 
   def initialize(options={})
     super
 
     self.options = options.delete(:options) if options[:options]
-    self.value   = options.delete(:value)   if options[:value]
+    @_.showsSelectionIndicator = true       if options[:lense]
 
-    #@_.showsSelectionIndicator = true       if options[:lense]
-
-    @_.delegate   = self
     @_.dataSource = self
   end
 

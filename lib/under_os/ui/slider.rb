@@ -1,6 +1,4 @@
-class UnderOs::UI::Slider < UnderOs::UI::View
-  include UnderOs::UI::Editable
-
+class UnderOs::UI::Slider < UnderOs::UI::Input
   wraps UISlider, tag: 'slider'
 
   def initialize(options={})
@@ -8,7 +6,6 @@ class UnderOs::UI::Slider < UnderOs::UI::View
 
     self.min   = options[:min]   if options[:min]
     self.max   = options[:max]   if options[:max]
-    self.value = options[:value] if options[:value]
 
     @_.continuous = options.delete(:track) || true # track the changes as they go
     @_.addTarget self, action: :fire_change_event, forControlEvents:UIControlEventValueChanged

@@ -3,6 +3,10 @@ describe UnderOs::UI::Slider do
     @slider = UnderOs::UI::Slider.new
   end
 
+  it "inherits fromthe UnderOs::UI::Input" do
+    (UnderOs::UI::Slider < UnderOs::UI::Input).should == true
+  end
+
   describe '#initialize' do
     it "should spawn new sliders" do
       @slider.class.should == UnderOs::UI::Slider

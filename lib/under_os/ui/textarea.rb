@@ -1,14 +1,5 @@
-class UnderOs::UI::Textarea < UnderOs::UI::View
-  include UnderOs::UI::Editable
-
+class UnderOs::UI::Textarea < UnderOs::UI::Input
   wraps UITextView, tag: 'textarea'
-
-  def initialize(options={})
-    super
-
-    self.value       = options[:value]       if options[:value]
-    self.keyboard    = options[:keyboard]    if options[:keyboard]
-  end
 
   alias :text= :value= # to get values from the HTML layouts
 end

@@ -1,4 +1,4 @@
-class Scroll < UnderOs::UI::View
+class UnderOs::UI::Scroll < UnderOs::UI::View
   wraps UIScrollView, tag: :scroll
 
   def initialize(options={})

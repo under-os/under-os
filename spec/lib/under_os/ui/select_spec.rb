@@ -3,6 +3,10 @@ describe UnderOs::UI::Select do
     @select  = UnderOs::UI::Select.new
   end
 
+  it "inherits fromthe UnderOs::UI::Input" do
+    (UnderOs::UI::Select < UnderOs::UI::Input).should == true
+  end
+
   describe '#initialize' do
     it "should make select instances" do
       @select.class.should == UnderOs::UI::Select

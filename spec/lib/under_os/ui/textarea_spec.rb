@@ -3,6 +3,10 @@ describe UnderOs::UI::Textarea do
     @textarea = UnderOs::UI::Textarea.new
   end
 
+  it "inherits fromthe UnderOs::UI::Input" do
+    (UnderOs::UI::Textarea < UnderOs::UI::Input).should == true
+  end
+
   describe '#initialize' do
     it "should spawn new textareas" do
       @textarea.class.should == UnderOs::UI::Textarea
