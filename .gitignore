@@ -1,3 +1,4 @@
 build
 .repl_history
 *.gem
+.bundle
