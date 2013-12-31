@@ -4,7 +4,7 @@ class UnderOs::UI::Input < UnderOs::UI::View
   def initialize(options={})
     super
 
-    # self.type        = options[:type]        if options[:type]
+    self.type        = options[:type]        if options[:type]
     self.name        = options[:name]        if options[:name]
     self.value       = options[:value]       if options[:value]
     self.placeholder = options[:placeholder] if options[:placeholder]
@@ -37,20 +37,20 @@ class UnderOs::UI::Input < UnderOs::UI::View
     @_.placeholder = value
   end
 
-  # FIXME apparently there is a problem with this property in rubymotion
-  # def type
-  #   if @_.secureTextEntry
-  #     :password
-  #   else
-  #     :text
-  #   end
-  # end
+  def type
+    if @_.respond_to?(:secureTextEntry) && @_.secureTextEntry
+      :password
+    else
+      keyboard == :default ? :text : keyboard
+    end
+  end
 
-  # def type=(type)
-  #   case type.to_sym
-  #   when :password then @_.secureTextEntry = true
-  #   end
-  # end
+  def type=(type)
+    case type.to_sym
+    when :password then @_.secureTextEntry = true
+    else self.keyboard = type
+    end
+  end
 
   def keyboard
     KEYBOARDS.index(@_.keyboardType)

@@ -37,21 +37,21 @@ describe UnderOs::UI::Input do
     end
   end
 
-  # describe '#type' do
-  #   it "should handle the 'password' type correctly" do
-  #     @input.type = 'password'
-  #     @input._.secureTextEntry.should == true
-  #   end
+  describe '#type' do
+    # it "should handle the 'password' type correctly" do
+    #   @input.type = 'password'
+    #   @input._.secureTextEntry.should == true
+    # end
 
-  #   it "should convert the input type back" do
-  #     @input.type = 'password'
-  #     @input.type.should == 'password'
-  #   end
+    # it "should convert the input type back" do
+    #   @input.type = 'password'
+    #   @input.type.should == :password
+    # end
 
-  #   it "should return 'text' by default" do
-  #     @input.type.should == 'text'
-  #   end
-  # end
+    it "should return 'text' by default" do
+      @input.type.should == :text
+    end
+  end
 
   describe '#name' do
     it "should assign the name to an input field" do
