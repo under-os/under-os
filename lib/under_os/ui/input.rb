@@ -9,6 +9,7 @@ class UnderOs::UI::Input < UnderOs::UI::View
     self.value       = options[:value]       if options[:value]
     self.placeholder = options[:placeholder] if options[:placeholder]
     self.keyboard    = options[:keyboard]    if options[:keyboard]
+    self.disabled    = true                  if options[:disabled]
 
     @_.delegate      = self if @_.respond_to?(:delegate=)
   end
@@ -78,6 +79,16 @@ class UnderOs::UI::Input < UnderOs::UI::View
     twitter:   UIKeyboardTypeTwitter,
     search:    UIKeyboardTypeWebSearch
   }
+
+  def disabled
+    ! @_.isEnabled
+  end
+
+  alias :disabled? :disabled
+
+  def disabled=(value)
+    @_.enabled = ! value
+  end
 
 # delegate
 

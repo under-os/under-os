@@ -86,4 +86,24 @@ describe UnderOs::UI::Input do
     end
   end
 
+  describe '#disabled' do
+    it "returns 'false' by default" do
+      @input.disabled.should == false
+    end
+
+    it "reads the value right of the ios entity" do
+      @input._.enabled = false
+      @input.disabled.should == true
+    end
+
+    it "allows to disable the inputs" do
+      @input.disabled = true
+      @input._.isEnabled.should == false
+    end
+
+    it "has a ruby-style alias" do
+      @input.disabled?.should == false
+    end
+  end
+
 end
