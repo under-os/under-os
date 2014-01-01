@@ -39,4 +39,14 @@ class UnderOs::UI::Icon < UnderOs::UI::View
     @_.setFont self.class.engine.font(size)
     @_.sizeToFit
   end
+
+  def disabled
+    ! @_.isEnabled
+  end
+
+  alias :disabled? :disabled
+
+  def disabled=(value)
+    @_.enabled = ! value
+  end
 end

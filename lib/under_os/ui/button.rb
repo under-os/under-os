@@ -19,4 +19,14 @@ class UnderOS::UI::Button < UnderOS::UI::View
     repaint
   end
 
+  def disabled
+    ! @_.isEnabled
+  end
+
+  alias :disabled? :disabled
+
+  def disabled=(value)
+    @_.enabled = ! value
+  end
+
 end
