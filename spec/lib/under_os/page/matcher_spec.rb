@@ -111,6 +111,89 @@ describe UnderOs::Page::StylesMatcher do
       end
     end
 
+    describe "attribute matchers" do
+      before do
+        @view.id = "my-view"
+      end
+
+      def score_for(view, css_rule)
+        UnderOs::Page::StylesMatcher.new(css_rule).score_for(view)
+      end
+
+      describe "with the '=' operator" do
+        it "scores when the value matches exactly" do
+          score_for(@view, '[id="my-view"]').should == 1
+        end
+
+        it "doesn't count when the value does not match" do
+          score_for(@view, "[id='my']").should == 0
+        end
+      end
+
+      describe "with the '*=' operator" do
+        it "scores when the attribute includes the value" do
+          score_for(@view, '[id*=vie]').should == 1
+        end
+
+        it "doesn't count when the value doesn't match attribute" do
+          score_for(@view, '[id*=mismatch]').should == 0
+        end
+      end
+
+      describe "with the ^= operator" do
+        it "scores when the attribute starts with the value" do
+          score_for(@view, '[id^=my]').should == 1
+        end
+
+        it "doesn't count when the attribute doesn't start with the value" do
+          score_for(@view, '[id^=view]').should == 0
+        end
+      end
+
+      describe "with the $= operator" do
+        it "scores when the attribute ends with the value" do
+          score_for(@view, '[id$=view]').should == 1
+        end
+
+        it "doesn't count when the attribute doesn't ends with the value" do
+          score_for(@view, '[id$=my]').should == 0
+        end
+      end
+
+      describe "with the ~= operator" do
+        before { @view.id = "one two three" }
+
+        it "scores when the value is a token from the attribute" do
+          score_for(@view, '[id~=one]').should == 1
+          score_for(@view, '[id~=two]').should == 1
+          score_for(@view, '[id~=three]').should == 1
+        end
+
+        it "doesn't trigger on completely different strings" do
+          score_for(@view, '[id~=four]').should == 0
+        end
+
+        it "doesn't trigger on partial substrings" do
+          score_for(@view, '[id~=tw]').should == 0
+        end
+      end
+
+      describe "with the |= operator" do
+        it "scores when value is a dashed token of the attribute" do
+          score_for(@view, '[id|=my]').should == 1
+          score_for(@view, '[id|=view]').should == 1
+        end
+
+        it "doesn't trigger on completely different values" do
+          score_for(@view, '[id|=mismatch]').should == 0
+        end
+
+        it "doesn't trigger on partial matches" do
+          score_for(@view, '[id|=vie]').should == 0
+        end
+      end
+    end
+
     describe 'multiple nested matches' do
       it "should count in all the matches" do
         @view.id = 'my-id'
