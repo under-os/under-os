@@ -59,15 +59,21 @@ class UnderOs::UI::Input < UnderOs::UI::View
 
   def keyboard=(keyboard)
     keyboard = keyboard.to_sym if keyboard.is_a?(String)
-    @_.keyboardType = KEYBOARDS[keyboard] || keyboard
+    keyboard = KEYBOARDS[keyboard] || keyboard
+
+    raise "Unknown keyboard type: #{keyboard}" if keyboard.is_a?(Symbol)
+
+    @_.keyboardType = keyboard
   end
 
   def hide_keyboard
-    @_.resignFirstResponder
+    puts "DEPRECATED: please use the `#blur` method instead of `#hide_keyboard`"
+    blur
   end
 
   KEYBOARDS = {
     default:   UIKeyboardTypeDefault,
+    text:      UIKeyboardTypeDefault,
     ascii:     UIKeyboardTypeASCIICapable,
     numeric:   UIKeyboardTypeNumbersAndPunctuation,
     url:       UIKeyboardTypeURL,
@@ -98,10 +104,18 @@ class UnderOs::UI::Input < UnderOs::UI::View
     self.disabled = false
   end
 
+  def focus
+    @_.becomeFirstResponder
+  end
+
+  def blur
+    @_.resignFirstResponder
+  end
+
 # delegate
 
   def textFieldShouldReturn(textField)
-    hide_keyboard
+    blur
     false
   end
 

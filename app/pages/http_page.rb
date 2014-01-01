@@ -9,7 +9,7 @@ class HttpPage < UnderOs::Page
   end
 
   def search
-    @search.hide_keyboard
+    @search.blur
     @locker.show
 
     UnderOs::HTTP.get search_url do |response|
