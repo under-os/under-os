@@ -11,6 +11,7 @@ class UnderOs::UI::Icon < UnderOs::UI::View
 
     self.type = options.delete(:type) || :bug
     self.size = options.delete(:size) || 20
+    self.disable if options[:disabled]
 
     @_.sizeToFit
     @_.showsTouchWhenHighlighted = true
@@ -48,5 +49,13 @@ class UnderOs::UI::Icon < UnderOs::UI::View
 
   def disabled=(value)
     @_.enabled = ! value
+  end
+
+  def disable
+    self.disabled = true
+  end
+
+  def enable
+    self.disabled = false
   end
 end

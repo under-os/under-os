@@ -90,6 +90,14 @@ class UnderOs::UI::Input < UnderOs::UI::View
     @_.enabled = ! value
   end
 
+  def disable
+    self.disabled = true
+  end
+
+  def enable
+    self.disabled = false
+  end
+
 # delegate
 
   def textFieldShouldReturn(textField)

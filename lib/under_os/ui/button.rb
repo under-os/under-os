@@ -4,7 +4,9 @@ class UnderOS::UI::Button < UnderOS::UI::View
   def initialize(options={})
     super
 
-    self.text  = options.delete(:text) || ''
+    self.text = options.delete(:text) || ''
+    self.disable if options[:disabled]
+
     @_.showsTouchWhenHighlighted = true
     @_.setBackgroundImage(options.delete(:image), forState:UIControlStateNormal) if options[:image]
     @_.sizeToFit
@@ -27,6 +29,14 @@ class UnderOS::UI::Button < UnderOS::UI::View
 
   def disabled=(value)
     @_.enabled = ! value
+  end
+
+  def disable
+    self.disabled = true
+  end
+
+  def enable
+    self.disabled = false
   end
 
 end
