@@ -3,7 +3,7 @@ class UnderOs::Parser::CSS
     style = style.gsub(/\/\*[\s\S]+?\*\//, '').strip
 
     {}.tap do |result|
-      style.scan(/(\A|\})([a-z0-9_\-\.\s#:,]+)\{([^}]+)/).map do |rule|
+      style.scan(/(\A|\})([a-z0-9_\*\-\.\s#:,]+)\{([^}]+)/).map do |rule|
         values = parse_styles(rule[2])
 
         rule[1].split(',').each do |css_rule|

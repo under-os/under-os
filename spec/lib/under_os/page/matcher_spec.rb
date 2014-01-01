@@ -50,6 +50,10 @@ describe UnderOs::Page::StylesMatcher do
       it "should not add score if the css-rule is wrong" do
         score_for(@view, 'view.some-class').should == 0
       end
+
+      it "should handle the * as the tag name" do
+        score_for(@view, '*').should == 1
+      end
     end
 
     describe 'IDs matching' do

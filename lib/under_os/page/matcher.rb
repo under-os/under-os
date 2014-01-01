@@ -40,7 +40,7 @@ private
   end
 
   def tag_score_for(view)
-    @rule[:tag] == view.tagName ? 1 : 0
+    @rule[:tag] == '*' || @rule[:tag] == view.tagName ? 1 : 0
   end
 
   def class_score_for(view)
@@ -63,7 +63,7 @@ private
 
   def parse(string)
     {}.tap do |rule|
-      if m = string.match(/^([a-z]+)/)
+      if m = string.match(/^([a-z\*]+)/)
         rule[:tag] = m[1].upcase
       else
         rule[:tag] = false # so it wouldn't match nil
