@@ -6,10 +6,15 @@ class UnderOs::Page::StylesMatcher
   end
 
   def initialize(css_rule)
-    css_rule = css_rule.strip
-    rules    = css_rule.scan(/([\S]+)/).map(&:first)
-    @rule    = parse(rules.pop)
-    @parent  = rules.size == 0 ? false : self.class.new(rules.join(' '))
+    css_rules = css_rule.strip.split(/\s*,\s*/)
+
+    if css_rules.size == 1
+      rules    = css_rules[0].scan(/([\S]+)/).map(&:first)
+      @rule    = parse(rules.pop)
+      @parent  = rules.size == 0 ? false : self.class.new(rules.join(' '))
+    else
+      @multiple_matchers = css_rules.map{ |rule| self.class.new(rule) }
+    end
   end
 
   def match(view)
@@ -17,23 +22,30 @@ class UnderOs::Page::StylesMatcher
   end
 
   def score_for(view)
+    return summary_score_for(view) if @multiple_matchers
+
     id_score    = id_score_for(view)
     tag_score   = tag_score_for(view)
     class_score = class_score_for(view)
+    total_score = id_score + tag_score + class_score
 
-    return 0 if @rule[:id]  && id_score     == 0
-    return 0 if @rule[:tag] && tag_score    == 0
-    return 0 if @rule[:classes].size > 0 && class_score == 0
-    return 0 if (this_score = id_score + tag_score + class_score) == 0
+    total_score = 0 if id_score    == 0 && @rule[:id]
+    total_score = 0 if tag_score   == 0 && @rule[:tag]
+    total_score = 0 if class_score == 0 && @rule[:classes].size != 0
 
-    parent_score = parent_score_for(view)
+    if @parent && total_score != 0
+      parent_score = parent_score_for(view)
+      total_score  = parent_score == 0 ? 0 : total_score + parent_score
+    end
 
-    return 0 if @parent && parent_score == 0
-
-    parent_score + this_score
+    total_score
   end
 
 private
+
+  def summary_score_for(view)
+    @multiple_matchers.map{ |matcher| matcher.score_for(view) }.max
+  end
 
   def id_score_for(view)
     @rule[:id] == view.id ? 1 : 0
@@ -49,8 +61,6 @@ private
   end
 
   def parent_score_for(view)
-    return 0 if ! @parent
-
     parent = view; score = 0
 
     while parent = parent.parent

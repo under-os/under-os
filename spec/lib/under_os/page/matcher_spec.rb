@@ -111,7 +111,7 @@ describe UnderOs::Page::StylesMatcher do
       end
     end
 
-    describe 'multiple matches' do
+    describe 'multiple nested matches' do
       it "should count in all the matches" do
         @view.id = 'my-id'
         @view.className = 'class1 class2'
@@ -152,6 +152,25 @@ describe UnderOs::Page::StylesMatcher do
 
       it "should return 0 if no matching parent found" do
         score_for(@view, '.non-existing #my-view').should == 0
+      end
+    end
+
+    describe "multiple different matchers" do
+      before do
+        @view.id        = 'my-view'
+        @view.className = 'classy'
+      end
+
+      it "gets score out of multiple matchers if one of them is matching" do
+        score_for(@view, "view, input, form").should == 1
+      end
+
+      it "return 0 if none of the matchers are matching" do
+        score_for(@view, "input,select").should == 0
+      end
+
+      it "gets the max score if there are multiple matches" do
+        score_for(@view, "view,.classy,view#my-view").should == 2
       end
     end
   end
