@@ -8,7 +8,7 @@ class UnderOs::UI::Slider < UnderOs::UI::Input
     self.max   = options[:max]   if options[:max]
 
     @_.continuous = options.delete(:track) || true # track the changes as they go
-    @_.addTarget self, action: :fire_change_event, forControlEvents:UIControlEventValueChanged
+    @_.addTarget self, action: :handle_change, forControlEvents:UIControlEventValueChanged
   end
 
   def value
@@ -33,14 +33,5 @@ class UnderOs::UI::Slider < UnderOs::UI::Input
 
   def max=(value)
     @_.maximumValue = value.to_f
-  end
-
-private
-
-  def fire_change_event
-    if @_prev_value != @_.value
-      @_prev_value = @_.value
-      emit :change
-    end
   end
 end

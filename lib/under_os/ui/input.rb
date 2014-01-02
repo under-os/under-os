@@ -11,7 +11,13 @@ class UnderOs::UI::Input < UnderOs::UI::View
     self.keyboard    = options[:keyboard]    if options[:keyboard]
     self.disabled    = true                  if options[:disabled]
 
-    @_.delegate      = self if @_.respond_to?(:delegate=)
+    @_.delegate = self if @_.respond_to?(:delegate=)
+
+    if @_.class == UITextField
+      @_.addTarget self, action: :handle_focus,  forControlEvents:UIControlEventEditingDidBegin
+      @_.addTarget self, action: :handle_change, forControlEvents:UIControlEventEditingChanged
+      @_.addTarget self, action: :handle_blur,   forControlEvents:UIControlEventEditingDidEnd
+    end
   end
 
   def name
@@ -116,7 +122,19 @@ class UnderOs::UI::Input < UnderOs::UI::View
 
   def textFieldShouldReturn(textField)
     blur
-    false
   end
 
+protected
+
+  def handle_focus
+    emit('focus')
+  end
+
+  def handle_change
+    emit('change')
+  end
+
+  def handle_blur
+    emit('blur')
+  end
 end

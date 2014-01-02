@@ -41,7 +41,7 @@ class UnderOs::UI::Select < UnderOs::UI::Input
   def value=(value)
     prev_val = @value
     @value = Array(value).map(&:to_s)
-    emit :change if @value != prev_val
+    handle_change if @value != prev_val
 
     @value.each_with_index do |value, group|
       i = 0;

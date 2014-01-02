@@ -4,6 +4,7 @@ class UnderOs::UI::Switch < UnderOs::UI::Input
   def initialize(options={})
     super
     self.checked = options[:checked] if options[:checked]
+    @_.addTarget self, action: :handle_change, forControlEvents:UIControlEventValueChanged
   end
 
   def value
