@@ -16,13 +16,14 @@ class UnderOs::UI::Image < UnderOs::UI::View
   end
 
   def src=(src)
-    src = UIImage.imageNamed(src) if src.is_a?(String)
+    src = UIImage.imageNamed(src)    if src.is_a?(String)
+    src = UIImage.imageWithData(src) if src.is_a?(NSData)
     @_.image = src
   end
 
   def load(url, options={}, &complete)
     UnderOs::HTTP.get(url, options) do |response|
-      self.src = UIImage.imageWithData(response.data)
+      self.src = response.data
       complete.call(response) if complete && complete.arity != 0
       complete.call           if complete && complete.arity == 0
     end
