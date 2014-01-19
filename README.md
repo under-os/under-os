@@ -1,9 +1,11 @@
 # Under OS [![Build Status](https://travis-ci.org/under-os/under-os.png)](https://travis-ci.org/under-os/under-os) [![Code Climate](https://codeclimate.com/github/under-os/under-os.png)](https://codeclimate.com/github/under-os/under-os)
 
-[UnderOS](http://under-os.com) is an experiment in building a thin web-like wrapper over iOS using rubymotion
+[UnderOS](http://under-os.com) is an experiment in building a thin web-browser like
+envirnonment over iOS using rubymotion
 
-The idea is to use encapsulation instead of monkey patching and build the
-entire development platform correctly and from scratch.
+The idea is to create a native mobile apps development environment that will be
+using concepts familiar to all web-developers, like HTML, CSS, jQuery style
+events handling, etc.
 
 The result should be a _webbish_ infrastructure that uses ruby instead
 of JavaScript and compiles into native code in the end.
@@ -18,20 +20,13 @@ That's gonna be legendary!
 gem install under-os
 ```
 
-2) Clone the RubyMotion template in place
-
-```
-mkdir -p ~/Library/RubyMotion/template/uos
-git clone https://github.com/under-os/under-os-template.git ~/Library/RubyMotion/template/uos
-```
-
-3) Make a new app using the `uos` template
+2) Make a new app using the `uos` template
 
 ```
 motion create test --template=uos
 ```
 
-Now, Run it!
+3) Run it!
 
 ```
 cd test && rake
@@ -42,7 +37,7 @@ cd test && rake
 
 All code in this library is released under the terms of the MIT license
 
-Copyright (C) 2013 Nikolay Nemshilov
+Copyright (C) 2013-2014 Nikolay Nemshilov
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
