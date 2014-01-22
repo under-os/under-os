@@ -15,7 +15,14 @@ class UnderOs::History
   end
 
   def current_page
-    @_.visibleViewController.wrapper
+    controller = @_.visibleViewController
+
+    while !controller.is_a?(UnderOs::Page::UIViewControllerWrap) && controller
+      controller = controller.parentViewController
+    end
+
+    controller.is_a?(UnderOs::Page::UIViewControllerWrap) ?
+      controller.wrapper : root_page
   end
 
   def push(page, animated=true)
