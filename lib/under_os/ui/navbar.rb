@@ -24,6 +24,14 @@ class UnderOs::UI::Navbar
     !hidden
   end
 
+  def disable_swipes
+    @_.interactivePopGestureRecognizer.enabled = false
+  end
+
+  def enable_swipes
+    @_.interactivePopGestureRecognizer.enabled = true
+  end
+
   def left_button
     @left_button
   end
