@@ -21,6 +21,9 @@ module UnderOs
               app.files.insert(0, file) if file != __file__
             end
 
+            module_assets_folder = File.dirname(__file__) + "/assets"
+            app.resources_dirs << module_assets_folder if File.exists?(module_assets_folder)
+
             block.call(app) if block
           end
         end
