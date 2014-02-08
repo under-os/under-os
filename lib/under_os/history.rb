@@ -15,11 +15,7 @@ class UnderOs::History
   end
 
   def current_page
-    controller = @_.visibleViewController
-
-    while !controller.is_a?(UnderOs::Page::UIViewControllerWrap) && controller
-      controller = controller.parentViewController
-    end
+    controller = @_.topViewController
 
     controller.is_a?(UnderOs::Page::UIViewControllerWrap) ?
       controller.wrapper : root_page

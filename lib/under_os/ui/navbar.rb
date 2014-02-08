@@ -38,7 +38,7 @@ class UnderOs::UI::Navbar
 
   def left_button=(view)
     @left_button = view
-    @_.visibleViewController.navigationItem.leftBarButtonItem = to_navigation_item(view)
+    @_.topViewController.navigationItem.leftBarButtonItem = to_navigation_item(view)
   end
 
   def right_button
@@ -56,7 +56,7 @@ class UnderOs::UI::Navbar
   def right_buttons=(views)
     views = [views] if views.is_a?(Hash)
     @right_buttons = views
-    @_.visibleViewController.navigationItem.rightBarButtonItems =
+    @_.topViewController.navigationItem.rightBarButtonItems =
       views.map{|v| to_navigation_item(v)}.flatten.compact.reverse
   end
 
