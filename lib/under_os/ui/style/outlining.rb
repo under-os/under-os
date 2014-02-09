@@ -89,23 +89,19 @@ module UnderOs::UI
       end
 
       def boxShadow
-        [
-          @view.layer.shadowOffset.width,
-          @view.layer.shadowOffset.height,
-          @view.layer.shadowRadius,
-          @view.layer.shadowOpacity,
-          UnderOs::Color.new(@view.layer.shadowColor).to_hex
-        ].compact.join(" ")
+        get_layer_shadow @view.layer
       end
 
       def boxShadow=(value)
-        x, y, radius, opacity, color = parse_shadow_params(value)
+        set_layer_shadow @view.layer, value
+      end
 
-        @view.layer.shadowOffset  = CGSizeMake(x, y) if x && y
-        @view.layer.shadowColor   = color.CGColor    if color
-        @view.layer.shadowRadius  = radius           if radius
-        @view.layer.shadowOpacity = opacity          if opacity
-        @view.layer.shadowPath    = UIBezierPath.bezierPathWithRect(@view.layer.bounds).CGPath
+      def textShadow
+        get_layer_shadow text_layer
+      end
+
+      def textShadow=(value)
+        set_layer_shadow text_layer, value
       end
 
     private
@@ -114,13 +110,37 @@ module UnderOs::UI
         UnderOs::Color.new(color).ui
       end
 
+      def text_layer
+        @view.is_a?(UIButton) ? @view.titleLabel : @view.layer
+      end
+
+      def get_layer_shadow(layer)
+        [
+          layer.shadowOffset.width,
+          layer.shadowOffset.height,
+          layer.shadowRadius,
+          layer.shadowOpacity,
+          UnderOs::Color.new(layer.shadowColor).to_hex
+        ].compact.join(" ")
+      end
+
+      def set_layer_shadow(layer, value)
+        x, y, radius, opacity, color = parse_shadow_params(value)
+
+        layer.shadowOffset  = CGSizeMake(x, y) if x && y
+        layer.shadowColor   = color.CGColor    if color
+        layer.shadowRadius  = radius           if radius
+        layer.shadowOpacity = opacity          if opacity
+        layer.shadowPath    = UIBezierPath.bezierPathWithRect(@view.layer.bounds).CGPath
+      end
+
       def parse_shadow_params(string)
         x, y, radius, opacity, color = string.strip.split
 
-        x = x.sub /px$/, '' if x
-        y = y.sub /px$/, '' if y
-        radius  = radius.sub  /px$/, '' if radius
-        opacity = opacity.sub /px$/, '' if opacity
+        x = x.gsub /px$/, ''
+        y = y.gsub /px$/, ''
+        radius  = radius.gsub  /px$/, '' if radius
+        opacity = opacity.gsub /px$/, '' if opacity
 
         if ! color
           if opacity
