@@ -66,4 +66,36 @@ describe UnderOs::UI::Style::Outlining do
       end
     end
   end
+
+  describe '#boxShadow' do
+    it "recognizes the x, y values" do
+      @view.style.boxShadow = "1px 2px"
+      @view.style.boxShadow.should == "1.0 2.0 3.0 0.0 #ff0000"
+    end
+
+    it "recognizes the x, y, radius values" do
+      @view.style.boxShadow = "-1 -2 4"
+      @view.style.boxShadow.should == "-1.0 -2.0 4.0 0.0 #ff0000"
+    end
+
+    it "recognizes the x, y, radius, opacity values" do
+      @view.style.boxShadow = "4 5 6 7"
+      @view.style.boxShadow.should == "4.0 5.0 6.0 7.0 #ff0000"
+    end
+
+    it "recognizes the x, y, radius, opacity, color values" do
+      @view.style.boxShadow = "4 5 6 7 blue"
+      @view.style.boxShadow.should == "4.0 5.0 6.0 7.0 #ff0000"
+    end
+
+    it "recognizes the x, y, radius, color values" do
+      @view.style.boxShadow = "4 5 6 blue"
+      @view.style.boxShadow.should == "4.0 5.0 6.0 0.0 #ff0000"
+    end
+
+    it "recognizes the x, y, color values" do
+      @view.style.boxShadow = "4 5 green"
+      @view.style.boxShadow.should == "4.0 5.0 3.0 0.0 #ff0000"
+    end
+  end
 end
