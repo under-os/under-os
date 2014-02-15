@@ -19,19 +19,17 @@ module UnderOs::Events
     extend self
 
     def list(model, event=nil)
-      @listeners                      ||= {}
-      @listeners[model]               ||= {}
-      @listeners[model][event.to_sym] ||= [] if event
+      @listeners ||= Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = []} }
       event ? @listeners[model][event.to_sym] : @listeners[model]
     end
 
     def add(model, event, *args, block)
-      list(model, event.to_sym) << [block, *args]
+      list(model, event) << [block, *args]
       model
     end
 
     def all(model, event)
-      list(model, event.to_sym)
+      list(model, event)
     end
 
     def remove(model, event)
@@ -44,7 +42,9 @@ module UnderOs::Events
 
       all(model, event.name).each do |block, method_name, *args|
         if !block && method_name
-          block   = Proc.new{ __send__(method_name, *args) }
+          block   = Proc.new{ |e|
+            a = method(method_name).arity == 0 ? [] : [e];
+            __send__(method_name, *a) }
           context = model
         elsif block && method_name # <- considering it's a context reference
           context = method_name
