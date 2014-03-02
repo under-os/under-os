@@ -1,17 +1,16 @@
 class UnderOs::App
 
   class << self
+
     def start(&block)
       @start_block = block
     end
 
     def setup(ios_app, options)
-      @history = UnderOs::History.new
-
       instance_exec self, &@start_block
 
       @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
-      @window.rootViewController = @history._
+      @window.rootViewController = root_controller
       @window.makeKeyAndVisible
     end
 
@@ -19,15 +18,12 @@ class UnderOs::App
       @config ||= UnderOs::Config.new(self)
     end
 
-    def history
-      @history
+  protected
+
+    def root_controller
+      # just a fallback, supposed to be replaced with the real thing in a submodule
+      UIViewController.alloc.initWithNibName(nil, bundle: nil)
     end
 
-    def stylesheet
-      @stylesheet ||= UnderOs::Page::Stylesheet.new.tap do |stylesheet|
-        stylesheet.load('under-os.css')
-        stylesheet.load('application.css')
-      end
-    end
   end
 end
