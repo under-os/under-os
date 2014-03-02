@@ -1,37 +1,6 @@
-# Under OS [![Build Status](https://travis-ci.org/under-os/under-os.png)](https://travis-ci.org/under-os/under-os) [![Code Climate](https://codeclimate.com/github/under-os/under-os.png)](https://codeclimate.com/github/under-os/under-os)
+# UnderOs Core
 
-[UnderOS](http://under-os.com) is an experiment in building a thin web-browser like
-envirnonment over iOS using rubymotion
-
-The idea is to create a native mobile apps development environment that will be
-using concepts familiar to all web-developers, like HTML, CSS, jQuery style
-events handling, etc.
-
-The result should be a _webbish_ infrastructure that uses ruby instead
-of JavaScript and compiles into native code in the end.
-
-That's gonna be legendary!
-
-## How To Use
-
-1) install the `under-os` gem
-
-```
-gem install under-os
-```
-
-2) Make a new app using the `uos` template
-
-```
-motion create test --template=uos
-```
-
-3) Run it!
-
-```
-cd test && rake
-```
-
+This is the actual UI magick part of the [UnderOs](http://under-os.com) project
 
 ## Copyright & License
 

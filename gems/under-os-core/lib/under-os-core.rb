@@ -1,6 +1,4 @@
-module UnderOs
-  VERSION='1.3.0'
-
+UnderOs.instance_eval do
   #
   # Generic ecosystem extension hook, for plugins and such
   #
@@ -38,4 +36,4 @@ module UnderOs
   end
 end
 
-UOS = UnderOS = UnderOs
+UnderOs.extend __FILE__

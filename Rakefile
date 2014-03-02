@@ -4,13 +4,12 @@ require 'motion/project/template/ios'
 require 'bundler'
 Bundler.require
 
-require 'under-os'
 require 'motion-facon' if ARGV[0] == 'spec'
 
 Motion::Project::App.setup do |app|
   app.name       = 'uos-demo'
   app.identifier = 'com.under-os.demo'
-  app.specs_dir  = './spec/lib'
+  app.specs_dir  = './gems/*/spec'
   app.version    = UnderOs::VERSION
 
   app.codesign_certificate = ENV['RUBYMOTION_CERTIFICATE']
@@ -19,7 +18,6 @@ Motion::Project::App.setup do |app|
   if ARGV[0] == 'spec'
     app.name       = 'uos-spec'
     app.identifier = 'com.under-os.spec'
-    app.files << 'spec/assets/test_page.rb'
-    app.resources_dirs.unshift "./spec/assets/"
+    app.resources_dirs.unshift "./gems/under-os-ui/spec/assets/"
   end
 end

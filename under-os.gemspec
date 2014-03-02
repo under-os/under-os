@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/under_os', __FILE__)
+require File.dirname(__FILE__) + '/gems/under-os-core/lib/under_os'
 
 Gem::Specification.new do |gem|
   gem.name          = "under-os"
@@ -12,9 +12,13 @@ Gem::Specification.new do |gem|
   gem.summary       = "A web-broser like wrapper over iOS using RubyMotion"
   gem.license       = 'MIT'
 
-  gem.files         = `git ls-files`.split($/)
+  gem.files         = `git ls-files`.split($/).reject{|f| f.slice(0,5) == 'gems/'}
   gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+
+  gem.add_dependency 'under-os-core', UnderOs::VERSION
+  gem.add_dependency 'under-os-http', UnderOs::VERSION
+  gem.add_dependency 'under-os-ui',   UnderOs::VERSION
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'motion-facon'

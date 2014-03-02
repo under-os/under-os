@@ -1,7 +1,27 @@
 PATH
   remote: .
   specs:
-    under-os (1.2.1)
+    under-os (1.4.0)
+      under-os-core (= 1.4.0)
+      under-os-http (= 1.4.0)
+      under-os-ui (= 1.4.0)
+
+PATH
+  remote: ./gems/under-os-core
+  specs:
+    under-os-core (1.4.0)
+
+PATH
+  remote: ./gems/under-os-http
+  specs:
+    under-os-http (1.4.0)
+      under-os-core (= 1.4.0)
+
+PATH
+  remote: ./gems/under-os-ui
+  specs:
+    under-os-ui (1.4.0)
+      under-os-core (= 1.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -16,3 +36,6 @@ DEPENDENCIES
   motion-facon
   rake
   under-os!
+  under-os-core!
+  under-os-http!
+  under-os-ui!

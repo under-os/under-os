@@ -75,33 +75,13 @@ describe String do
 
   describe '#constantize' do
     it "returns an object from it's value" do
-      "UnderOs::UI::View".constantize.should == UnderOs::UI::View
+      "UnderOs::App".constantize.should == UnderOs::App
     end
 
     it "raises an error if the constant is missing" do
       -> {
         "Something::Totally::Bogus".constantize
       }.should.raise(NameError)
-    end
-  end
-
-  describe '#url_encode' do
-    it "escapes all the URL sensitive symbols" do
-      "!*'\"();:@&=+$,/?%#[]% ".url_encode.should == "!*'%22();:@&=+$,/?%25%23%5B%5D%25%20"
-    end
-
-    it "doesn't touch normal characters" do
-      "Hello World".url_encode.should == "Hello%20World"
-    end
-  end
-
-  describe '#url_decode' do
-    it "converts an url encoded string back to normality" do
-      "!*'%22();:@&=+$,/?%25%23%5B%5D%25%20".url_decode.should == "!*'\"();:@&=+$,/?%#[]% "
-    end
-
-    it "doesn't break normal characters" do
-      "Hello%20World".url_decode.should == "Hello World"
     end
   end
 
