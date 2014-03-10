@@ -9,7 +9,9 @@ module UnderOs::UI
       end
 
       def width=(width)
-        @view.frame = [[left, top], [convert_size(width, :x), height]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.size.width = convert_size(width, :x)
+        end
       end
 
       def height
@@ -17,7 +19,9 @@ module UnderOs::UI
       end
 
       def height=(height)
-        @view.frame = [[left, top], [width, convert_size(height, :y)]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.size.height = convert_size(height, :y)
+        end
       end
 
       def top
@@ -25,7 +29,9 @@ module UnderOs::UI
       end
 
       def top=(top)
-        @view.frame = [[left, convert_size(top, :y)], [width, height]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.origin.y = convert_size(top, :y)
+        end
       end
 
       def left
@@ -33,7 +39,9 @@ module UnderOs::UI
       end
 
       def left=(left)
-        @view.frame = [[convert_size(left, :x), top], [width, height]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.origin.x = convert_size(left, :x)
+        end
       end
 
       def right
@@ -41,7 +49,9 @@ module UnderOs::UI
       end
 
       def right=(right)
-        @view.frame = [[parent_size[:x] - convert_size(right, :x) - width, top], [width, height]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.origin.x = parent_size[:x] - convert_size(right, :x) - frame.size.width
+        end
       end
 
       def bottom
@@ -49,7 +59,9 @@ module UnderOs::UI
       end
 
       def bottom=(bottom)
-        @view.frame = [[left, parent_size[:y] - convert_size(bottom, :y) - height], [width, height]]
+        @view.frame = @view.frame.tap do |frame|
+          frame.origin.y = parent_size[:y] - convert_size(bottom, :y) - frame.size.height
+        end
       end
 
       def contentWidth
