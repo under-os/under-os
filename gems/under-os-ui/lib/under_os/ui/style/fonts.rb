@@ -6,13 +6,15 @@ module UnderOs::UI
   class Style
     module Fonts
       def fontFamily
+        @view.font.familyName
       end
 
       def fontFamily=(value)
-        @view.font = @view.font.fontWithName(value)
+        @view.font = UIFont.fontWithName(value, size: @view.font.pointSize)
       end
 
       def fontSize
+        @view.font.pointSize
       end
 
       def fontSize=(value)

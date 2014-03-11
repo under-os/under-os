@@ -3,6 +3,44 @@ describe UnderOs::UI::Style::Fonts do
     @view  = UnderOs::UI::View.new
   end
 
+  describe 'fontFamily' do
+    before { @view = UnderOs::UI::Label.new(text: "Hello")}
+
+    it "should return the view's font family name" do
+      @view.style.fontFamily.should == @view._.font.familyName
+    end
+
+    it "allows to set a new family name" do
+      @view.style.fontFamily = "Chalkduster"
+      @view._.font.familyName.should == "Chalkduster"
+    end
+
+    it "should keep the original font-size" do
+      @view.style.fontSize = 20
+      @view.style.fontFamily = "Chalkduster"
+      @view._.font.pointSize.should == 20.0
+    end
+  end
+
+  describe "fontSize" do
+    before { @view = UnderOs::UI::Label.new(text: "Hello")}
+
+    it "returns the labels current font-size" do
+      @view.style.fontSize.should == @view._.font.pointSize
+    end
+
+    it "allows to the new font size" do
+      @view.style.fontSize = 40
+      @view._.font.pointSize.should == 40.0
+    end
+
+    it "keeps the original font family" do
+      @view.style.fontFamily = "Chalkduster"
+      @view.style.fontSize = 30
+      @view._.font.familyName.should == "Chalkduster"
+    end
+  end
+
   describe 'text-align' do
 
     it "should not crash when called on unsupported elements" do
