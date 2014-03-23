@@ -167,5 +167,44 @@ private
 
       super event, params
     end
+
+    def scale
+      @_.scale
+    end
+
+    def scale=(value)
+      @_.scale = value
+    end
+
+    def angle
+      @_.rotation
+    end
+
+    def angle=(value)
+      @_.rotation = value
+    end
+
+    def translation(view)
+      view = view._ if view.is_a?(UnderOs::UI::View)
+      @_.translationInView(view)
+    end
+
+    def translation=(params)
+      point = params[0]; view = params[1]
+      view = view._ if view.is_a?(UnderOs::UI::View)
+      @_.setTranslation(point, inView:view)
+    end
+
+    RECOGNIZER_STATES = {
+      UIGestureRecognizerStateBegan     => :began,
+      UIGestureRecognizerStateChanged   => :changed,
+      UIGestureRecognizerStateEnded     => :ended,
+      UIGestureRecognizerStateCancelled => :canceled,
+      UIGestureRecognizerStateFailed    => :failed
+    }.freeze
+
+    def state
+      RECOGNIZER_STATES[@_.state]
+    end
   end
 end
