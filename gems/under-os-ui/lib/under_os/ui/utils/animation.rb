@@ -47,6 +47,8 @@ module UnderOs::UI::Animation
       @options = options
       @block   = block
 
+      @options = {duration: options} if options.is_a?(Numeric)
+
       @options[:schedule] == false ? run : schedule
     end
 
