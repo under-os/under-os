@@ -30,11 +30,11 @@ class UnderOs::Point
   end
 
   def *(multiplier)
-    self.class.new(x: @x * multiplier, y: @y * multiplier)
+    UnderOs::Point.new(x: x * multiplier, y: y * multiplier)
   end
 
   def /(divider)
-    self.class.new(x: @x / divider.to_f, y: @y / divider.to_f)
+    UnderOs::Point.new(x: x / divider.to_f, y: y / divider.to_f)
   end
 
   def to_s
