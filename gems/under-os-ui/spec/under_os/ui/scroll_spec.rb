@@ -37,4 +37,39 @@ describe UnderOs::UI::Scroll do
       @scroll.paging.should == false
     end
   end
+
+  describe "#scale" do
+    it "should allow to read it" do
+      @scroll.scale.should == 1.0
+    end
+
+    it "should allow to set it" do
+      @scroll.scale = 2.4
+      @scroll._.zoomScale.should == 1.0 # it will fall back to it
+    end
+  end
+
+  describe "#minScale" do
+    it "should allow to read it" do
+      @scroll._.minimumZoomScale = 1.8
+      @scroll.minScale.should == 1.8
+    end
+
+    it "should allow to set it" do
+      @scroll.minScale = 2.7
+      @scroll._.minimumZoomScale.should == 2.7
+    end
+  end
+
+  describe "#maxScale" do
+    it "should allow to read it" do
+      @scroll._.maximumZoomScale = 1.8
+      @scroll.maxScale.should == 1.8
+    end
+
+    it "should allow to set it" do
+      @scroll.maxScale = 2.7
+      @scroll._.maximumZoomScale.should == 2.7
+    end
+  end
 end

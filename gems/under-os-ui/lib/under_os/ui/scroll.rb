@@ -5,6 +5,8 @@ class UnderOs::UI::Scroll < UnderOs::UI::View
     super
 
     self.paging = options.delete(:paging)
+
+    @_.delegate = self
   end
 
   def paging
@@ -37,5 +39,41 @@ class UnderOs::UI::Scroll < UnderOs::UI::View
     end
 
     self.style = content_size unless content_size.empty?
+  end
+
+  def scale
+    @_.zoomScale
+  end
+
+  def scale=(scale)
+    @_.zoomScale = scale
+  end
+
+  def minScale
+    @_.minimumZoomScale
+  end
+
+  def minScale=(scale)
+    @_.minimumZoomScale = scale
+  end
+
+  def maxScale
+    @_.maximumZoomScale
+  end
+
+  def maxScale=(scale)
+    @_.maximumZoomScale = scale
+  end
+
+  def zoomItem
+    @zoomItem
+  end
+
+  def zoomItem=(item)
+    @zoomItem   = item.is_a?(UnderOs::UI::View) ? item._ : item
+  end
+
+  def viewForZoomingInScrollView(scrollView)
+    @zoomItem
   end
 end
