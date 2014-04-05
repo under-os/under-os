@@ -6,8 +6,14 @@ UnderOs::App.instance_eval do
 
   def self.stylesheet
     @stylesheet ||= UnderOs::Page::Stylesheet.new.tap do |stylesheet|
-      stylesheet.load('under-os.css')
-      stylesheet.load('application.css')
+      stylesheets.each { |filename| stylesheet.load(filename) }
+    end
+  end
+
+  def self.stylesheets
+    ($stylesheets ||= []).tap do |files|
+      files << "under-os.css"    unless files.include?("under-os.css")
+      files << "application.css" unless files.include?("application.css")
     end
   end
 
