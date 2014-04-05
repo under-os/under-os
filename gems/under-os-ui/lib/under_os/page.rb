@@ -78,6 +78,9 @@ class UnderOs::Page
     on 'load' do
       repaint
       initialize(*args)
+    end
+
+    on 'rerender' do
       repaint
     end
 
