@@ -112,18 +112,20 @@ module UnderOs::UI
         case "#{overflowX}-#{overflowY}"
         when 'visible-visible' then :visible
         when 'hidden-hidden'   then :hidden
-        when 'visible-hidden'  then :x
-        when 'hidden-visible'  then :y
+        when 'scroll-scroll'   then :scroll
+        when 'scroll-visible'  then :x
+        when 'visible-scroll'  then :y
         else                   [overflowX, overflowY]
         end
       end
 
       def overflow=(value)
         x, y = case value.to_s
-        when 'x'       then ['visible', 'hidden']
-        when 'y'       then ['hidden', 'visible']
-        when 'hidden'  then ['hidden', 'hidden']
-        else                ['visible', 'visible']
+        when 'x'       then ['scroll',  'visible']
+        when 'y'       then ['visible', 'scroll']
+        when 'hidden'  then ['hidden',  'hidden']
+        when 'visible' then ['visible', 'visible']
+        else                ['scroll',  'scroll']
         end
 
         self.overflowX = x
@@ -131,25 +133,25 @@ module UnderOs::UI
       end
 
       def overflowX
-        @view.isScrollEnabled && @view.showsHorizontalScrollIndicator ? :visible : :hidden
+        @view.isScrollEnabled ? @view.showsHorizontalScrollIndicator ? :scroll : :hidden : :visible
       end
 
       def overflowX=(value)
         return unless @view.is_a?(UIScrollView)
-        @view.showsHorizontalScrollIndicator = value.to_s == 'visible'
-        @view.directionalLockEnabled = overflowY == :hidden
-        @view.scrollEnabled = overflowX != :hidden || overflowY != :hidden
+        @view.directionalLockEnabled = overflowY == :visible
+        @view.showsHorizontalScrollIndicator = value.to_s == 'scroll'
+        @view.scrollEnabled = value.to_s != 'visible' || overflowY != :visible
       end
 
       def overflowY
-        @view.isScrollEnabled && @view.showsVerticalScrollIndicator ? :visible : :hidden
+        @view.isScrollEnabled ? @view.showsVerticalScrollIndicator ? :scroll : :hidden : :visible
       end
 
       def overflowY=(value)
         return unless @view.is_a?(UIScrollView)
-        @view.showsVerticalScrollIndicator = value.to_s == 'visible'
-        @view.directionalLockEnabled = overflowX == :hidden
-        @view.scrollEnabled = overflowX != :hidden || overflowY != :hidden
+        @view.directionalLockEnabled = overflowX == :visible
+        @view.showsVerticalScrollIndicator = value.to_s == 'scroll'
+        @view.scrollEnabled = overflowX != :visible || value.to_s != 'visible'
       end
 
     private

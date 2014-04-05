@@ -35,34 +35,34 @@ describe UnderOs::UI::Style::Positioning do
     end
 
     describe '#overflow' do
-      it "accepts 'visible'" do
-        @view.style.overflow = 'visible'
-        @view.style.overflowX.should == :visible
-        @view.style.overflowY.should == :visible
-      end
-
       it "accepts 'hidden'" do
         @view.style.overflow = :hidden
         @view.style.overflowX.should == :hidden
         @view.style.overflowY.should == :hidden
       end
 
+      it "accepts 'scroll'" do
+        @view.style.overflow = :scroll
+        @view.style.overflowX.should == :scroll
+        @view.style.overflowY.should == :scroll
+      end
+
       it "accepts 'x'" do
         @view.style.overflow = 'x'
-        @view.style.overflowX.should == :visible
+        @view.style.overflowX.should == :scroll
         @view.style.overflowY.should == :hidden
       end
 
       it "accepts 'y'" do
         @view.style.overflow = 'y'
         @view.style.overflowX.should == :hidden
-        @view.style.overflowY.should == :visible
+        @view.style.overflowY.should == :scroll
       end
 
       it "falls back to 'visible'" do
         @view.style.overflow = 'weird stuff'
-        @view.style.overflowX.should == :visible
-        @view.style.overflowY.should == :visible
+        @view.style.overflowX.should == :scroll
+        @view.style.overflowY.should == :scroll
       end
     end
   end
