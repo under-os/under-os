@@ -41,6 +41,16 @@ class UnderOs::UI::Scroll < UnderOs::UI::View
     self.style = content_size unless content_size.empty?
   end
 
+  def centerContent
+    left = @_.contentSize.width > @_.bounds.size.width ? 0 :
+      (@_.bounds.size.width - @_.contentSize.width) * 0.5
+
+    top  = @_.contentSize.height > @_.bounds.size.height ? 0 :
+      (@_.bounds.size.height - @_.contentSize.height) * 0.5
+
+    @_.contentInset = UIEdgeInsetsMake(top, left, top, left)
+  end
+
   def scale
     @_.zoomScale
   end
@@ -75,5 +85,9 @@ class UnderOs::UI::Scroll < UnderOs::UI::View
 
   def viewForZoomingInScrollView(scrollView)
     @zoomItem
+  end
+
+  def scrollViewDidZoom(scrollView)
+    emit :zoom
   end
 end
