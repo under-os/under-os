@@ -51,4 +51,106 @@ describe UnderOs::Point do
       new_point.should == {x: 30, y: 50}
     end
   end
+
+  describe "#+" do
+    before do
+      @point = UnderOs::Point.new(x: 10, y: 20)
+    end
+
+    describe "with another point" do
+      before do
+        @new_point = @point + UnderOs::Point.new(x: 11, y: 22)
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 21
+        @new_point.y.should == 42
+      end
+    end
+
+    describe "with a number" do
+      before do
+        @new_point = @point + 4
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 14
+        @new_point.y.should == 24
+      end
+    end
+
+    describe "with a Hash" do
+      before do
+        @new_point = @point + {x: 6, y: 8}
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 16
+        @new_point.y.should == 28
+      end
+    end
+  end
+
+  describe "#-" do
+    before do
+      @point = UnderOs::Point.new(x: 10, y: 20)
+    end
+
+    describe "with another point" do
+      before do
+        @new_point = @point - UnderOs::Point.new(x: 2, y: 4)
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 8
+        @new_point.y.should == 16
+      end
+    end
+
+    describe "with a number" do
+      before do
+        @new_point = @point - 4
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 6
+        @new_point.y.should == 16
+      end
+    end
+
+    describe "with a Hash" do
+      before do
+        @new_point = @point - {x: 6, y: 8}
+      end
+
+      it "should make an instance of a Point" do
+        @new_point.class.should == UnderOs::Point
+      end
+
+      it "should apply changes correctly" do
+        @new_point.x.should == 4
+        @new_point.y.should == 12
+      end
+    end
+  end
 end

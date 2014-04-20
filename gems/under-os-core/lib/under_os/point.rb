@@ -37,6 +37,16 @@ class UnderOs::Point
     UnderOs::Point.new(x: x / divider.to_f, y: y / divider.to_f)
   end
 
+  def -(point)
+    point = point.is_a?(Numeric) ? UnderOs::Point.new(x: point, y: point) : UnderOs::Point.new(point)
+    UnderOs::Point.new(x: x - point.x, y: y - point.y)
+  end
+
+  def +(point)
+    point = point.is_a?(Numeric) ? UnderOs::Point.new(x: point, y: point) : UnderOs::Point.new(point)
+    UnderOs::Point.new(x: x + point.x, y: y + point.y)
+  end
+
   def to_s
     "x=#{x} y=#{y}"
   end
