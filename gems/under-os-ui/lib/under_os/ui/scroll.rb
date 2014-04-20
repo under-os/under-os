@@ -27,6 +27,15 @@ class UnderOs::UI::Scroll < UnderOs::UI::View
     @_.contentSize = CGSizeMake(size.x, size.y)
   end
 
+  def contentOffset
+    UnderOs::Point.new(x: @_.contentOffset.x, y: @_.contentOffset.y)
+  end
+
+  def contentOffset=(*args)
+    offset = UnderOs::Point.new(*args)
+    @_.contentOffset = CGPointMake(offset.x, offset.y)
+  end
+
   def repaint(*args)
     content_size = {}
 
