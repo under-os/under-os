@@ -2,6 +2,7 @@
 # Generic Point/Size unit
 #
 class UnderOs::Point
+  attr_accessor :x, :y
 
   def initialize(x, y=nil)
     if x.is_a?(UnderOs::Point)
@@ -14,14 +15,6 @@ class UnderOs::Point
 
     @x = x
     @y = y
-  end
-
-  def x
-    @x
-  end
-
-  def y
-    @y
   end
 
   def ==(*args)
