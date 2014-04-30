@@ -1,8 +1,8 @@
+require "under_os"
+
 UnderOs.instance_eval do
   #
   # Generic ecosystem extension hook, for plugins and such
-  #
-  #     require('under-os')
   #
   #     UnderOs.extend __FILE__ do |app|
   #       app.extra_things..
@@ -15,8 +15,9 @@ UnderOs.instance_eval do
       def setup(*args, &block)
         config.setup_blocks << proc do |app|
           UnderOs.setup_callbacks.each do |__file__, block|
-            Dir.glob(File.dirname(__file__) + '/**/*.rb').reverse.each do |file|
-              app.files.insert(0, file) if file != __file__
+            Dir.glob(File.dirname(__file__) + '/**/*.rb').sort.each do |file|
+              position = app.files.index {|i| i.slice(0, 2) == "./" }
+              app.files.insert(position, file) if file != __file__
             end
 
             module_assets_folder = File.dirname(__file__) + "/assets"

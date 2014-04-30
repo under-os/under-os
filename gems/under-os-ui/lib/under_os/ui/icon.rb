@@ -1,8 +1,8 @@
 class UnderOs::UI::Icon < UnderOs::UI::View
   include UnderOs::UI::IconEngine
+  engine UnderOs::UI::IconEngineAwesome
 
   wraps  UIButton, tag: 'icon'
-  engine :Awesome
 
   def initialize(options)
     options = {type: options} if ! options.is_a?(Hash)
