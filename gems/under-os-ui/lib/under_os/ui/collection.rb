@@ -12,15 +12,6 @@ class UnderOs::UI::Collection < UnderOs::UI::View
     @_.registerClass(Cell, forCellWithReuseIdentifier:'UOSCollectionCell')
   end
 
-  def on(*args, &block)
-    super *args do |event|
-      params = [event.item, event.index, event.section]
-      params = params.slice(0, block.arity) if block.arity > -1
-
-      block.call *params
-    end
-  end
-
   def layout
     @layout
   end
