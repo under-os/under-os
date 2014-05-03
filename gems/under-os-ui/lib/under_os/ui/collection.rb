@@ -29,6 +29,32 @@ class UnderOs::UI::Collection < UnderOs::UI::View
     Cell.classes[self] = klass
   end
 
+  def selected_item_class
+    @selected_item_class
+  end
+
+  def selected_item_class=(css_class)
+    @selected_item_class = css_class.to_s
+    @selected_item_index = nil
+
+    on :item do |event|
+      if event.params[:index] == @selected_item_index
+        event.params[:item].addClass @selected_item_class
+      else
+        event.params[:item].removeClass @selected_item_class
+      end
+    end
+
+    on :select do |event|
+      @selected_item_index = event.params[:index]
+      event.params[:item].addClass @selected_item_class
+    end
+
+    on :unselect do |event|
+      event.params[:item].removeClass @selected_item_class
+    end
+  end
+
   def reload
     @_.reloadData
     self
