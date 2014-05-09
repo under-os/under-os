@@ -64,7 +64,7 @@ class UnderOs::Page
     @_ = UIViewControllerWrap.alloc.init(self, {
       on_load_view:      Proc.new{ emit('init')      },
       on_view_loaded:    Proc.new{ emit('load')      },
-      on_view_preappear: Proc.new{ emit('preappear') },
+      on_view_beforeappear: Proc.new{ emit('beforeappear') },
       on_view_appear:    Proc.new{ emit('appear')    },
       on_view_disappear: Proc.new{ emit('disappear') },
       on_view_rerender:  Proc.new{ emit('rerender')  },
@@ -81,7 +81,7 @@ class UnderOs::Page
       initialize(*args)
     end
 
-    on 'preappear' do
+    on 'beforeappear' do
       repaint
     end
 
@@ -132,7 +132,7 @@ class UnderOs::Page
 
     def viewWillAppear(animated)
       super(animated)
-      @options[:on_view_preappear].call
+      @options[:on_view_beforeappear].call
     end
 
     def viewDidAppear(animated)
