@@ -6,15 +6,15 @@ module UnderOs::Event::Touch::Handler
   end
 
   def add(event, target)
-    list[event] << target._
+    list[event] << target
   end
 
   def call(event_name, native_event)
     list[event_name].each do |target|
-      target_touches = touches_for(target, native_event)
+      target_touches = touches_for(target._, native_event)
 
       if target_touches.size > 0
-        view.emit(event_name, touches: target_touches, native: native_event)
+        target.emit(event_name, touches: target_touches, native: native_event)
       end
     end
   end
@@ -29,7 +29,7 @@ private
         position = touch.locationInView(nil)
 
         if position_overlaps_with(frame, position)
-          touches << Touch.new(position, frame.origin)
+          touches << UnderOs::Event::Touch.new(position, frame.origin)
         end
       end
     end

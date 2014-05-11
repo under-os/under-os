@@ -6,7 +6,6 @@
 #
 class UnderOs::Page
   include UnderOs::Event::Listener
-  include UnderOs::Event::Touch::Listener
   include UnderOs::UI
 
   attr_reader :_, :stylesheet
@@ -113,6 +112,8 @@ class UnderOs::Page
   # the iOS events
   #
   class UIViewControllerWrap < UIViewController
+    include UnderOs::Event::Touch::Listener
+
     attr_reader :wrapper
 
     def init(wrapper, options)

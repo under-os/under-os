@@ -1,0 +1,9 @@
+label {
+  width: 100%;
+  height: 30px;
+}
+
+label#event-name  { top: 50; }
+label#touches-num { top: 100 }
+label#pos-x { top: 150; }
+label#pos-y { top: 200; }
