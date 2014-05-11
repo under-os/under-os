@@ -1,5 +1,5 @@
 class UnderOs::UI::Alert
-  include UnderOs::Events
+  include UnderOs::Event::Listener
 
   def initialize(options={})
     options = {message: options}  if options.is_a?(String)

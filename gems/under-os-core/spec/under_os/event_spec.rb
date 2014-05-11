@@ -1,6 +1,6 @@
-describe UnderOs::Events do
+describe UnderOs::Event::Listener do
   class Dummy
-    include UnderOs::Events
+    include UnderOs::Event::Listener
   end
 
   before do
@@ -10,7 +10,7 @@ describe UnderOs::Events do
   describe "#on" do
     it "should add event listeners" do
       @dummy.on(:smth) { }
-      UnderOs::Events::Listeners.all(@dummy, :smth).size.should == 1
+      UnderOs::Event::Storage.list(@dummy, :smth).size.should == 1
     end
 
     it "should return the object itself back" do
@@ -22,7 +22,7 @@ describe UnderOs::Events do
     it "should remove event listeners" do
       @dummy.on(:smth) { }
       @dummy.off(:smth)
-      UnderOs::Events::Listeners.all(@dummy, :smth).size.should == 0
+      UnderOs::Event::Storage.list(@dummy, :smth).size.should == 0
     end
 
     it "should return the object itself back" do
@@ -46,17 +46,17 @@ describe UnderOs::Events do
       event = nil
       @dummy.on(:smth) { |e| event = e }
       @dummy.emit(:smth, param1: 1, param2: 2)
-      event.params.should == {param1: 1, param2: 2}
+      event.params.should == {param1: 1, param2: 2, target: @dummy}
     end
   end
 
-  describe 'UnderOs::Events::Event' do
+  describe 'UnderOs::Event' do
     before do
-      @event = UnderOs::Events::Event.new('event-name', param1: 1, param2: 2)
+      @event = UnderOs::Event.new(:event_name, param1: 1, param2: 2)
     end
 
     it "should give access to it's name" do
-      @event.name.should == :"event-name"
+      @event.name.should == :event_name
     end
 
     it "should give access to it's params" do

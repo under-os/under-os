@@ -16,7 +16,7 @@
 #   * :complete - when it's complete (either way)
 #
 class UnderOs::HTTP::Request
-  include UnderOs::Events
+  include UnderOs::Event::Listener
 
   attr_reader :url, :method, :params
 
@@ -103,4 +103,3 @@ protected
     NSURL.URLWithString(url)
   end
 end
-

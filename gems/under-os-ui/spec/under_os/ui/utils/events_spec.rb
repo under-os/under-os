@@ -10,7 +10,7 @@ class MyView < UnderOs::UI::View
   end
 end
 
-describe UnderOs::UI::Events do
+describe UnderOs::Event::Gestures::Listener do
   before do
     @view = UnderOs::UI::View.new
   end
@@ -57,31 +57,12 @@ describe UnderOs::UI::Events do
       @view.emit(:tap, custom: 'param')
     end
 
-    it "emits an UI::Event" do
-      @event.class.should == UnderOs::UI::Events::Event
+    it "emits an UOS::Event" do
+      @event.class.should == UnderOs::Event
     end
 
     it "sets the event target to the view" do
       @event.target.should.be.same_as @view
-    end
-  end
-
-  describe "named event handlers" do
-    before do
-      @view = MyView.new
-    end
-
-    it "allows to bind a method by name with an event listener" do
-      @view.on :tap, :handler_with_event
-      @view.emit(:tap)
-      @view.args.size.should == 1
-      @view.args[0].class.should == UnderOs::UI::Events::Event
-    end
-
-    it "allows to bind a method by name without an event argument" do
-      @view.on :tap, :handler_without_event
-      @view.emit(:tap)
-      @view.args.size.should == 0
     end
   end
 end

@@ -1,12 +1,14 @@
 class UnderOs::UI::View
   include UnderOs::UI::Wrap
-  include UnderOs::UI::Events
   include UnderOs::UI::Styles
   include UnderOs::UI::Commons
   include UnderOs::UI::Animation
   include UnderOs::UI::Dimensions
   include UnderOs::UI::Traversing
   include UnderOs::UI::Manipulation
+
+  include UnderOs::Event::Listener
+  include UnderOs::Event::Gestures::Listener
 
   wraps UIView, tag: 'view'
 
