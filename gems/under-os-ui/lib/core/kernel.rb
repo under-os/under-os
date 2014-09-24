@@ -3,14 +3,6 @@ module Kernel
     return UnderOs::App.history.current_page if css_rule == 'page'
     return UnderOs::App.history.navbar       if css_rule == 'navbar'
 
-    elements = UnderOs::App.history.current_page.find(css_rule)
-
-    if elements.size == 0
-      nil
-    elsif elements.size == 1
-      elements[0]
-    else
-      elements
-    end
+    UnderOs::App.history.current_page.find(css_rule)
   end
 end
