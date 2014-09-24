@@ -14,6 +14,7 @@ module UnderOs::UI::Traversing
   end
 
   def first(css_rule)
+    puts "DEPRECATED: Element#first is deprecated, please use Element#find instead"
     find(css_rule)[0]
   end
 

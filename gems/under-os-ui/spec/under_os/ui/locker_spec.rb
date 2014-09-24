@@ -17,14 +17,14 @@ describe UnderOs::UI::Locker do
     end
 
     it "builds the dialog box inside" do
-      @locker.first('view.locker-dialog').should.not == nil
-      @locker.first('view.locker-dialog spinner').should.not == nil
-      @locker.first('view.locker-dialog label').should.not == nil
+      @locker.find('view.locker-dialog')[0].should.not == nil
+      @locker.find('view.locker-dialog spinner')[0].should.not == nil
+      @locker.find('view.locker-dialog label')[0].should.not == nil
     end
 
     it "accepts the label text" do
       locker = UnderOs::UI::Locker.new(text: "Syncing...")
-      locker.first('label').text.should == "Syncing..."
+      locker.find('label').text.should == "Syncing..."
       locker.hasClass('with-label').should == true
     end
   end

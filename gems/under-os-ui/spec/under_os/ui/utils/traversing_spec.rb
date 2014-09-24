@@ -34,17 +34,6 @@ describe UnderOs::UI::Traversing do
     end
   end
 
-  describe '#first' do
-    it "should return the first correctly matching view" do
-      @v1.first('.v1').should == @v2
-      @v1.first('.v3').should == @v3
-    end
-
-    it "should return nil when nothing matching found" do
-      @v1.first('.non-existing').should == nil
-    end
-  end
-
   describe '#matches' do
     it "should return 'true' when it's given a matching css-rule" do
       @v2.matches('.v2').should == true
