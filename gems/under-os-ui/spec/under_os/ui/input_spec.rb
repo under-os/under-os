@@ -9,7 +9,7 @@ describe UnderOs::UI::Input do
     end
 
     it "should wrap the UITextField class" do
-      @input._.class.should == UITextField
+      @input._.class.superclass.should == UITextField
     end
 
     it "should assign correct tag name" do

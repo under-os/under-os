@@ -1,8 +1,27 @@
 class UnderOs::UI::Input < UnderOs::UI::View
-  wraps UITextField, tag: 'input'
+  class TextFieldWithPaddings < UITextField
+    attr_accessor :wrapper
+
+    def textRectForBounds(bounds)
+      top, right, bottom, left = wrapper ? wrapper.style.padding : [0,0,0,0]
+
+      CGRectMake(
+        bounds.origin.x + left,     bounds.origin.y + top,
+        bounds.size.width  - right, bounds.size.height - bottom
+      )
+    end
+
+    def editingRectForBounds(bounds)
+      textRectForBounds(bounds)
+    end
+  end
+
+  wraps TextFieldWithPaddings, tag: 'input'
 
   def initialize(options={})
     super
+
+    @_.wrapper = self if @_.respond_to?(:wrapper=)
 
     self.type        = options[:type]        if options[:type]
     self.name        = options[:name]        if options[:name]
