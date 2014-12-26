@@ -29,10 +29,10 @@ class UnderOs::Color
   end
 
   def to_rgba
-    r = Pointer.new(:float)
-    g = Pointer.new(:float)
-    b = Pointer.new(:float)
-    a = Pointer.new(:float)
+    r = Pointer.new(:double)
+    g = Pointer.new(:double)
+    b = Pointer.new(:double)
+    a = Pointer.new(:double)
 
     @ui.getRed(r, green:g, blue:b, alpha:a)
 
